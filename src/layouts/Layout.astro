@@ -6,6 +6,7 @@ import "@fontsource/roboto/700.css";
 import ConfigCarrier from "@components/ConfigCarrier.astro";
 import MusicPlayer from "@components/widget/MusicPlayer.svelte";
 import Pio from "@components/widget/Pio.svelte"; // 使用 Svelte 版本的 Pio 组件
+import Analytics from "@vercel/analytics/astro";
 import {
 	musicPlayerConfig,
 	pioConfig,
@@ -256,7 +257,7 @@ if (siteConfig.font) {
 			const expressiveTheme = isDark ? "github-dark" : "github-light";
 			const currentTheme = document.documentElement.getAttribute("data-theme");
 			
-			// 只在主题不同时才更新，避免触发不必要的重绘
+			// 只在���题不同时才更新，避免触发不必要的重绘
 			if (currentTheme !== expressiveTheme) {
 				document.documentElement.setAttribute("data-theme", expressiveTheme);
 			}
@@ -278,6 +279,9 @@ if (siteConfig.font) {
 
 
 		<slot name="head"></slot>
+
+		<!-- Vercel Analytics -->
+		<Analytics />
 
 		<!-- Pio 看板娘样式 - 仅在启用时加载 -->
 		{pioConfig.enable && <link rel="stylesheet" href="/pio/static/pio.css" />}

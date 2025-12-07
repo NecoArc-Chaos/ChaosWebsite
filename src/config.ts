@@ -84,12 +84,8 @@ export const siteConfig: SiteConfig = {
 	banner: {
 		// 支持单张图片或图片数组，当数组长度 > 1 时自动启用轮播
 		src: {
-			desktop: [
-				"Dorathy_Jill.gif"
-			], // 桌面横幅图片
-			mobile: [
-				"Dorathy_Jill.gif"
-			], // 移动横幅图片
+			desktop: ["Dorathy_Jill.gif"], // 桌面横幅图片
+			mobile: ["Dorathy_Jill.gif"], // 移动横幅图片
 		}, // 使用本地横幅图片
 
 		position: "center", // 等同于 object-position，仅支持 'top', 'center', 'bottom'。默认为 'center'
@@ -185,12 +181,8 @@ export const siteConfig: SiteConfig = {
 };
 export const fullscreenWallpaperConfig: FullscreenWallpaperConfig = {
 	src: {
-		desktop: [
-		    "Dorathy_Jill.gif",
-		], // 桌面横幅图片
-		mobile: [
-			"Dorathy_Jill.gif",
-		], // 移动横幅图片
+		desktop: ["Dorathy_Jill.gif"], // 桌面横幅图片
+		mobile: ["Dorathy_Jill.gif"], // 移动横幅图片
 	}, // 使用本地横幅图片
 	position: "center", // 壁纸位置，等同于 object-position
 	carousel: {
