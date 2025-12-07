@@ -1,6 +1,6 @@
 ---
 title: The First Post
-published: 2025-12-04
+published: 2025-12-07
 tags: [Thought, Blogging, First]
 category: Test
 draft: false

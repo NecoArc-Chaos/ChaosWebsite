@@ -31,7 +31,7 @@ export const siteConfig: SiteConfig = {
 
 	themeColor: {
 		hue: 300, // 主题色的默认色相，范围从 0 到 360。例如：红色：0，青色：200，蓝绿色：250，粉色：345
-		fixed: true, // 对访问者隐藏主题色选择器
+		fixed: false, // 对访问者隐藏主题色选择器
 	},
 
 	// 特色页面开关配置(关闭不在使用的页面有助于提升SEO,关闭后直接在顶部导航删除对应的页面就行)
@@ -220,7 +220,7 @@ export const navBarConfig: NavBarConfig = {
 				},
 				{
 					name: "Bilibili",
-					url: "https://space.bilibili.com/701864046",
+					url: "https://space.bilibili.com/1823717804",
 					external: true,
 					icon: "fa6-brands:bilibili",
 				},
