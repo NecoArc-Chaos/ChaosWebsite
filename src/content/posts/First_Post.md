@@ -1,7 +1,7 @@
 ---
 title: The First Post
 published: 2025-12-04
-tags: [Markdown, Blogging, First]
+tags: [Thought, Blogging, First]
 category: Test
 draft: false
 ---
@@ -10,4 +10,6 @@ draft: false
 
 I finally found what im finding.
 I'll update soon as long as im available.
-thanks solian! thanks littlesheep!
+Initially this website had been put up on Soliansite, which guide me to finish this like now. Now im using Vercel for it is better and easier.
+From now on i'll be learning Markdown in order to write pretty passages.
+Hope i could have time! Even though i need to balance the time
