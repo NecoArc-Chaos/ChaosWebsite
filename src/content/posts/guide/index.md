@@ -9,7 +9,7 @@ draft: false
 ---
 
 
-
+这是模板的初始文章，留着当复制样本了
 This blog template is built with [Astro](https://astro.build/). For the things that are not mentioned in this guide, you may find the answers in the [Astro Docs](https://docs.astro.build/).
 
 ## Front-matter of Posts
