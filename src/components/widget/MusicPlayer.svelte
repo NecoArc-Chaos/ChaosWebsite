@@ -44,9 +44,9 @@ let isMuted = false;
 // 是否正在加载，默认为 false
 let isLoading = false;
 // 是否随机播放，默认为 false
-let isShuffled = false;
+let isShuffled = true;
 // 循环模式，0: 不循环, 1: 单曲循环, 2: 列表循环，默认为 0
-let isRepeating = 0;
+let isRepeating = 2;
 // 错误信息，默认为空字符串
 let errorMessage = "";
 // 是否显示错误信息，默认为 false
@@ -79,27 +79,27 @@ let volumeBar: HTMLElement;
 const localPlaylist = [
 	{
 		id: 1,
-		title: "ひとり上手",
-		artist: "Kaya",
-		cover: "assets/music/cover/hitori.jpg",
-		url: "assets/music/url/hitori.mp3",
-		duration: 240,
+		title: "welcome to valhalla",
+		artist: "Garoad",
+		cover: "assets/music/cover/welcome to valhalla.jpg",
+		url: "assets/music/url/welcome to valhalla.mp3",
+		duration: 188,
 	},
 	{
 		id: 2,
-		title: "眩耀夜行",
-		artist: "スリーズブーケ",
-		cover: "assets/music/cover/xryx.jpg",
-		url: "assets/music/url/xryx.mp3",
-		duration: 180,
+		title: "Safe Haven",
+		artist: "Garoad",
+		cover: "assets/music/cover/Safe Haven.jpg",
+		url: "assets/music/url/Safe Haven.mp3",
+		duration: 159,
 	},
 	{
 		id: 3,
-		title: "春雷の頃",
-		artist: "22/7",
-		cover: "assets/music/cover/cl.jpg",
-		url: "assets/music/url/cl.mp3",
-		duration: 200,
+		title: "Every Day Is Night",
+		artist: "Garoad",
+		cover: "assets/music/cover/Every Day Is Night.jpg",
+		url: "assets/music/url/Every Day Is Night.mp3",
+		duration: 220,
 	},
 ];
 
