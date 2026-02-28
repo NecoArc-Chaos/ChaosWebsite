@@ -16,24 +16,23 @@ export type DeviceCategory = {
 };
 
 export const devicesData: DeviceCategory = {
-	OnePlus: [
+	realme: [
 		{
-			name: "OnePlus 13T",
-			image: "/images/device/oneplus13t.png",
-			specs: "Gray / 16G + 1TB",
-			description:
-				"Flagship performance, Hasselblad imaging, 80W SuperVOOC.",
-			link: "https://www.oneplus.com/cn/13t",
+			name: "realme GT6",
+			image: "/images/device/realmegt6.png",
+			specs: "骁龙8gen3 / 16G + 512GB",
+			description: "5800mhA Battery, 120W SuperVOOC.",
+			link: "https://www.realme.com/cn/realme-gt-6",
 		},
 	],
-	Router: [
+	insta360: [
 		{
-			name: "GL-MT3000",
-			image: "/images/device/mt3000.png",
-			specs: "1000Mbps / 2.5G",
+			name: "GO 3S",
+			image: "/images/device/insta360go3s.png",
+			specs: "4K,128G,39g(本体)",
 			description:
-				"Portable WiFi 6 router suitable for business trips and home use.",
-			link: "https://www.gl-inet.cn/products/gl-mt3000/",
+				"拇指相机，要便携有便携，要续航有便携",
+			link: "https://www.insta360.com/product/insta360-go3s",
 		},
 	],
 };

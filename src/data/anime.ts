@@ -1,3 +1,6 @@
+// 默认返回 Bangumi 数据
+export const getAnimeList = () => getBangumiData();
+
 // 本地番剧数据配置
 export type AnimeItem = {
 	title: string;
