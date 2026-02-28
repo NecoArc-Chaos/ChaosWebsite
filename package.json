@@ -82,6 +82,7 @@
 	},
 	"devDependencies": {
 		"@astrojs/ts-plugin": "^1.10.6",
+		"@iconify-json/fa6-brands": "^1.2.6",
 		"@iconify-json/mdi": "^1.2.3",
 		"@rollup/plugin-yaml": "^4.1.2",
 		"@types/hast": "^3.0.4",
@@ -94,7 +95,7 @@
 		"postcss-nesting": "^13.0.2",
 		"prettier": "^3.8.1"
 	},
-	"packageManager": "pnpm@10.22.0",
+	"packageManager": "pnpm@10.30.3",
 	"pnpm": {
 		"overrides": {
 			"@emmetio/css-parser": "https://codeload.github.com/ramya-rao-a/css-parser/tar.gz/370c480ac103bd17c7bcfb34bf5d577dc40d3660"
