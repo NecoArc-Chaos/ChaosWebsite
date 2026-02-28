@@ -2,13 +2,14 @@
 title: Simple Guides for Mizuki
 published: 2024-04-01
 description: "How to use this blog template."
-image: "./cover.webp"
+image: "./cover.jpg"
 tags: ["Mizuki", "Blogging", "Customization"]
 category: Guides
 draft: false
 ---
 
 
+**这是模板的初始文章，留着当复制样本了**  
 
 This blog template is built with [Astro](https://astro.build/). For the things that are not mentioned in this guide, you may find the answers in the [Astro Docs](https://docs.astro.build/).
 
@@ -16,8 +17,8 @@ This blog template is built with [Astro](https://astro.build/). For the things t
 
 ```yaml
 ---
-title: My First Blog Post
-published: 2023-09-09
+title: My First Blog Post  
+published: 2023-09-09  
 description: This is the first post of my new Astro blog.
 image: ./cover.jpg
 tags: [Foo, Bar]
@@ -54,6 +55,6 @@ Your post files should be placed in `src/content/posts/` directory. You can also
 src/content/posts/
 ├── post-1.md
 └── post-2/
-    ├── cover.webp
+    ├── cover.png
     └── index.md
 ```
