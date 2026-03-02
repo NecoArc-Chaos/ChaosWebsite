@@ -101,6 +101,14 @@ const localPlaylist = [
 		url: "assets/music/url/Every Day Is Night.mp3",
 		duration: 220,
 	},
+	{
+		id: 4,
+		title: "Your Love Is a Drug",
+		artist: "Garoad",
+		cover: "assets/music/cover/your love is a drug.jpg",
+		url: "assets/music/url/your love is a drug.mp3",
+		duration: 180,
+	},
 ];
 
 // 从localStorage加载音量设置
