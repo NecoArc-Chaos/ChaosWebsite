@@ -13,6 +13,7 @@ pinned: true
 >
 > [!WARNING]
 > **操作前请检查前提条件：**
+>
 > 1. **Soc限制**：华为麒麟仅支持 9000 及以下（非 9000s, 9010 等）
 > 2. **系统版本**：安卓版本 >= 11
 > 3. **空间要求**：至少预留 **40GB** 储存空间
@@ -20,11 +21,12 @@ pinned: true
 **简易指南：**  
 
 1. 在下面NOTE中123盘链接下载所需文件（模拟器密钥固件等）  
-3. 根据所需材料4下载游戏本体  
-4. 根据步骤继续操作  
-5. 品鉴型月大作  
+2. 根据所需材料4下载游戏本体  
+3. 根据步骤继续操作  
+4. 品鉴型月大作  
 
 ## 📑 快速导航
+
 * [📦 所需材料清单](#所需材料)
 * [📥 第一步：解压游戏本体](#第一步-解压下载好的游戏本体)
 * [⚙️ 第二步：安装模拟器并配置](#第二步-安装模拟器并配置)
@@ -32,7 +34,7 @@ pinned: true
 * [🔤 第四步：安装固件 (解决口口)](#第四步-安装固件如果第二步未安装)
 * [🏎️ 第五步：GPU驱动优化](#第五步-安装骁龙gpu驱动可选)
 * [❓ 常见问题 Q&A](#常见问题qa)
-* [🛠️ 技术宅：手动构建指南](#关于手动构建)
+* [🛠️ 技术宅：手动构建指南](#手动构建)  
 
 ---
 
@@ -55,18 +57,19 @@ ps.编译版本为0.1.1，后续更新请耐心等待
   密钥文件用来解密游戏，否则游戏即使添加了也不会出现在首页上  
   固件实际解决了游戏某些文字乱码的问题，即使不安装也能正常运行  
   这里给出大佬在GitHub分享的文件的项目地址  
-  ::github{repo="AfterHrs/prodkeys"}  
-  ::github{repo="Switch-Bros/Switch-Firmware"}  
-  版本越新只代表兼容更多游戏，所以无所谓，我分享的19.0.1的已足够  
+
+    ::github{repo="AfterHrs/prodkeys"}  
+    ::github{repo="Switch-Bros/Switch-Firmware"}  
+    版本越新只代表兼容更多游戏，所以无所谓，我分享的19.0.1的已足够  
 
   3. **ZAchiver**(123盘或Play商店下载)  
-  ZArchiver是一款来自俄罗斯的压缩包管理软件，注重解压缩领域  
-  相比Mt管理器更加简洁，方便  
-  官网地址<https://www.zdevs.ru/en/>  
-  一定注意不要下载国内软件商店里的，百分百是**盗版**的  
+    ZArchiver是一款来自俄罗斯的压缩包管理软件，注重解压缩领域  
+    相比Mt管理器更加简洁，方便  
+    官网地址<https://www.zdevs.ru/en/>  
+    一定注意不要下载国内软件商店里的，百分百是**盗版**的  
 
   4. **游戏本体文件与汉化包**(在这下！)  
-    * **有度盘会员**：[月R汉化发布页](https://tsukihimecn.github.io/cn/Download/) (速度最稳)
+    **有度盘会员**：[月R汉化发布页](https://tsukihimecn.github.io/cn/Download/) (速度最稳)
     * **无度盘会员**：[Touchgal 资源盘](https://pan.touchgal.net/s/DprwSx) (最高可达 30~50MB/s，但不稳定)
   本体文件要**全部**下载，一共20个G  
   
@@ -178,63 +181,14 @@ Y键
 8.**月姬R开场怎么按键没反应？**  
 不能动的哦(是个视频且不能跳过)
 
-致敬SUYU/Eden项目组与月姬R汉化组！  
-月姬R贴吧群：677426945  
+---
+
+#### 手动构建
+
+[手动构建文档](https://www.necoarcchaos.xyz/posts/manual_build/)  
+[每日自动构建获取](https://github.com/NecoArc-Chaos/Eden-for-Tsukihime-Remake)  
 
 ---
 
-## 关于手动构建
-
-我只缓慢分发arm64-v8a的版本  
-如果您的设备架构不同或想及时用上最新版本，可以自行手动构建  
-从[官网仓库](https://git.eden-emu.dev/eden-emu/eden/src/branch/master/docs/build/Android.md)克隆到本地  
-补全所指示的依赖到Android Studio并修改这个文件  
-- src/video_core/texture_cache/util.cpp  
-把大约在126行的代码  
-
-```cpp
-.depth = level == 0 && num_levels == 1
-                     ? block_size.depth
-                     : AdjustMipBlockSize<GOB_SIZE_Z>(num_tiles.depth, block_size.depth, level),
-```
-
-改为  
-
-```cpp
-.depth = AdjustMipBlockSize<GOB_SIZE_Z>(num_tiles.depth, block_size.depth, level),
-```
-
-删除171-177行（经过上一步修改）  
-上一行是  
-
-```cpp
-[[nodiscard]] constexpr Extent3D TileShift(const LevelInfo& info, u32 level) {
-//删掉以下代码，上面别删
-    if (level == 0 && info.num_levels == 1) {
-        return Extent3D{
-            .width = info.block.width,
-            .height = info.block.height,
-            .depth = info.block.depth,
-        };
-    }
-//注意别删多或删少了
-```
-
-将1310~1312行  
-
-```cpp
-static_assert(CalculateLevelSize(LevelInfo{{32, 32, 1}, {0, 0, 4}, {1, 1}, 4, 0, 1}, 0) == 0x40000);
-
-static_assert(CalculateLevelSize(LevelInfo{{128, 8, 1}, {0, 4, 0}, {1, 1}, 4, 0, 1}, 0) == 0x40000);
-```
-
-改为  
-
-```cpp
-static_assert(CalculateLevelSize(LevelInfo{{32, 32, 1}, {0, 0, 4}, {1, 1}, 4, 0}, 0) == 0x4000);
-```
-
-然后按需构建即可  
-（大概同样适用于PC, Linux等  
-ps.我是小白，tm找半天都没找到Build - Select build variant在哪，最后发现有提供的script  
-报错就喂给ai～  
+致敬SUYU/Eden项目组与月姬R汉化组！  
+月姬R贴吧群：677426945  
