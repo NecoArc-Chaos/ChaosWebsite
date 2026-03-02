@@ -7,17 +7,18 @@ draft: false
 pinned: true
 ---
 
-# 关于月姬R乱码修复
-
 （本文只是整理了Aphcity大佬的发现，去给AphcityB站三连支持吧）  
 
+https://www.necoarcchaos.xyz/posts/manual_build/
 
 我只缓慢分发arm64-v8a的版本  
-如果您的设备架构不同或想及时用上最新版本，可以自行手动构建  
+如果您的设备架构不同或想及时用上最新版本，可以自行
 
+## 手动构建  
 
 从[官网仓库](https://git.eden-emu.dev/eden-emu/eden/src/branch/master/docs/build/Android.md)克隆到本地  
-补全所指示的依赖到Android Studio并修改这个文件  
+补全所指示的依赖到Android Studio  
+然后修改这个文件  
 - src/video_core/texture_cache/util.cpp  
 把大约在126行的代码  
 
