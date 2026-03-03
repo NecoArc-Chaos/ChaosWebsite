@@ -1,19 +1,19 @@
 ---
 title: 关于月姬R乱码修复
-published: 2025-12-21
+published: 2026-03-01
 tags: [月姬R, 教程, NS模拟器, 手动构建]
 category: 教程
 draft: false
-pinned: true
 ---
 
 （本文只是整理了Aphcity大佬的发现，去给AphcityB站三连支持吧）  
+原视频: <https://b23.tv/jXFjBj7>  
 
-这个链接有每日自动构建修改后的版本
-<https://github.com/NecoArc-Chaos/Eden-for-Tsukihime-Remake>
+这个链接有每日自动构建修改后的版本  
+<https://github.com/NecoArc-Chaos/Eden-for-Tsukihime-Remake>  
 
-我只缓慢分发arm64-v8a的版本  
-如果您的设备架构不同或想及时用上最新版本，可以自行
+内含Android arm64-v8a和Windows x86-64的版本  
+如果您的设备架构不同，可以尝试自行手动构建  
 
 ## 手动构建  
 
@@ -67,6 +67,7 @@ static_assert(CalculateLevelSize(LevelInfo{{32, 32, 1}, {0, 0, 4}, {1, 1}, 4, 0}
 ```
 
 然后按需构建即可  
+
 （大概同样适用于PC, Linux等  
 ps.我是小白，tm找半天都没找到Build - Select build variant在哪，最后发现有提供的script，就直接用了script  
 报错就喂给ai～
