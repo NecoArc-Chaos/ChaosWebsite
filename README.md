@@ -28,6 +28,8 @@
   <tr>
   <tr>
     <td><img alt="" src="docs/image/4.webp"></td>
+    <td><img alt="" src="docs/image/5.webp"></td>
+    <td><img alt="" src="docs/image/6.webp"></td>
   <tr>
 </table>
 
