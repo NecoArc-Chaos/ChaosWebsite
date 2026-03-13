@@ -251,6 +251,12 @@ export const navBarConfig: NavBarConfig = {
 					external: true,
 					icon: "fa7-brands:bilibili",
 				},
+				{
+                    name: "Solian",
+                    url: "https://web.solian.app/#/publishers/Neco-ArcChaos",
+                    external: true,
+                    icon: "local:solian", 
+                },
 			],
 		},
 		{

@@ -9,7 +9,8 @@ pinned: true
 
 ## 安卓使用Eden模拟器游玩月姬R保姆级教程
 
- 本篇将汇总之前的教训，给大家提供最优质的贴心教程
+https://www.bilibili.com/video/BV1LFqjYBEsH?t=0.586  
+
 >
 > [!WARNING]
 > **操作前请检查前提条件：**
@@ -48,9 +49,9 @@ pinned: true
 
   1. **Eden模拟器**(123盘/GitHub下载)  
   
->下载推荐后者，123盘将不再更新
->**→ [GitHub最新构建的月R特化版本](https://github.com/NecoArc-Chaos/Eden-for-Tsukihime-Remake/releases) ←**
->网络问题可以尝试把下载链接复制到下面的网站加速下载
+>下载推荐上述后者，123盘将不再更新  
+>**→ [GitHub最新构建的月R特化版本](https://github.com/NecoArc-Chaos/Eden-for-Tsukihime-Remake/releases) ←**  
+>网络问题可以尝试把下载链接复制到下面的网站加速下载  
 ><https://github.akams.cn/>
 
   我通过Aphcity大佬提供的方法(<https://b23.tv/jXFjBj7>)自行修改并编译了Eden，最终成功实现了在Eden上无贴图错误  
