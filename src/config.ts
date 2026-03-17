@@ -255,7 +255,7 @@ export const navBarConfig: NavBarConfig = {
                     name: "Solian",
                     url: "https://web.solian.app/#/publishers/Neco-ArcChaos",
                     external: true,
-                    icon: "none", 
+                    icon: "local:solian", 
                 },
 			],
 		},
