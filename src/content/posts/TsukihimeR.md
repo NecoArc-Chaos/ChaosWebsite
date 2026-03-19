@@ -48,9 +48,9 @@ pinned: true
 
   1. **Eden模拟器**(123盘/GitHub下载)  
   
->下载推荐后者，123盘将不再更新
->**→ [GitHub最新构建的月R特化版本](https://github.com/NecoArc-Chaos/Eden-for-Tsukihime-Remake/releases) ←**
->网络问题可以尝试把下载链接复制到下面的网站加速下载
+>下载推荐后者，123盘将不再更新  
+>**→ [GitHub最新构建的月R特化版本](https://github.com/NecoArc-Chaos/Eden-for-Tsukihime-Remake/releases) ←**  
+>网络问题可以尝试把下载链接复制到下面的网站加速下载  
 ><https://github.akams.cn/>
 
   我通过Aphcity大佬提供的方法(<https://b23.tv/jXFjBj7>)自行修改并编译了Eden，最终成功实现了在Eden上无贴图错误  

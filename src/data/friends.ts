@@ -28,7 +28,7 @@ export const friendsData: FriendItem[] = [
 		siteurl: "https://docs.mizuki.mysqil.com",
 		tags: ["Docs"],
 	},
-	{
+	/*{
 		id: 3,
 		title: "Vercel",
 		imgurl: "https://avatars.githubusercontent.com/u/14985020?v=4&s=640",
@@ -75,7 +75,7 @@ export const friendsData: FriendItem[] = [
 		desc: "The web's most comprehensive resource for web developers",
 		siteurl: "https://developer.mozilla.org",
 		tags: ["Docs", "Reference"],
-	},
+	},*/
 ];
 
 // 获取所有友情链接数据
