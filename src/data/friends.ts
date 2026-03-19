@@ -14,19 +14,11 @@ export interface FriendItem {
 export const friendsData: FriendItem[] = [
 	{
 		id: 1,
-		title: "Astro",
-		imgurl: "https://avatars.githubusercontent.com/u/44914786?v=4&s=640",
-		desc: "The web framework for content-driven websites",
-		siteurl: "https://github.com/withastro/astro",
-		tags: ["Framework"],
-	},
-	{
-		id: 2,
-		title: "Mizuki Docs",
-		imgurl: "http://q.qlogo.cn/headimg_dl?dst_uin=3231515355&spec=640&img_type=jpg",
-		desc: "Mizuki User Manual",
-		siteurl: "https://docs.mizuki.mysqil.com",
-		tags: ["Docs"],
+		title: "Chaos的小站",
+		imgurl: "https://www.necoarcchaos.xyz/_astro/Chaoss.DFvC6oND_oNina.webp",
+		desc: "调制饮料，改变人生。正在尝试写点有用的",
+		siteurl: "https://www.necoarcchaos.xyz/,
+		tags: ["Friend"],
 	},
 	/*{
 		id: 3,
