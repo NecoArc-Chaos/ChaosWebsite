@@ -17,7 +17,7 @@ export const friendsData: FriendItem[] = [
 		title: "Chaos的小站",
 		imgurl: "https://www.necoarcchaos.xyz/_astro/Chaoss.DFvC6oND_oNina.webp",
 		desc: "调制饮料，改变人生。正在尝试写点有用的",
-		siteurl: "https://www.necoarcchaos.xyz/,
+		siteurl: "https://www.necoarcchaos.xyz/",
 		tags: ["Friend"],
 	},
 	/*{
