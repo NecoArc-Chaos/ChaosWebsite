@@ -14,7 +14,7 @@
 			.replace(/&/g, "&amp;")
 			.replace(/</g, "&lt;")
 			.replace(/>/g, "&gt;")
-			.replace(/\"/g, "&quot;")
+			.replace(/"/g, "&quot;")
 			.replace(/'/g, "&#39;");
 	}
 
@@ -93,21 +93,13 @@
 				const brandDevices = devicesData[brand] || [];
 				devicesContainer.innerHTML = brandDevices
 					.map((device, index) =>
-						createDeviceCardHTML(
-							device,
-							index,
-							i18nData.viewDetails || "",
-						),
+						createDeviceCardHTML(device, index, i18nData.viewDetails || ""),
 					)
 					.join("");
 			};
 
 			tab.addEventListener("click", clickHandler);
-			window.devicesPageState.eventListeners.push([
-				tab,
-				"click",
-				clickHandler,
-			]);
+			window.devicesPageState.eventListeners.push([tab, "click", clickHandler]);
 		});
 
 		return true;
@@ -136,10 +128,7 @@
 
 				for (let i = 0; i < mutations.length; i++) {
 					const mutation = mutations[i];
-					if (
-						!mutation.addedNodes ||
-						mutation.addedNodes.length === 0
-					) {
+					if (!mutation.addedNodes || mutation.addedNodes.length === 0) {
 						continue;
 					}
 

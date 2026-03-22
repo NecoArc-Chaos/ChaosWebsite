@@ -1,4 +1,4 @@
-import { siteConfig } from '../config';
+import { siteConfig } from "../config";
 
 /**
  * Format relative time for diary moments

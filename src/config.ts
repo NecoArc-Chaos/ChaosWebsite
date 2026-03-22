@@ -551,13 +551,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 	components: {
 		left: ["profile", "announcement", "categories", "tags"],
 		right: ["site-stats", "calendar", "music-sidebar", "card-toc"],
-		drawer: [
-			"profile",
-			"announcement",
-			"music-sidebar",
-			"categories",
-			"tags",
-		],
+		drawer: ["profile", "announcement", "music-sidebar", "categories", "tags"],
 	},
 
 	// 默认动画配置
@@ -662,4 +656,3 @@ export const widgetConfigs = {
 } as const;
 
 // umamiConfig相关配置已移动至astro.config.mjs中,统计脚本请自行在Layout.astro文件的<head>中插入
-

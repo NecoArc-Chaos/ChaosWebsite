@@ -1,13 +1,13 @@
 ---
-import { Icon } from "astro-icon/components"
+import { Icon } from "astro-icon/components";
 
-import { LinkPresets } from "../../../constants/link-presets"
-import I18nKey from "../../../i18n/i18nKey"
-import { i18n } from "../../../i18n/translation"
-import { url } from "../../../utils/url-utils"
-import type { DropdownMenuProps } from "./types"
+import { LinkPresets } from "../../../constants/link-presets";
+import I18nKey from "../../../i18n/i18nKey";
+import { i18n } from "../../../i18n/translation";
+import { url } from "../../../utils/url-utils";
+import type { DropdownMenuProps } from "./types";
 
-const { link, class: className } = Astro.props as DropdownMenuProps
+const { link, class: className } = Astro.props as DropdownMenuProps;
 
 const navTitleMap: Record<string, I18nKey> = {
 	Links: I18nKey.navLinks,
@@ -22,18 +22,18 @@ const navTitleMap: Record<string, I18nKey> = {
 	Skills: I18nKey.skills,
 	Timeline: I18nKey.timeline,
 	Friends: I18nKey.friends,
-}
+};
 
 const getLocalizedName = (name: string): string => {
-	return name in navTitleMap ? i18n(navTitleMap[name]) : name
-}
+	return name in navTitleMap ? i18n(navTitleMap[name]) : name;
+};
 
 const children =
 	link.children?.map((child) =>
 		typeof child === "number" ? LinkPresets[child] : child,
-	) ?? []
+	) ?? [];
 
-const hasChildren = children.length > 0
+const hasChildren = children.length > 0;
 ---
 
 <div class:list={["dropdown-container group", className]} data-dropdown>

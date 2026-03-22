@@ -1,8 +1,7 @@
-import * as fs from "node:fs";
-
-import type { APIContext, GetStaticPaths } from "astro";
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
+import * as fs from "node:fs";
+import type { APIContext, GetStaticPaths } from "astro";
 import satori from "satori";
 import sharp from "sharp";
 
@@ -50,7 +49,9 @@ async function fetchNotoSansSCFonts() {
 		const cssResp = await fetch(
 			"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap",
 		);
-		if (!cssResp.ok) {throw new Error("Failed to fetch Google Fonts CSS");}
+		if (!cssResp.ok) {
+			throw new Error("Failed to fetch Google Fonts CSS");
+		}
 		const cssText = await cssResp.text();
 
 		const getUrlForWeight = (weight: number) => {
@@ -59,7 +60,9 @@ async function fetchNotoSansSCFonts() {
 				"g",
 			);
 			const match = cssText.match(blockRe);
-			if (!match || match.length === 0) {return null;}
+			if (!match || match.length === 0) {
+				return null;
+			}
 			const urlMatch = match[0].match(/url\((https:[^)]+)\)/);
 			return urlMatch ? urlMatch[1] : null;
 		};
@@ -105,8 +108,7 @@ export async function GET({
 	const { post } = props;
 
 	// Try to fetch fonts from Google Fonts (woff2) at runtime.
-	const { regular: fontRegular, bold: fontBold } =
-		await fetchNotoSansSCFonts();
+	const { regular: fontRegular, bold: fontBold } = await fetchNotoSansSCFonts();
 
 	// Avatar + icon: still read from disk (small assets)
 	const avatarBuffer = fs.readFileSync(`./src/${profileConfig.avatar}`);
@@ -207,8 +209,7 @@ export async function GET({
 												style: {
 													width: "10px",
 													height: "68px",
-													backgroundColor:
-														primaryColor,
+													backgroundColor: primaryColor,
 													borderRadius: "6px",
 													marginTop: "14px",
 												},

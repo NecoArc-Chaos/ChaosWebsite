@@ -116,20 +116,13 @@ export class TOCManager {
 		filteredHeadings.forEach((heading) => {
 			const depth = Number.parseInt(heading.tagName.charAt(1), 10);
 			const depthLevel =
-				depth === this.minDepth
-					? 0
-					: depth === this.minDepth + 1
-						? 1
-						: 2;
+				depth === this.minDepth ? 0 : depth === this.minDepth + 1 ? 1 : 2;
 
 			if (!heading.id) {
 				return;
 			}
 
-			const badgeContent = this.generateBadgeContent(
-				depth,
-				heading1Count,
-			);
+			const badgeContent = this.generateBadgeContent(depth, heading1Count);
 			if (depth === this.minDepth) {
 				heading1Count++;
 			}
@@ -143,9 +136,7 @@ export class TOCManager {
 				if (dataSubtitles) {
 					try {
 						const subtitles = JSON.parse(dataSubtitles);
-						headingText = Array.isArray(subtitles)
-							? subtitles[0]
-							: subtitles;
+						headingText = Array.isArray(subtitles) ? subtitles[0] : subtitles;
 					} catch {
 						// ignore
 					}
@@ -184,7 +175,9 @@ export class TOCManager {
 
 	public updateTOCContent(): void {
 		const tocContent = document.getElementById(this.contentId);
-		if (!tocContent) {return;}
+		if (!tocContent) {
+			return;
+		}
 
 		tocContent.innerHTML = this.generateTOCHTML();
 		this.tocItems = Array.from(
@@ -199,8 +192,7 @@ export class TOCManager {
 		headings.forEach((heading) => {
 			if (heading.id) {
 				const rect = heading.getBoundingClientRect();
-				const isVisible =
-					rect.top < window.innerHeight && rect.bottom > 0;
+				const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
 
 				if (isVisible) {
 					visibleHeadingIds.push(heading.id);
@@ -233,7 +225,9 @@ export class TOCManager {
 	}
 
 	public updateActiveState(): void {
-		if (!this.tocItems || this.tocItems.length === 0) {return;}
+		if (!this.tocItems || this.tocItems.length === 0) {
+			return;
+		}
 
 		this.tocItems.forEach((item) => {
 			item.classList.remove("visible");
@@ -255,7 +249,9 @@ export class TOCManager {
 
 	private updateActiveIndicator(activeItems: HTMLElement[]): void {
 		const indicator = document.getElementById(this.indicatorId);
-		if (!indicator || !this.tocItems.length) {return;}
+		if (!indicator || !this.tocItems.length) {
+			return;
+		}
 
 		if (activeItems.length === 0) {
 			indicator.style.opacity = "0";
@@ -263,7 +259,9 @@ export class TOCManager {
 		}
 
 		const tocContent = document.getElementById(this.contentId);
-		if (!tocContent) {return;}
+		if (!tocContent) {
+			return;
+		}
 
 		const contentRect = tocContent.getBoundingClientRect();
 		const firstActive = activeItems[0];
@@ -285,12 +283,16 @@ export class TOCManager {
 	}
 
 	private scrollToActiveItem(activeItem: HTMLElement): void {
-		if (!activeItem) {return;}
+		if (!activeItem) {
+			return;
+		}
 
 		const tocContainer = document
 			.querySelector(`#${this.contentId}`)
 			?.closest(".toc-scroll-container");
-		if (!tocContainer) {return;}
+		if (!tocContainer) {
+			return;
+		}
 
 		if (this.scrollTimeout) {
 			clearTimeout(this.scrollTimeout);

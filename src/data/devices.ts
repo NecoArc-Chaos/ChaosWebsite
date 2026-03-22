@@ -28,8 +28,7 @@ export const devicesData: DeviceCategory = {
 			name: "GO 3S",
 			image: "/images/device/insta360go3s.png",
 			specs: "4K,128G,39g(本体)",
-			description:
-				"拇指相机，要便携有便携，要续航有便携",
+			description: "拇指相机，要便携有便携，要续航有便携",
 			link: "https://www.insta360.com/product/insta360-go3s",
 		},
 	],

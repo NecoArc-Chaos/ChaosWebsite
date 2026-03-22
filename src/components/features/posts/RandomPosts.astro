@@ -19,8 +19,12 @@ const allPosts = await getSortedPostsList();
 
 // 排除当前文章和加密文章
 const candidates = allPosts.filter((p) => {
-	if (excludeIds.includes(p.id)) {return false;}
-	if (p.data.password) {return false;}
+	if (excludeIds.includes(p.id)) {
+		return false;
+	}
+	if (p.data.password) {
+		return false;
+	}
 	return true;
 });
 

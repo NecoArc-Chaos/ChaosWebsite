@@ -292,9 +292,7 @@ class MusicPlayerStore {
 				throw new Error("meting api error");
 			}
 			const list: any[] = await res.json();
-			this.state.playlist = list.map((song) =>
-				this.convertMetingSong(song),
-			);
+			this.state.playlist = list.map((song) => this.convertMetingSong(song));
 			this.state.isLoading = false;
 
 			if (this.state.playlist.length > 0) {
@@ -322,10 +320,7 @@ class MusicPlayerStore {
 		}
 
 		return {
-			id:
-				typeof song.id === "string"
-					? parseInt(song.id, 10)
-					: (song.id ?? 0),
+			id: typeof song.id === "string" ? parseInt(song.id, 10) : (song.id ?? 0),
 			title,
 			artist,
 			cover: song.pic ?? "",
@@ -411,9 +406,7 @@ class MusicPlayerStore {
 		let newIndex: number;
 		if (this.state.isShuffled) {
 			do {
-				newIndex = Math.floor(
-					Math.random() * this.state.playlist.length,
-				);
+				newIndex = Math.floor(Math.random() * this.state.playlist.length);
 			} while (
 				newIndex === this.state.currentIndex &&
 				this.state.playlist.length > 1
@@ -491,8 +484,7 @@ class MusicPlayerStore {
 	}
 
 	toggleRepeat(): void {
-		this.state.isRepeating = ((this.state.isRepeating + 1) %
-			3) as RepeatMode;
+		this.state.isRepeating = ((this.state.isRepeating + 1) % 3) as RepeatMode;
 		if (this.state.isRepeating !== 0) {
 			this.state.isShuffled = false;
 		}

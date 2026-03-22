@@ -8,7 +8,8 @@ const { page }: PostPageProps = Astro.props as PostPageProps;
 
 const hasRightSidebars =
 	widgetManager.getComponentsByPosition("top", "right", "desktop").length > 0 ||
-	widgetManager.getComponentsByPosition("sticky", "right", "desktop").length > 0;
+	widgetManager.getComponentsByPosition("sticky", "right", "desktop").length >
+		0;
 
 const defaultLayout = siteConfig.postListLayout.defaultMode || "list";
 const initialLayoutClass = defaultLayout === "grid" ? "grid-mode" : "list-mode";

@@ -35,10 +35,7 @@ export function initAnimeLayoutHandler(options: LayoutHandlerOptions) {
 		const style = document.createElement("style");
 		style.innerHTML = `.anime-grid-container .group { transition: none !important; }`;
 		document.head.appendChild(style);
-		animeListContainer.classList.remove(
-			"anime-list-mode",
-			"anime-grid-mode",
-		);
+		animeListContainer.classList.remove("anime-list-mode", "anime-grid-mode");
 		animeListContainer.classList.remove(
 			"grid-cols-1",
 			"md:grid-cols-2",
@@ -164,7 +161,7 @@ export function initAnimeLayoutHandler(options: LayoutHandlerOptions) {
 		}
 		if (retryCount < maxRetries) {
 			retryCount++;
-			const delay = Math.min(100 * Math.pow(1.5, retryCount), 1000);
+			const delay = Math.min(100 * 1.5 ** retryCount, 1000);
 			setTimeout(tryInit, delay);
 		} else {
 			setTimeout(() => {

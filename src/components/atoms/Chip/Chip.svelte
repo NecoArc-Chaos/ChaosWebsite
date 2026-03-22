@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { ChipProps } from "./types";
+import type { ChipProps } from "./types";
 
-	interface Props extends ChipProps {}
-	const {
-		href,
-		label,
-		dot = false,
-		badge,
-		class: className = "",
-	}: Props = $props();
+interface Props extends ChipProps {}
+const {
+	href,
+	label,
+	dot = false,
+	badge,
+	class: className = "",
+}: Props = $props();
 </script>
 
 {#if href}

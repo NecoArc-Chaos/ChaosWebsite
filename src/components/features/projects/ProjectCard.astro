@@ -1,40 +1,40 @@
 ---
-import I18nKey from "../../../i18n/i18nKey"
-import { i18n } from "../../../i18n/translation"
-import type { ProjectCardProps } from "./types"
+import I18nKey from "../../../i18n/i18nKey";
+import { i18n } from "../../../i18n/translation";
+import type { ProjectCardProps } from "./types";
 
 const {
 	project,
 	size = "medium",
 	showImage = true,
 	maxTechStack = 4,
-} = Astro.props as ProjectCardProps
+} = Astro.props as ProjectCardProps;
 
 const getStatusStyle = (status: string) => {
 	switch (status) {
 		case "completed":
-			return "bg-green-600/20 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+			return "bg-green-600/20 text-green-700 dark:bg-green-900/30 dark:text-green-400";
 		case "in-progress":
-			return "bg-yellow-600/20 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
+			return "bg-yellow-600/20 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400";
 		case "planned":
-			return "bg-gray-600/20 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400"
+			return "bg-gray-600/20 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400";
 		default:
-			return "bg-gray-600/20 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400"
+			return "bg-gray-600/20 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400";
 	}
-}
+};
 
 const getStatusText = (status: string) => {
 	switch (status) {
 		case "completed":
-			return i18n(I18nKey.projectsCompleted)
+			return i18n(I18nKey.projectsCompleted);
 		case "in-progress":
-			return i18n(I18nKey.projectsInProgress)
+			return i18n(I18nKey.projectsInProgress);
 		case "planned":
-			return i18n(I18nKey.projectsPlanned)
+			return i18n(I18nKey.projectsPlanned);
 		default:
-			return status
+			return status;
 	}
-}
+};
 
 const getSizeClasses = (size: string) => {
 	switch (size) {
@@ -45,7 +45,7 @@ const getSizeClasses = (size: string) => {
 				description: "text-sm line-clamp-2",
 				tech: "text-xs",
 				links: "text-sm",
-			}
+			};
 		case "large":
 			return {
 				container: "p-6",
@@ -53,7 +53,7 @@ const getSizeClasses = (size: string) => {
 				description: "text-base line-clamp-3",
 				tech: "text-sm",
 				links: "text-base",
-			}
+			};
 		default:
 			return {
 				container: "p-5",
@@ -61,11 +61,11 @@ const getSizeClasses = (size: string) => {
 				description: "text-sm line-clamp-2",
 				tech: "text-xs",
 				links: "text-sm",
-			}
+			};
 	}
-}
+};
 
-const sizeClasses = getSizeClasses(size)
+const sizeClasses = getSizeClasses(size);
 ---
 
 <div class="bg-transparent rounded-lg border border-[var(--line-divider)] overflow-hidden hover:shadow-lg transition-all duration-300 group">

@@ -49,10 +49,26 @@ const title = i18n(I18nKey.timeline);
 const subtitle = i18n(I18nKey.timelineSubtitle);
 
 const statItems = [
-	{ title: i18n(I18nKey.timelineTotal), value: stats.total.toString(), color: "#3B82F6" },
-	{ title: i18n(I18nKey.timelineWork), value: stats.byType.work.toString(), color: "#22C55E" },
-	{ title: i18n(I18nKey.timelineProjects), value: stats.byType.project.toString(), color: "#A855F7" },
-	{ title: i18n(I18nKey.timelineExperience), value: `${workExperience.years}+`, color: "#F97316" },
+	{
+		title: i18n(I18nKey.timelineTotal),
+		value: stats.total.toString(),
+		color: "#3B82F6",
+	},
+	{
+		title: i18n(I18nKey.timelineWork),
+		value: stats.byType.work.toString(),
+		color: "#22C55E",
+	},
+	{
+		title: i18n(I18nKey.timelineProjects),
+		value: stats.byType.project.toString(),
+		color: "#A855F7",
+	},
+	{
+		title: i18n(I18nKey.timelineExperience),
+		value: `${workExperience.years}+`,
+		color: "#F97316",
+	},
 ];
 ---
 

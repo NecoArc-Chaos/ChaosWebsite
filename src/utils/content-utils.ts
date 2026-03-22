@@ -1,8 +1,8 @@
+import { type CollectionEntry, getCollection } from "astro:content";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { initPostIdMap } from "@utils/permalink-utils";
 import { getCategoryUrl, getPostUrl } from "@utils/url-utils";
-import { type CollectionEntry, getCollection } from "astro:content";
 
 // // Retrieve posts and sort them by publication date
 async function getRawSortedPosts() {
@@ -180,7 +180,9 @@ function tokenizeTitle(title: string): Set<string> {
 		granularity: "word",
 	});
 	for (const { segment, isWordLike } of segmenter.segment(title)) {
-		if (!isWordLike) {continue;}
+		if (!isWordLike) {
+			continue;
+		}
 		tokens.add((segment as string).toLowerCase());
 	}
 	return tokens;
@@ -190,10 +192,14 @@ function tokenizeTitle(title: string): Set<string> {
  * 计算两个集合的 Jaccard 相似度
  */
 function jaccardSimilarity(a: Set<string>, b: Set<string>): number {
-	if (a.size === 0 && b.size === 0) {return 0;}
+	if (a.size === 0 && b.size === 0) {
+		return 0;
+	}
 	let intersection = 0;
 	for (const item of a) {
-		if (b.has(item)) {intersection++;}
+		if (b.has(item)) {
+			intersection++;
+		}
 	}
 	const union = a.size + b.size - intersection;
 	return union === 0 ? 0 : intersection / union;
@@ -238,8 +244,7 @@ export async function getRelatedPosts(
 
 		// timeFreshnessScore (0-30): 6 个月半衰期
 		const daysSincePublished =
-			(now - new Date(post.data.published).getTime()) /
-			(1000 * 60 * 60 * 24);
+			(now - new Date(post.data.published).getTime()) / (1000 * 60 * 60 * 24);
 		const timeFreshnessScore =
 			30 * Math.exp((-Math.LN2 * daysSincePublished) / 180);
 
@@ -251,10 +256,7 @@ export async function getRelatedPosts(
 				: 0;
 
 		const totalScore =
-			tagMatchScore +
-			titleSimilarityScore +
-			timeFreshnessScore +
-			categoryBonus;
+			tagMatchScore + titleSimilarityScore + timeFreshnessScore + categoryBonus;
 
 		return {
 			post,
@@ -275,7 +277,9 @@ export async function getRelatedPosts(
 	const result: PostForList[] = [];
 
 	for (const s of withTagMatch) {
-		if (result.length >= maxCount) {break;}
+		if (result.length >= maxCount) {
+			break;
+		}
 		result.push({ id: s.post.id, data: s.post.data });
 	}
 
@@ -288,7 +292,9 @@ export async function getRelatedPosts(
 				(a.timeFreshnessScore + a.categoryBonus),
 		);
 		for (const s of withoutTagMatch) {
-			if (result.length >= maxCount) {break;}
+			if (result.length >= maxCount) {
+				break;
+			}
 			result.push({ id: s.post.id, data: s.post.data });
 		}
 	}

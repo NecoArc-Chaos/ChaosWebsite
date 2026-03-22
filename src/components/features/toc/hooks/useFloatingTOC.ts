@@ -45,10 +45,7 @@ export function findActiveHeading(
 	let activeIndex = -1;
 	for (let i = 0; i < headings.length; i++) {
 		const heading = headings[i];
-		if (
-			heading.getBoundingClientRect().top + scrollY <
-			scrollY + offsetTop
-		) {
+		if (heading.getBoundingClientRect().top + scrollY < scrollY + offsetTop) {
 			activeIndex = i;
 		} else {
 			break;
@@ -76,7 +73,9 @@ export function getHeadings(
 
 	allHeadings.forEach((h) => {
 		const level = parseInt(h.tagName[1]);
-		if (level < minLevel) {minLevel = level;}
+		if (level < minLevel) {
+			minLevel = level;
+		}
 	});
 
 	allHeadings.forEach((heading) => {

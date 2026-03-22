@@ -1,11 +1,11 @@
 ---
-import type { PageHeaderProps } from "./types"
+import type { PageHeaderProps } from "./types";
 
 const {
 	title,
 	subtitle,
 	class: className = "",
-} = Astro.props as PageHeaderProps
+} = Astro.props as PageHeaderProps;
 ---
 
 <div class={`flex flex-col items-start justify-center mb-8 ${className}`}>

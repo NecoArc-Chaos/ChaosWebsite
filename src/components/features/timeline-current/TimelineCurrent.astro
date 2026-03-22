@@ -1,16 +1,16 @@
 ---
-import I18nKey from "../../../i18n/i18nKey"
-import { i18n } from "../../../i18n/translation"
-import { TimelineItem } from "../timeline"
-import type { TimelineCurrentProps } from "./types"
+import I18nKey from "../../../i18n/i18nKey";
+import { i18n } from "../../../i18n/translation";
+import { TimelineItem } from "../timeline";
+import type { TimelineCurrentProps } from "./types";
 
 const {
 	items,
 	title,
 	class: className = "",
-} = Astro.props as TimelineCurrentProps
+} = Astro.props as TimelineCurrentProps;
 
-const sectionTitle = title || i18n(I18nKey.timelineCurrent)
+const sectionTitle = title || i18n(I18nKey.timelineCurrent);
 ---
 
 {items.length > 0 && (

@@ -106,8 +106,7 @@ export class AnimationManager {
 		animatedElements.forEach((element, index) => {
 			const htmlElement = element as HTMLElement;
 			const delay =
-				Number.parseInt(htmlElement.style.animationDelay, 10) ||
-				index * 50;
+				Number.parseInt(htmlElement.style.animationDelay, 10) || index * 50;
 
 			// 重置动画
 			htmlElement.style.opacity = "0";
@@ -146,7 +145,9 @@ export class AnimationManager {
 	 * 设置滚动动画
 	 */
 	private setupScrollAnimations(): void {
-		if (typeof window === "undefined") {return;}
+		if (typeof window === "undefined") {
+			return;
+		}
 
 		const observerOptions = {
 			root: null,

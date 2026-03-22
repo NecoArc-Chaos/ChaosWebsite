@@ -4,8 +4,8 @@
  * 支持单图模式和轮播图模式，包含文字覆盖层和水波纹效果
  */
 
-import TypewriterText from "@components/atoms/typewriter-text/TypewriterText.astro";
 import Image from "@components/atoms/Image/Image.astro";
+import TypewriterText from "@components/atoms/typewriter-text/TypewriterText.astro";
 import { Icon } from "astro-icon/components";
 import { siteConfig } from "../../config";
 import { BANNER_HEIGHT_EXTEND } from "../../constants/constants";
@@ -42,8 +42,12 @@ const {
 
 const isCarouselEnabled =
 	siteConfig.banner.carousel?.enable &&
-	((bannerImages.desktop && Array.isArray(bannerImages.desktop) && bannerImages.desktop.length > 1) ||
-		(bannerImages.mobile && Array.isArray(bannerImages.mobile) && bannerImages.mobile.length > 1));
+	((bannerImages.desktop &&
+		Array.isArray(bannerImages.desktop) &&
+		bannerImages.desktop.length > 1) ||
+		(bannerImages.mobile &&
+			Array.isArray(bannerImages.mobile) &&
+			bannerImages.mobile.length > 1));
 
 const hasBannerCredit = siteConfig.banner.credit.enable;
 const hasBannerLink = !!siteConfig.banner.credit.url;

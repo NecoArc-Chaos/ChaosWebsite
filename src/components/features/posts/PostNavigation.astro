@@ -3,19 +3,19 @@ import { getPostUrlBySlug } from "@utils/url-utils";
 import { Icon } from "astro-icon/components";
 
 interface Props {
-    prevSlug?: string;
-    prevTitle?: string;
-    nextSlug?: string;
-    nextTitle?: string;
-    class?: string;
+	prevSlug?: string;
+	prevTitle?: string;
+	nextSlug?: string;
+	nextTitle?: string;
+	class?: string;
 }
 
 const {
-    prevSlug,
-    prevTitle,
-    nextSlug,
-    nextTitle,
-    class: className,
+	prevSlug,
+	prevTitle,
+	nextSlug,
+	nextTitle,
+	class: className,
 } = Astro.props;
 
 const onlyOneButton = (prevSlug && !nextSlug) || (!prevSlug && nextSlug);

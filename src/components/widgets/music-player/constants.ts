@@ -56,4 +56,3 @@ export const DEFAULT_METING_TYPE = "playlist";
 
 export const ERROR_DISPLAY_DURATION = 3000;
 export const SKIP_ERROR_DELAY = 1000;
-

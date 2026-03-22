@@ -54,10 +54,7 @@ export async function decryptContent(
 		const decryptedBytes = CryptoJS.AES.decrypt(encryptedContent, password);
 		const decryptedString = decryptedBytes.toString(CryptoJS.enc.Utf8);
 
-		if (
-			!decryptedString ||
-			!decryptedString.startsWith(VERIFICATION_PREFIX)
-		) {
+		if (!decryptedString || !decryptedString.startsWith(VERIFICATION_PREFIX)) {
 			return { success: false, content: null, error: "incorrect" };
 		}
 
@@ -179,7 +176,9 @@ function handleHashNavigation(): void {
 
 function triggerImageLoadEvents(): void {
 	const contentDiv = document.getElementById("decrypted-content");
-	if (!contentDiv) {return;}
+	if (!contentDiv) {
+		return;
+	}
 
 	const images = contentDiv.querySelectorAll("img");
 	images.forEach((img) => {

@@ -10,7 +10,9 @@ interface ChartSegment {
 }
 
 const calculatePathData = (segment: ChartSegment) => {
-	if (segment.angle <= 0) {return "";}
+	if (segment.angle <= 0) {
+		return "";
+	}
 
 	// 外圆和内圆半径
 	const outerRadius = 40;

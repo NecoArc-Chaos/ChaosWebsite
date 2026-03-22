@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { TagChipProps } from "./types";
+import type { TagChipProps } from "./types";
 
-	interface Props extends TagChipProps {}
-	const { href, label, class: className = "" }: Props = $props();
+interface Props extends TagChipProps {}
+const { href, label, class: className = "" }: Props = $props();
 </script>
 
 {#if href}

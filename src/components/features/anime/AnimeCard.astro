@@ -27,9 +27,7 @@ interface Props {
 const { anime, statusInfo, yearLabel, studioLabel } = Astro.props;
 
 const progressPercent =
-	anime.totalEpisodes > 0
-		? (anime.progress / anime.totalEpisodes) * 100
-		: 0;
+	anime.totalEpisodes > 0 ? (anime.progress / anime.totalEpisodes) * 100 : 0;
 ---
 
 <div

@@ -1,10 +1,10 @@
 <script lang="ts">
-	interface Props {
-		show: boolean;
-		class?: string;
-	}
+interface Props {
+	show: boolean;
+	class?: string;
+}
 
-	const { show, class: className = "" }: Props = $props();
+const { show, class: className = "" }: Props = $props();
 </script>
 
 <div class={`accordion-drawer ${className}`} class:open={show}>

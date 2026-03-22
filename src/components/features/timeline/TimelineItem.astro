@@ -1,8 +1,8 @@
 ---
-import I18nKey from "../../../i18n/i18nKey"
-import { i18n } from "../../../i18n/translation"
-import Icon from "../../misc/Icon.astro"
-import type { TimelineItemProps } from "./types"
+import I18nKey from "../../../i18n/i18nKey";
+import { i18n } from "../../../i18n/translation";
+import Icon from "../../misc/Icon.astro";
+import type { TimelineItemProps } from "./types";
 
 const {
 	item,
@@ -10,87 +10,87 @@ const {
 	size = "medium",
 	layout = "timeline",
 	isCurrent = false,
-} = Astro.props as TimelineItemProps
+} = Astro.props as TimelineItemProps;
 
 const getTypeIcon = (type: string) => {
 	switch (type) {
 		case "education":
-			return "material-symbols:school"
+			return "material-symbols:school";
 		case "work":
-			return "material-symbols:work"
+			return "material-symbols:work";
 		case "project":
-			return "material-symbols:code"
+			return "material-symbols:code";
 		case "achievement":
-			return "material-symbols:emoji-events"
+			return "material-symbols:emoji-events";
 		default:
-			return "material-symbols:event"
+			return "material-symbols:event";
 	}
-}
+};
 
 const getTypeColor = (type: string) => {
 	switch (type) {
 		case "education":
-			return "bg-blue-600/20 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+			return "bg-blue-600/20 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400";
 		case "work":
-			return "bg-green-600/20 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+			return "bg-green-600/20 text-green-700 dark:bg-green-900/30 dark:text-green-400";
 		case "project":
-			return "bg-purple-600/20 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400"
+			return "bg-purple-600/20 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400";
 		case "achievement":
-			return "bg-orange-600/20 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400"
+			return "bg-orange-600/20 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400";
 		default:
-			return "btn-regular"
+			return "btn-regular";
 	}
-}
+};
 
 const getTypeText = (type: string) => {
 	switch (type) {
 		case "education":
-			return i18n(I18nKey.timelineEducation)
+			return i18n(I18nKey.timelineEducation);
 		case "work":
-			return i18n(I18nKey.timelineWork)
+			return i18n(I18nKey.timelineWork);
 		case "project":
-			return i18n(I18nKey.timelineProject)
+			return i18n(I18nKey.timelineProject);
 		case "achievement":
-			return i18n(I18nKey.timelineAchievement)
+			return i18n(I18nKey.timelineAchievement);
 		default:
-			return type
+			return type;
 	}
-}
+};
 
 const getLinkIcon = (type: string) => {
 	switch (type) {
 		case "certificate":
-			return "🏆"
+			return "🏆";
 		case "project":
-			return "🔗"
+			return "🔗";
 		case "website":
-			return "🌐"
+			return "🌐";
 		default:
-			return "📄"
+			return "📄";
 	}
-}
+};
 
 const formatDate = (dateString: string) => {
-	const date = new Date(dateString)
-	return date.toLocaleDateString("zh-CN", { year: "numeric", month: "long" })
-}
+	const date = new Date(dateString);
+	return date.toLocaleDateString("zh-CN", { year: "numeric", month: "long" });
+};
 
 const getDuration = (startDate: string, endDate?: string) => {
-	const start = new Date(startDate)
-	const end = endDate ? new Date(endDate) : new Date()
-	const diffTime = Math.abs(end.getTime() - start.getTime())
-	const diffMonths = Math.ceil(diffTime / (1000 * 60 * 60 * 24 * 30))
+	const start = new Date(startDate);
+	const end = endDate ? new Date(endDate) : new Date();
+	const diffTime = Math.abs(end.getTime() - start.getTime());
+	const diffMonths = Math.ceil(diffTime / (1000 * 60 * 60 * 24 * 30));
 
 	if (diffMonths < 12) {
-		return `${diffMonths} ${i18n(I18nKey.timelineMonths)}`
+		return `${diffMonths} ${i18n(I18nKey.timelineMonths)}`;
 	}
-	const years = Math.floor(diffMonths / 12)
-	const months = diffMonths % 12
+	const years = Math.floor(diffMonths / 12);
+	const months = diffMonths % 12;
 	if (months === 0) {
-		return `${years} ${i18n(I18nKey.timelineYears)}`
+		return `${years} ${i18n(I18nKey.timelineYears)}`;
 	}
-	return `${years} ${i18n(I18nKey.timelineYears)} ${months} ${i18n(I18nKey.timelineMonths)}`
-}
+	return `${years} ${i18n(I18nKey.timelineYears)} ${months} ${i18n(I18nKey.timelineMonths)}`;
+};
 
 const getSizeClasses = (size: string) => {
 	switch (size) {
@@ -103,7 +103,7 @@ const getSizeClasses = (size: string) => {
 				meta: "text-xs",
 				description: "text-sm",
 				badge: "text-xs",
-			}
+			};
 		case "large":
 			return {
 				container: "p-8",
@@ -113,7 +113,7 @@ const getSizeClasses = (size: string) => {
 				meta: "text-base",
 				description: "text-base",
 				badge: "text-sm",
-			}
+			};
 		default:
 			return {
 				container: "p-6",
@@ -123,12 +123,12 @@ const getSizeClasses = (size: string) => {
 				meta: "text-sm",
 				description: "text-sm",
 				badge: "text-xs",
-			}
+			};
 	}
-}
+};
 
-const sizeClasses = getSizeClasses(size)
-const itemColor = item.color || "#3B82F6"
+const sizeClasses = getSizeClasses(size);
+const itemColor = item.color || "#3B82F6";
 ---
 
 {layout === 'timeline' ? (

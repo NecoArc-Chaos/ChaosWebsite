@@ -47,13 +47,12 @@ function updateVolumeLogic(
 	audio: HTMLAudioElement | undefined,
 	audioPlayerState: AudioPlayerState,
 ) {
-	if (!audio || !volumeBar) {return;}
+	if (!audio || !volumeBar) {
+		return;
+	}
 
 	const rect = dragState.volumeBarRect || volumeBar.getBoundingClientRect();
-	const percent = Math.max(
-		0,
-		Math.min(1, (clientX - rect.left) / rect.width),
-	);
+	const percent = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
 	audioPlayerState.volume = percent;
 }
 
@@ -64,7 +63,9 @@ export function startVolumeDrag(
 	audio: HTMLAudioElement | undefined,
 	audioPlayerState: AudioPlayerState,
 ) {
-	if (!volumeBar) {return;}
+	if (!volumeBar) {
+		return;
+	}
 	event.preventDefault();
 
 	dragState.isPointerDown = true;
@@ -87,11 +88,15 @@ export function handleVolumeMove(
 	audio: HTMLAudioElement | undefined,
 	audioPlayerState: AudioPlayerState,
 ) {
-	if (!dragState.isPointerDown) {return;}
+	if (!dragState.isPointerDown) {
+		return;
+	}
 	event.preventDefault();
 
 	dragState.isVolumeDragging = true;
-	if (dragState.rafId) {return;}
+	if (dragState.rafId) {
+		return;
+	}
 
 	dragState.rafId = requestAnimationFrame(() => {
 		updateVolumeLogic(
@@ -111,7 +116,9 @@ export function stopVolumeDrag(
 	volumeBar: HTMLElement | null,
 	audioPlayerState: AudioPlayerState,
 ) {
-	if (!dragState.isPointerDown) {return;}
+	if (!dragState.isPointerDown) {
+		return;
+	}
 	dragState.isPointerDown = false;
 	dragState.isVolumeDragging = false;
 	dragState.volumeBarRect = null;
@@ -133,6 +140,8 @@ export function handleVolumeKeyDown(
 ) {
 	if (event.key === "Enter" || event.key === " ") {
 		event.preventDefault();
-		if (event.key === "Enter") {onToggleMute();}
+		if (event.key === "Enter") {
+			onToggleMute();
+		}
 	}
 }

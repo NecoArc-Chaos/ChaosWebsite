@@ -6,27 +6,27 @@ import { Icon } from "astro-icon/components";
 import { profileConfig } from "src/config";
 
 interface Props {
-    title: string;
-    description?: string;
-    author?: string;
-    pubDate: string;
-    coverImage?: string;
-    url: string;
-    siteTitle: string;
-    avatar?: string;
-    class?: string;
+	title: string;
+	description?: string;
+	author?: string;
+	pubDate: string;
+	coverImage?: string;
+	url: string;
+	siteTitle: string;
+	avatar?: string;
+	class?: string;
 }
 
 const {
-    title,
-    description,
-    author = profileConfig.name,
-    pubDate,
-    coverImage,
-    url,
-    siteTitle,
-    avatar,
-    class: className,
+	title,
+	description,
+	author = profileConfig.name,
+	pubDate,
+	coverImage,
+	url,
+	siteTitle,
+	avatar,
+	class: className,
 } = Astro.props;
 ---
 

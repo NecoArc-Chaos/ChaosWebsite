@@ -163,9 +163,7 @@ export class SwupManager {
 	showBanner(): void {
 		requestAnimationFrame(() => {
 			// 处理单图 Banner (桌面端)
-			const banner = document.getElementById(
-				SWUP_SELECTORS.banner.slice(1),
-			);
+			const banner = document.getElementById(SWUP_SELECTORS.banner.slice(1));
 			if (banner) {
 				banner.classList.remove("opacity-0", "scale-105");
 			}
@@ -290,13 +288,11 @@ export class SwupManager {
 
 						if (Math.abs(diffX) > 50) {
 							if (diffX > 0) {
-								const nextIndex =
-									(currentIndex + 1) % validItems.length;
+								const nextIndex = (currentIndex + 1) % validItems.length;
 								switchToSlide(nextIndex);
 							} else {
 								const prevIndex =
-									(currentIndex - 1 + validItems.length) %
-									validItems.length;
+									(currentIndex - 1 + validItems.length) % validItems.length;
 								switchToSlide(prevIndex);
 							}
 						}
@@ -316,8 +312,7 @@ export class SwupManager {
 				clearInterval(carouselInterval);
 				carouselInterval = setInterval(() => {
 					if (!isPaused) {
-						const nextIndex =
-							(currentIndex + 1) % validItems.length;
+						const nextIndex = (currentIndex + 1) % validItems.length;
 						switchToSlide(nextIndex);
 					}
 				}, interval * 1000);

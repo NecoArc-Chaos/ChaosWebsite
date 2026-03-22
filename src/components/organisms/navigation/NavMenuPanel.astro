@@ -1,12 +1,12 @@
 ---
-import { Icon } from "astro-icon/components"
+import { Icon } from "astro-icon/components";
 
-import { LinkPresets } from "../../../constants/link-presets"
-import I18nKey from "../../../i18n/i18nKey"
-import { i18n } from "../../../i18n/translation"
-import type { LinkPreset,NavBarLink } from "../../../types/config"
-import { url } from "../../../utils/url-utils"
-import type { NavMenuPanelProps, ProcessedNavBarLink } from "./types"
+import { LinkPresets } from "../../../constants/link-presets";
+import I18nKey from "../../../i18n/i18nKey";
+import { i18n } from "../../../i18n/translation";
+import type { LinkPreset, NavBarLink } from "../../../types/config";
+import { url } from "../../../utils/url-utils";
+import type { NavMenuPanelProps, ProcessedNavBarLink } from "./types";
 
 const navTitleMap: Record<string, string> = {
 	Links: I18nKey.navLinks,
@@ -21,29 +21,31 @@ const navTitleMap: Record<string, string> = {
 	Skills: I18nKey.skills,
 	Timeline: I18nKey.timeline,
 	Friends: I18nKey.friends,
-}
+};
 
 const getLocalizedName = (name: string): string => {
-	const keyValue = navTitleMap[name]
+	const keyValue = navTitleMap[name];
 	if (keyValue) {
-		return i18n(keyValue as I18nKey)
+		return i18n(keyValue as I18nKey);
 	}
-	return name
-}
+	return name;
+};
 
-const processedLinks: ProcessedNavBarLink[] = (Astro.props as NavMenuPanelProps).links.map(
+const processedLinks: ProcessedNavBarLink[] = (
+	Astro.props as NavMenuPanelProps
+).links.map(
 	(link: NavBarLink): ProcessedNavBarLink => ({
 		...link,
 		children: link.children?.map(
 			(child: NavBarLink | LinkPreset): ProcessedNavBarLink => {
 				if (typeof child === "number") {
-					return LinkPresets[child] as ProcessedNavBarLink
+					return LinkPresets[child] as ProcessedNavBarLink;
 				}
-				return child as ProcessedNavBarLink
+				return child as ProcessedNavBarLink;
 			},
 		),
 	}),
-)
+);
 ---
 <div id="nav-menu-panel" class:list={["float-panel float-panel-closed absolute transition-all fixed right-4 px-2 py-2 max-h-[80vh] overflow-y-auto"]}>
     {processedLinks.map((link) => (

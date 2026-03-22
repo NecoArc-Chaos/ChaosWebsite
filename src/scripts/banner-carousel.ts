@@ -35,7 +35,9 @@ export class BannerCarouselManager {
 		const carousel = document.getElementById(
 			SWUP_SELECTORS.bannerCarousel.slice(1),
 		);
-		if (!carousel) {return;}
+		if (!carousel) {
+			return;
+		}
 
 		// 获取所有轮播项
 		const carouselItems = document.querySelectorAll(".carousel-item");
@@ -44,8 +46,7 @@ export class BannerCarouselManager {
 		this.filterValidItems(carouselItems);
 
 		// 检查是否启用轮播
-		const carouselConfig: CarouselConfig = siteConfig.banner.carousel
-			?.enable
+		const carouselConfig: CarouselConfig = siteConfig.banner.carousel?.enable
 			? {
 					enable: siteConfig.banner.carousel.enable,
 					interval: siteConfig.banner.carousel?.interval || 6,
@@ -149,7 +150,9 @@ export class BannerCarouselManager {
 		carousel.addEventListener(
 			"touchmove",
 			(e: TouchEvent) => {
-				if (!this.startX || !this.startY) {return;}
+				if (!this.startX || !this.startY) {
+					return;
+				}
 
 				const diffX = Math.abs(e.touches[0].clientX - this.startX);
 				const diffY = Math.abs(e.touches[0].clientY - this.startY);
@@ -167,9 +170,7 @@ export class BannerCarouselManager {
 			(e: TouchEvent) => {
 				if (!this.startX || !this.startY || !this.isSwiping) {
 					this.isPaused = false;
-					this.startCarousel(
-						siteConfig.banner.carousel?.interval || 6,
-					);
+					this.startCarousel(siteConfig.banner.carousel?.interval || 6);
 					return;
 				}
 
@@ -179,8 +180,7 @@ export class BannerCarouselManager {
 				if (Math.abs(diffX) > 50) {
 					if (diffX > 0) {
 						// 向左滑动，显示下一张
-						const nextIndex =
-							(this.currentIndex + 1) % this.validItems.length;
+						const nextIndex = (this.currentIndex + 1) % this.validItems.length;
 						this.switchToSlide(nextIndex);
 					} else {
 						// 向右滑动，显示上一张
@@ -225,8 +225,7 @@ export class BannerCarouselManager {
 		if (!this.isPaused) {
 			this.interval = setInterval(() => {
 				if (!this.isPaused) {
-					const nextIndex =
-						(this.currentIndex + 1) % this.validItems.length;
+					const nextIndex = (this.currentIndex + 1) % this.validItems.length;
 					this.switchToSlide(nextIndex);
 				}
 			}, intervalSeconds * 1000);

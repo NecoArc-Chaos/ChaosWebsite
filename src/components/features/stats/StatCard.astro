@@ -1,5 +1,5 @@
 ---
-import type { StatCardProps } from "./types"
+import type { StatCardProps } from "./types";
 
 const {
 	title,
@@ -11,7 +11,7 @@ const {
 	size = "medium",
 	trend,
 	link,
-} = Astro.props as StatCardProps
+} = Astro.props as StatCardProps;
 
 const getSizeClasses = (size: string) => {
 	switch (size) {
@@ -23,7 +23,7 @@ const getSizeClasses = (size: string) => {
 				subtitle: "text-xs",
 				icon: "text-lg",
 				iconContainer: "w-8 h-8",
-			}
+			};
 		case "large":
 			return {
 				container: "p-6",
@@ -32,7 +32,7 @@ const getSizeClasses = (size: string) => {
 				subtitle: "text-sm",
 				icon: "text-2xl",
 				iconContainer: "w-12 h-12",
-			}
+			};
 		default:
 			return {
 				container: "p-4",
@@ -41,22 +41,22 @@ const getSizeClasses = (size: string) => {
 				subtitle: "text-xs",
 				icon: "text-xl",
 				iconContainer: "w-10 h-10",
-			}
+			};
 	}
-}
+};
 
-const sizeClasses = getSizeClasses(size)
+const sizeClasses = getSizeClasses(size);
 
 const getBackgroundStyle = () => {
 	if (gradient) {
-		return `background: linear-gradient(135deg, ${gradient.from}, ${gradient.to})`
+		return `background: linear-gradient(135deg, ${gradient.from}, ${gradient.to})`;
 	}
-	return `background: linear-gradient(135deg, ${color}15, ${color}25)`
-}
+	return `background: linear-gradient(135deg, ${color}15, ${color}25)`;
+};
 
 const getIconStyle = () => {
-	return `background-color: ${color}20; color: ${color}`
-}
+	return `background-color: ${color}20; color: ${color}`;
+};
 ---
 
 <div 

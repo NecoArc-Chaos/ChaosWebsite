@@ -1,5 +1,5 @@
 ---
-import { formatRelativeTime } from '../../../utils/timeFormat';
+import { formatRelativeTime } from "../../../utils/timeFormat";
 
 interface Props {
 	moment: {
@@ -14,7 +14,12 @@ interface Props {
 }
 
 const { moment, index, minutesAgo, hoursAgo, daysAgo } = Astro.props;
-const relativeTime = formatRelativeTime(moment.date, minutesAgo, hoursAgo, daysAgo);
+const relativeTime = formatRelativeTime(
+	moment.date,
+	minutesAgo,
+	hoursAgo,
+	daysAgo,
+);
 ---
 
 <div class="moment-item card-base-daily p-4 md:p-6 lg:p-8 hover:shadow-lg transition-all" data-index={index}>
