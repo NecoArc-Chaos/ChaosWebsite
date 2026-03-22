@@ -7,35 +7,35 @@ export const DEFAULT_VOLUME = 0.7;
 export const LOCAL_PLAYLIST: Song[] = [
 	{
 		id: 1,
-		title: "口笛で愛は歌えない",
-		artist: "Dazbee",
-		cover: "assets/music/cover/dazbee.jpg",
-		url: "assets/music/url/dazbee.mp3",
-		duration: 0,
+		title: "welcome to valhalla",
+		artist: "Garoad",
+		cover: "assets/music/cover/welcome to valhalla.jpg",
+		url: "assets/music/url/welcome to valhalla.mp3",
+		duration: 188,
 	},
 	{
 		id: 2,
-		title: "ひとり上手",
-		artist: "Kaya",
-		cover: "assets/music/cover/hitori.jpg",
-		url: "assets/music/url/hitori.mp3",
-		duration: 240,
+		title: "Safe Haven",
+		artist: "Garoad",
+		cover: "assets/music/cover/Safe Haven.jpg",
+		url: "assets/music/url/Safe Haven.mp3",
+		duration: 159,
 	},
 	{
 		id: 3,
-		title: "眩耀夜行",
-		artist: "ス리즈ブーケ",
-		cover: "assets/music/cover/xryx.jpg",
-		url: "assets/music/url/xryx.mp3",
-		duration: 180,
+		title: "Every Day Is Night",
+		artist: "Garoad",
+		cover: "assets/music/cover/Every Day Is Night.jpg",
+		url: "assets/music/url/Every Day Is Night.mp3",
+		duration: 220,
 	},
 	{
 		id: 4,
-		title: "春雷の頃",
-		artist: "22/7",
-		cover: "assets/music/cover/cl.jpg",
-		url: "assets/music/url/cl.mp3",
-		duration: 200,
+		title: "Your Love Is a Drug",
+		artist: "Garoad",
+		cover: "assets/music/cover/your love is a drug.jpg",
+		url: "assets/music/url/your love is a drug.mp3",
+		duration: 180,
 	},
 ];
 
@@ -56,3 +56,4 @@ export const DEFAULT_METING_TYPE = "playlist";
 
 export const ERROR_DISPLAY_DURATION = 3000;
 export const SKIP_ERROR_DELAY = 1000;
+
