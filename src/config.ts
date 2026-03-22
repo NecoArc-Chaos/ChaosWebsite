@@ -9,6 +9,8 @@ import type {
 	NavBarConfig,
 	PermalinkConfig,
 	ProfileConfig,
+	RandomPostsConfig,
+	RelatedPostsConfig,
 	SakuraConfig,
 	ShareConfig,
 	SidebarLayoutConfig,
@@ -212,7 +214,12 @@ export const siteConfig: SiteConfig = {
 			enableCompress: true, // 启用字体子集优化，减少字体文件大小
 		},
 	},
-	showLastModified: true, // 控制“上次编辑”卡片显示的开关
+	showLastModified: true, // 控制"上次编辑"卡片显示的开关
+	pageProgressBar: {
+		enable: true, // 启用页面顶部进度条
+		height: 3, // 进度条高度 3px
+		duration: 6000, // 动画时长 6s
+	},
 };
 export const fullscreenWallpaperConfig: FullscreenWallpaperConfig = {
 	src: {
@@ -275,7 +282,7 @@ export const navBarConfig: NavBarConfig = {
 				},
 				{
 					name: "Devices",
-					url: "devices/",
+					url: "/devices/",
 					icon: "material-symbols:devices",
 					external: false,
 				},
@@ -425,10 +432,11 @@ export const announcementConfig: AnnouncementConfig = {
 1;
 export const musicPlayerConfig: MusicPlayerConfig = {
 	enable: true, // 启用音乐播放器功能
+	showFloatingPlayer: true, // 显示悬浮播放器 UI
 	mode: "local", // 音乐播放器模式，可选 "local" 或 "meting"
 	meting_api:
-		"https://www.bilibili.uno/api?server=:server&type=:type&id=:id&auth=:auth&r=:r", // Meting API 地址
-	id: "17500732703", // 歌单ID
+		"https://meting.mysqil.com/api?server=:server&type=:type&id=:id&auth=:auth&r=:r", // Meting API 地址
+	id: "14164869977", // 歌单ID
 	server: "netease", // 音乐源服务器。有的meting的api源支持更多平台,一般来说,netease=网易云音乐, tencent=QQ音乐, kugou=酷狗音乐, xiami=虾米音乐, baidu=百度音乐
 	type: "playlist", // 播单类型
 };
@@ -471,6 +479,13 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			animationDelay: 50,
 		},
 		{
+			// 组件类型：侧栏音乐组件
+			type: "music-sidebar",
+			position: "sticky",
+			class: "onload-animation",
+			animationDelay: 100,
+		},
+		{
 			// 组件类型：分类组件
 			type: "categories",
 			// 组件位置："sticky" 表示粘性定位，可滚动
@@ -501,6 +516,16 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			},
 		},
 		{
+			// 组件类型：卡片式目录组件
+			type: "card-toc",
+			// 组件位置
+			position: "sticky",
+			// CSS 类名
+			class: "onload-animation",
+			// 动画延迟时间
+			animationDelay: 200,
+		},
+		{
 			// 组件类型：站点统计组件
 			type: "site-stats",
 			// 组件位置
@@ -525,8 +550,14 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 	// 侧栏组件布局配置
 	components: {
 		left: ["profile", "announcement", "categories", "tags"],
-		right: ["site-stats", "calendar"],
-		drawer: ["profile", "announcement", "categories", "tags"],
+		right: ["site-stats", "calendar", "music-sidebar", "card-toc"],
+		drawer: [
+			"profile",
+			"announcement",
+			"music-sidebar",
+			"categories",
+			"tags",
+		],
 	},
 
 	// 默认动画配置
@@ -604,6 +635,18 @@ export const pioConfig: import("./types/config").PioConfig = {
 	},
 };
 
+// 相关文章配置
+export const relatedPostsConfig: RelatedPostsConfig = {
+	enable: true,
+	maxCount: 5,
+};
+
+// 随机文章配置
+export const randomPostsConfig: RandomPostsConfig = {
+	enable: true,
+	maxCount: 5,
+};
+
 // 导出所有配置的统一接口
 export const widgetConfigs = {
 	profile: profileConfig,
@@ -614,6 +657,8 @@ export const widgetConfigs = {
 	fullscreenWallpaper: fullscreenWallpaperConfig,
 	pio: pioConfig,
 	share: shareConfig,
+	relatedPosts: relatedPostsConfig,
+	randomPosts: randomPostsConfig,
 } as const;
 
 // umamiConfig相关配置已移动至astro.config.mjs中,统计脚本请自行在Layout.astro文件的<head>中插入

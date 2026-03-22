@@ -272,6 +272,7 @@ export const ja: Translation = {
 		"このコンテンツはパスワードで保護されています",
 	[Key.passwordProtectedDescription]:
 		"保護されたコンテンツを表示するにはパスワードを入力してください。",
+	[Key.postEncrypted]: "暗号化",
 	[Key.passwordPlaceholder]: "パスワードを入力",
 	[Key.passwordUnlock]: "ロックを解除",
 	[Key.passwordUnlocking]: "ロックを解除中...",
@@ -355,4 +356,10 @@ export const ja: Translation = {
 	// レイアウト切り替えボタン
 	[Key.switchToGridMode]: "グリッド表示に切り替え",
 	[Key.switchToListMode]: "リスト表示に切り替え",
+
+	// 関連記事とランダム記事
+	[Key.relatedPosts]: "関連記事",
+	[Key.randomPosts]: "ランダム記事",
+	[Key.smartRecommend]: "スマート",
+	[Key.randomRecommend]: "ランダム",
 };

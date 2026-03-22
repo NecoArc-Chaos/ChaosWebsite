@@ -213,6 +213,7 @@ export const zh_CN: Translation = {
 	[Key.passwordProtected]: "密码保护",
 	[Key.passwordProtectedTitle]: "此内容受密码保护",
 	[Key.passwordProtectedDescription]: "请输入密码以查看受保护的内容",
+	[Key.postEncrypted]: "已加密",
 	[Key.passwordPlaceholder]: "请输入密码",
 	[Key.passwordUnlock]: "解锁",
 	[Key.passwordUnlocking]: "解锁中...",
@@ -339,4 +340,10 @@ export const zh_CN: Translation = {
 	// 布局切换按钮
 	[Key.switchToGridMode]: "切换到网格模式",
 	[Key.switchToListMode]: "切换到列表模式",
+
+	// 相关文章与随机文章
+	[Key.relatedPosts]: "相关文章",
+	[Key.randomPosts]: "随机文章",
+	[Key.smartRecommend]: "智能推荐",
+	[Key.randomRecommend]: "随机推荐",
 };
