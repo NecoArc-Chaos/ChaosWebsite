@@ -26,7 +26,8 @@ export const friendsData: FriendItem[] = [
 		       
 		     可以在任意平台私信我，
 		     或者发邮件到acceleratoor0123@gmail.com
-		     我会尽快处理的！
+		     我会尽快处理的！"
+		     
 		siteurl: "https://www.necoarcchaos.xyz/",
 		tags: ["Friend"],
 	},
