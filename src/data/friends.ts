@@ -20,15 +20,15 @@ export const friendsData: FriendItem[] = [
 		siteurl: "https://www.necoarcchaos.xyz/",
 		tags: ["Friend"],
 	},
-	/*{
-		id: 3,
-		title: "Vercel",
-		imgurl: "https://avatars.githubusercontent.com/u/14985020?v=4&s=640",
-		desc: "Develop. Preview. Ship.",
-		siteurl: "https://vercel.com",
-		tags: ["Hosting", "Cloud"],
-	},
 	{
+		id: 2,
+		title: "Nanci的个人主页",
+		imgurl: "https://nanci.solian.page/avatar.png",
+		desc: "遥看月色亦无痕，夜雨落花沾凡尘",
+		siteurl: "https://blog.thsl.dpdns.org/",
+		tags: ["Friend"],
+	},
+	/*{
 		id: 4,
 		title: "Tailwind CSS",
 		imgurl: "https://avatars.githubusercontent.com/u/67109815?v=4&s=640",
