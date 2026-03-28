@@ -15,14 +15,17 @@
 		type SizeConfig,
 	} from "./utils/poster-renderer";
 
-	export let title: string;
-	export let author: string;
-	export let description = "";
-	export let pubDate: string;
-	export let coverImage: string | null = null;
-	export let url: string;
-	export let siteTitle: string;
-	export let avatar: string | null = null;
+	// 使用 $props() 接收参数
+	let {
+		title,
+		author,
+		description = "",
+		pubDate,
+		coverImage = null,
+		url,
+		siteTitle,
+		vatar = null,
+	} = $props();
 
 	const SCALE = 2;
 	const WIDTH = 425 * SCALE;

@@ -1,33 +1,17 @@
 <script lang="ts">
-import Key from "../../../../i18n/i18nKey";
-import { i18n } from "../../../../i18n/translation";
-import type { Song } from "../types";
+	import Key from "../../../../i18n/i18nKey";
+	import { i18n } from "../../../../i18n/translation";
+	import type { Song } from "../types";
 
-interface Props {
-	song: Song;
-	currentTime: number;
-	duration: number;
-	showTime?: boolean;
-	size?: "mini" | "expanded";
-}
-
-const {
-	song,
-	currentTime,
-	duration,
-	showTime = false,
-	size = "mini",
-}: Props = $props();
-
-function formatTime(seconds: number): string {
-	if (!Number.isFinite(seconds) || seconds < 0) {
-		return "0:00";
+	interface Props {
+		song: Song;
+		currentTime: number;
+		duration: number;
+		showTime?: boolean;
+		size?: "mini" | "expanded";
 	}
-	const mins = Math.floor(seconds / 60);
-	const secs = Math.floor(seconds % 60);
-	return `${mins}:${secs.toString().padStart(2, "0")}`;
-}
 
+	// Svelte 5: $props 只能在顶层调用一次
 	const {
 		song,
 		currentTime,
@@ -46,6 +30,7 @@ function formatTime(seconds: number): string {
 	}
 
 	function getAssetPath(path: string): string {
+		if (!path) return "";
 		if (path.startsWith("http://") || path.startsWith("https://")) {
 			return path;
 		}
@@ -54,8 +39,6 @@ function formatTime(seconds: number): string {
 		}
 		return `/${path}`;
 	}
-	return `/${path}`;
-}
 </script>
 
 {#if size === "mini"}

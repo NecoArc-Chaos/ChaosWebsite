@@ -1,7 +1,6 @@
 <script lang="ts">
-import Icon from "@iconify/svelte";
-
-import type { Song } from "../types";
+	import Icon from "@iconify/svelte";
+	import type { Song } from "../types";
 
 	interface Props {
 		song: Song;
@@ -12,6 +11,7 @@ import type { Song } from "../types";
 		lazy?: boolean;
 	}
 
+	// Svelte 5 使用 $props() 接收参数
 	const {
 		song,
 		index,
@@ -21,7 +21,9 @@ import type { Song } from "../types";
 		lazy = true,
 	}: Props = $props();
 
+	// 修复后的路径处理函数
 	function getAssetPath(path: string): string {
+		if (!path) return "";
 		if (path.startsWith("http://") || path.startsWith("https://")) {
 			return path;
 		}
@@ -30,8 +32,6 @@ import type { Song } from "../types";
 		}
 		return `/${path}`;
 	}
-	return `/${path}`;
-}
 </script>
 
 <div

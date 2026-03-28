@@ -1,27 +1,12 @@
 <script lang="ts">
-import type { CalendarStats } from "../types/calendar";
+	import type { CalendarStats } from "../types/calendar";
 
-interface Props {
-	monthNames: string[];
-	currentYear: number;
-	currentMonth: number;
-	stats: CalendarStats;
-	onMonthSelect: (month: number) => void;
-}
-
-const { monthNames, currentYear, currentMonth, stats, onMonthSelect }: Props =
-	$props();
-
-function getMonthClass(index: number, hasPost: boolean): string {
-	const isCurrentMonth = index === currentMonth;
-	let baseClass =
-		"cursor-pointer rounded-lg flex flex-col items-center justify-center p-2 transition-all hover:bg-[var(--btn-plain-bg-hover)] relative border border-transparent";
-
-	if (isCurrentMonth) {
-		baseClass +=
-			" border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/5";
-	} else {
-		baseClass += " text-neutral-700 dark:text-neutral-300";
+	interface Props {
+		monthNames: string[];
+		currentYear: number;
+		currentMonth: number;
+		stats: CalendarStats;
+		onMonthSelect: (month: number) => void;
 	}
 
 	const {
@@ -47,6 +32,25 @@ function getMonthClass(index: number, hasPost: boolean): string {
 		return baseClass;
 	}
 </script>
+
+<div class="w-full h-full p-4 grid grid-cols-3 gap-3 content-center">
+	{#each monthNames as month, index}
+		<button
+			class={getMonthClass(
+				index,
+				!!stats.hasPostInMonth[`${currentYear}-${index + 1}`],
+			)}
+			onclick={() => onMonthSelect(index)}
+		>
+			<span class="text-sm font-medium">{month}</span>
+			{#if stats.hasPostInMonth[`${currentYear}-${index + 1}`]}
+				<span
+					class="absolute top-1 right-1 w-1.5 h-1.5 bg-[var(--primary)] rounded-full"
+				></span>
+			{/if}
+		</button>
+	{/each}
+</div>
 
 <div class="w-full h-full p-4 grid grid-cols-3 gap-3 content-center">
 	{#each monthNames as name, index}

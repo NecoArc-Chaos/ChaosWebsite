@@ -360,16 +360,6 @@ export const profileConfig: ProfileConfig = {
 			icon: "fa6-brands:github",
 			url: "https://github.com/NecoArc-Chaos",
 		},
-		/*{
-			name: "Discord",
-			icon: "fa6-brands:discord",
-			url: "https://discord.gg/8vGth8FM",
-		},*/
-		{
-			name: "Solian",
-			icon: "local:solian",
-			url: "https://web.solian.app/#/accounts/Neco-ArcChaos",
-		},
 	],
 };
 

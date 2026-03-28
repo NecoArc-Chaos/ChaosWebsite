@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-
 	import type { CalendarStats } from "../types/calendar";
 
 	interface Props {
@@ -11,9 +10,10 @@
 
 	const { currentYear, stats, onYearSelect }: Props = $props();
 
-	let containerEl: HTMLDivElement;
+	let containerEl: HTMLDivElement | undefined = $state();
 
-	const years = $derived(() => {
+	// 修复：Svelte 5 正确的 $derived 语法（移除匿名函数包裹）
+	const years = $derived.by(() => {
 		const result: number[] = [];
 		for (let y = stats.minYear; y <= stats.maxYear; y++) {
 			result.push(y);
@@ -37,32 +37,7 @@
 	}
 
 	function scrollToCurrentYear() {
-		setTimeout(() => {
-			const el = containerEl?.querySelector(
-				`[data-year="${currentYear}"]`,
-			);
-			if (el) {
-				el.scrollIntoView({ block: "center", behavior: "smooth" });
-			}
-		}, 50);
-	}
-
-	function getYearClass(year: number): string {
-		const isCurrent = year === currentYear;
-		let baseClass =
-			"cursor-pointer rounded-lg flex flex-col items-center justify-center py-3 transition-all hover:bg-[var(--btn-plain-bg-hover)] relative border border-transparent";
-
-		if (isCurrent) {
-			baseClass +=
-				" border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/5";
-		} else {
-			baseClass += " text-neutral-700 dark:text-neutral-300";
-		}
-
-		return baseClass;
-	}
-
-	function scrollToCurrentYear() {
+		if (typeof window === "undefined") return; // SSR 安全检查
 		setTimeout(() => {
 			const el = containerEl?.querySelector(
 				`[data-year="${currentYear}"]`,
@@ -82,7 +57,7 @@
 	bind:this={containerEl}
 	class="w-full h-full p-2 grid grid-cols-4 gap-2 content-start overflow-y-auto custom-scrollbar"
 >
-	{#each years() as year (year)}
+	{#each years as year (year)}
 		{@const hasPost = stats.hasPostInYear[year]}
 		<button
 			type="button"
