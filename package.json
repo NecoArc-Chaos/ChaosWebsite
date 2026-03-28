@@ -118,7 +118,7 @@
 		"svelte-eslint-parser": "^1.6.0",
 		"typescript-eslint": "^8.57.1"
 	},
-	"packageManager": "pnpm@10.32.1",
+	"packageManager": "pnpm@10.33.0",
 	"pnpm": {
 		"overrides": {
 			"@emmetio/css-parser": "https://codeload.github.com/ramya-rao-a/css-parser/tar.gz/370c480ac103bd17c7bcfb34bf5d577dc40d3660"
