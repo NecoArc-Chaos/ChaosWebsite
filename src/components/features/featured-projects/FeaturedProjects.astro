@@ -11,10 +11,17 @@ const {
 ---
 
 <div class={className}>
-    {title && <SectionTitle title={title} />}
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {projects.map((project) => (
-            <ProjectCard project={project} size="medium" showImage={true} maxTechStack={3} />
-        ))}
-    </div>
+	{title && <SectionTitle title={title} />}
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+		{
+			projects.map((project) => (
+				<ProjectCard
+					project={project}
+					size="large"
+					showImage={true}
+					maxTechStack={4}
+				/>
+			))
+		}
+	</div>
 </div>

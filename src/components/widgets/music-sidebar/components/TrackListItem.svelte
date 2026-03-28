@@ -33,8 +33,9 @@ function getAssetPath(path: string): string {
 			onclick();
 		}
 	}}
-	role="button"
+	role="option"
 	tabindex="0"
+	aria-selected={isCurrent}
 	aria-label={`播放 ${song.title} - ${song.artist}`}
 >
 	<div class="cover-shell">

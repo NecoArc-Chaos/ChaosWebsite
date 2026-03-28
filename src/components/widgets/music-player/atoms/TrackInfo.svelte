@@ -28,12 +28,31 @@ function formatTime(seconds: number): string {
 	return `${mins}:${secs.toString().padStart(2, "0")}`;
 }
 
-function getAssetPath(path: string): string {
-	if (path.startsWith("http://") || path.startsWith("https://")) {
-		return path;
+	const {
+		song,
+		currentTime,
+		duration,
+		showTime = false,
+		size = "mini",
+	}: Props = $props();
+
+	function formatTime(seconds: number): string {
+		if (!Number.isFinite(seconds) || seconds < 0) {
+			return "0:00";
+		}
+		const mins = Math.floor(seconds / 60);
+		const secs = Math.floor(seconds % 60);
+		return `${mins}:${secs.toString().padStart(2, "0")}`;
 	}
-	if (path.startsWith("/")) {
-		return path;
+
+	function getAssetPath(path: string): string {
+		if (path.startsWith("http://") || path.startsWith("https://")) {
+			return path;
+		}
+		if (path.startsWith("/")) {
+			return path;
+		}
+		return `/${path}`;
 	}
 	return `/${path}`;
 }

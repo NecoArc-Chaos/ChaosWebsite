@@ -43,22 +43,24 @@ const picked = shuffled.slice(0, maxCount);
 	badge={i18n(I18nKey.randomRecommend)}
 	icon="material-symbols:recommend"
 >
-	{picked.length > 0 ? (
-		<div class="flex flex-col -mx-1">
-			{picked.map((post, idx) => (
-				<>
-					<PostListItem
-						post={post}
-						index={idx}
-						dateFormat="iso"
-					/>
-					{idx < picked.length - 1 && <ListDivider />}
-				</>
-			))}
-		</div>
-	) : (
-		<div class="text-sm text-black/30 dark:text-white/30 px-3 py-3">
-			{i18n(I18nKey.noData)}
-		</div>
-	)}
+	{
+		picked.length > 0 ? (
+			<div class="flex flex-col -mx-1">
+				{picked.map((post, idx) => (
+					<>
+						<PostListItem
+							post={post}
+							index={idx}
+							dateFormat="iso"
+						/>
+						{idx < picked.length - 1 && <ListDivider />}
+					</>
+				))}
+			</div>
+		) : (
+			<div class="text-sm text-black/30 dark:text-white/30 px-3 py-3">
+				{i18n(I18nKey.noData)}
+			</div>
+		)
+	}
 </ListContainer>

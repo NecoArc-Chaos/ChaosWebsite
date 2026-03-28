@@ -52,7 +52,10 @@ export class SwupHooksManager {
 			if (selector.startsWith("#")) {
 				this.cachedElements.set(selector, document.getElementById(id));
 			} else {
-				this.cachedElements.set(selector, document.querySelector(selector));
+				this.cachedElements.set(
+					selector,
+					document.querySelector(selector),
+				);
 			}
 		}
 		return this.cachedElements.get(selector) ?? null;
@@ -83,7 +86,10 @@ export class SwupHooksManager {
 	private registerLinkClickHook(): void {
 		window.swup!.hooks.on("link:click", () => {
 			// 移除首次页面加载的延迟
-			document.documentElement.style.setProperty("--content-delay", "0ms");
+			document.documentElement.style.setProperty(
+				"--content-delay",
+				"0ms",
+			);
 
 			// 处理 navbar 隐藏
 			if (this.bannerEnabled) {
@@ -199,10 +205,13 @@ export class SwupHooksManager {
 		const isArticlePage = tocWrapper !== null;
 
 		if (isArticlePage) {
-			const tocElement = this.getCachedElement(SWUP_SELECTORS.tableOfContents);
+			const tocElement = this.getCachedElement(
+				SWUP_SELECTORS.tableOfContents,
+			);
 			const hasDesktopTOC =
 				tocElement && typeof (tocElement as any).init === "function";
-			const hasMobileTOC = typeof (window as any).mobileTOCInit === "function";
+			const hasMobileTOC =
+				typeof (window as any).mobileTOCInit === "function";
 
 			if (hasDesktopTOC || hasMobileTOC) {
 				setTimeout(() => {
@@ -223,9 +232,14 @@ export class SwupHooksManager {
 	private reinitSemifullScrollDetection(): void {
 		const navbar = this.getCachedElement(SWUP_SELECTORS.navbar);
 		if (navbar) {
-			const transparentMode = navbar.getAttribute("data-transparent-mode");
+			const transparentMode = navbar.getAttribute(
+				"data-transparent-mode",
+			);
 			if (transparentMode === "semifull") {
-				if (typeof (window as any).initSemifullScrollDetection === "function") {
+				if (
+					typeof (window as any).initSemifullScrollDetection ===
+					"function"
+				) {
 					(window as any).initSemifullScrollDetection();
 				}
 			}
@@ -271,9 +285,14 @@ export class SwupHooksManager {
 			navbar.setAttribute("data-is-home", isHomePage.toString());
 
 			// 重新初始化 semifull 模式滚动检测
-			const transparentMode = navbar.getAttribute("data-transparent-mode");
+			const transparentMode = navbar.getAttribute(
+				"data-transparent-mode",
+			);
 			if (transparentMode === "semifull") {
-				if (typeof (window as any).initSemifullScrollDetection === "function") {
+				if (
+					typeof (window as any).initSemifullScrollDetection ===
+					"function"
+				) {
 					(window as any).initSemifullScrollDetection();
 				}
 			}
@@ -284,8 +303,12 @@ export class SwupHooksManager {
 	 * 处理移动端 Banner 可见性
 	 */
 	private handleMobileBannerVisibility(isHomePage: boolean): void {
-		const bannerWrapper = this.getCachedElement(SWUP_SELECTORS.bannerWrapper);
-		const mainContentWrapper = this.getCachedElement(".absolute.w-full.z-30");
+		const bannerWrapper = this.getCachedElement(
+			SWUP_SELECTORS.bannerWrapper,
+		);
+		const mainContentWrapper = this.getCachedElement(
+			".absolute.w-full.z-30",
+		);
 
 		if (bannerWrapper && mainContentWrapper) {
 			if (isHomePage) {
@@ -294,7 +317,9 @@ export class SwupHooksManager {
 					bannerWrapper.classList.remove("mobile-hide-banner");
 				}, ANIMATION_CONFIG.mobileBannerDelay);
 				setTimeout(() => {
-					mainContentWrapper.classList.remove("mobile-main-no-banner");
+					mainContentWrapper.classList.remove(
+						"mobile-main-no-banner",
+					);
 				}, ANIMATION_CONFIG.mobileContentDelay);
 			} else {
 				// 非首页：分阶段隐藏
@@ -310,13 +335,25 @@ export class SwupHooksManager {
 	 * 扩展/隐藏页面高度
 	 */
 	private extendPageHeight(hide: boolean): void {
-		const heightExtend = this.getCachedElement(SWUP_SELECTORS.pageHeightExtend);
-		if (heightExtend) {
-			if (hide) {
-				heightExtend.classList.add("hidden");
-			} else {
-				heightExtend.classList.remove("hidden");
-			}
+		const heightExtend = this.getCachedElement(
+			SWUP_SELECTORS.pageHeightExtend,
+		);
+		if (!heightExtend) {
+			return;
+		}
+
+		// 只在 Banner 模式下启用高度扩展
+		// fullscreen/none 模式内容往往不足一屏，如果强行扩展高度，
+		// 会导致滚动条在页面过渡期间闪现，引发布局左右抖动
+		const isBannerMode = document.body.classList.contains("enable-banner");
+		if (!isBannerMode) {
+			return;
+		}
+
+		if (hide) {
+			heightExtend.classList.add("hidden");
+		} else {
+			heightExtend.classList.remove("hidden");
 		}
 	}
 
@@ -353,15 +390,20 @@ export class SwupHooksManager {
 			? THEME_CONFIG.darkExpressiveTheme
 			: THEME_CONFIG.lightExpressiveTheme;
 
-		const currentTheme = document.documentElement.getAttribute("data-theme");
-		const hasDarkClass = document.documentElement.classList.contains("dark");
+		const currentTheme =
+			document.documentElement.getAttribute("data-theme");
+		const hasDarkClass =
+			document.documentElement.classList.contains("dark");
 
 		// 如果主题不匹配，使用批量更新减少重绘
 		if (currentTheme !== expectedTheme || hasDarkClass !== isDark) {
 			requestAnimationFrame(() => {
 				// 同步 data-theme 属性
 				if (currentTheme !== expectedTheme) {
-					document.documentElement.setAttribute("data-theme", expectedTheme);
+					document.documentElement.setAttribute(
+						"data-theme",
+						expectedTheme,
+					);
 				}
 				// 同步 dark class
 				if (hasDarkClass !== isDark) {
@@ -381,7 +423,10 @@ export class SwupHooksManager {
 	 */
 	private dispatchPageLoadedEvent(): void {
 		setTimeout(() => {
-			if (document.getElementById("tcomment")) {
+			if (
+				document.getElementById("tcomment") ||
+				document.getElementById("giscus-container")
+			) {
 				const pageLoadedEvent = new CustomEvent("mizuki:page:loaded", {
 					detail: {
 						path: window.location.pathname,

@@ -166,7 +166,7 @@ const stats = [
 			'[data-stat-id="running-days"]',
 		);
 		if (runningDaysElements.length > 0) {
-			runningDaysElements.forEach(element => {
+			runningDaysElements.forEach((element) => {
 				element.textContent = diffDays.toString();
 			});
 		}
@@ -185,9 +185,9 @@ const stats = [
 				'[data-stat-id="last-update"]',
 			);
 			if (lastUpdateElements.length > 0) {
-				lastUpdateElements.forEach(element => {
+				lastUpdateElements.forEach((element) => {
 					element.textContent = daysSinceLastUpdate.toString();
-				})
+				});
 			}
 		}
 	}

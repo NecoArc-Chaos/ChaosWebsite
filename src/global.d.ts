@@ -50,6 +50,8 @@ declare global {
 			}>;
 		};
 
+		loadPagefind?: () => Promise<void>;
+		toggleFloatingTOC?: () => void;
 		mobileTOCInit?: () => void;
 		initSemifullScrollDetection?: () => void;
 		iconifyLoaded?: boolean;

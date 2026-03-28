@@ -62,7 +62,10 @@ export function createHeadingClickHandler(
 		event.preventDefault();
 		const id = decodeURIComponent(anchor.hash.substring(1));
 		const config = getConfig?.() || {};
-		scrollToHeading(id, { offset: config.offset, behavior: config.behavior });
+		scrollToHeading(id, {
+			offset: config.offset,
+			behavior: config.behavior,
+		});
 	};
 }
 
@@ -75,7 +78,9 @@ export function getTOCConfig(): {
 } {
 	const siteConfig = (
 		window as unknown as {
-			siteConfig?: { toc?: { depth?: number; useJapaneseBadge?: boolean } };
+			siteConfig?: {
+				toc?: { depth?: number; useJapaneseBadge?: boolean };
+			};
 		}
 	).siteConfig;
 	return {

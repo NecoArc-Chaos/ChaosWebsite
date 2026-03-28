@@ -5,16 +5,24 @@ import type { ProjectsCategoryProps } from "./types";
 
 const {
 	projects,
+	category,
 	categoryText,
 	class: className = "",
 } = Astro.props as ProjectsCategoryProps;
 ---
 
-<div class={className}>
+<div class={`projects-category-section ${className}`} data-category={category}>
 	<SectionTitle title={categoryText} count={projects.length} />
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-		{projects.map((project) => (
-			<ProjectCard project={project} size="medium" showImage={true} maxTechStack={3} />
-		))}
+		{
+			projects.map((project) => (
+				<ProjectCard
+					project={project}
+					size="medium"
+					showImage={true}
+					maxTechStack={3}
+				/>
+			))
+		}
 	</div>
 </div>

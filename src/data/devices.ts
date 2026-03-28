@@ -33,7 +33,8 @@ export const devicesData: DeviceCategory = {
 			name: "Pixel Watch 3",
 			image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKjYPaNFIYJEXKN7-tYU9u5PQ5slBMfl8RaV1LbjSifg&s=10",
 			specs: "Wifi / 45mm / 美版",
-			description: "Pixel Watch 3 的錶徑有45 公釐，螢幕較前一代大40% 以上，無論是運動、使用地圖或處理其他事務，一眼就能掌握更豐富的資訊. ",
+			description:
+				"Pixel Watch 3 的錶徑有45 公釐，螢幕較前一代大40% 以上，無論是運動、使用地圖或處理其他事務，一眼就能掌握更豐富的資訊. ",
 			link: "https://www.google-mobile.cn/?product=pixel-watch-3",
 		},
 	],

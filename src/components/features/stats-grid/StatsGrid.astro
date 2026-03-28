@@ -16,7 +16,5 @@ const mdGridCols = {
 ---
 
 <div class={`grid grid-cols-2 ${mdGridCols[columns]} gap-4 mb-8 ${className}`}>
-	{stats.map((stat) => (
-		<StatCard {...stat} />
-	))}
+	{stats.map((stat) => <StatCard {...stat} />)}
 </div>

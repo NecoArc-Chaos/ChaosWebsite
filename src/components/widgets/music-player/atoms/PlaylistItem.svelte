@@ -3,22 +3,32 @@ import Icon from "@iconify/svelte";
 
 import type { Song } from "../types";
 
-interface Props {
-	song: Song;
-	index: number;
-	isCurrent: boolean;
-	isPlaying: boolean;
-	onclick: () => void;
-}
-
-const { song, index, isCurrent, isPlaying, onclick }: Props = $props();
-
-function getAssetPath(path: string): string {
-	if (path.startsWith("http://") || path.startsWith("https://")) {
-		return path;
+	interface Props {
+		song: Song;
+		index: number;
+		isCurrent: boolean;
+		isPlaying: boolean;
+		onclick: () => void;
+		lazy?: boolean;
 	}
-	if (path.startsWith("/")) {
-		return path;
+
+	const {
+		song,
+		index,
+		isCurrent,
+		isPlaying,
+		onclick,
+		lazy = true,
+	}: Props = $props();
+
+	function getAssetPath(path: string): string {
+		if (path.startsWith("http://") || path.startsWith("https://")) {
+			return path;
+		}
+		if (path.startsWith("/")) {
+			return path;
+		}
+		return `/${path}`;
 	}
 	return `/${path}`;
 }
@@ -57,7 +67,8 @@ function getAssetPath(path: string): string {
 		<img
 			src={getAssetPath(song.cover)}
 			alt={song.title}
-			loading="lazy"
+			loading={lazy ? "lazy" : "eager"}
+			decoding="async"
 			class="w-full h-full object-cover"
 		/>
 	</div>

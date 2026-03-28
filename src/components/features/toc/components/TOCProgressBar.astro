@@ -21,26 +21,25 @@ const offset = Math.max(
 ---
 
 <svg
-  class="progress-ring absolute inset-0 w-full h-full pointer-events-none"
-  viewBox="0 0 100 100"
-  style="transform: rotate(-90deg)"
+	class="progress-ring absolute inset-0 w-full h-full pointer-events-none"
+	viewBox="0 0 100 100"
+	style="transform: rotate(-90deg)"
 >
-  <circle
-    class="progress-ring-circle"
-    cx="50"
-    cy="50"
-    r={radius}
-    fill="transparent"
-    stroke="var(--primary)"
-    stroke-width="5"
-    stroke-linecap="round"
-    stroke-dasharray={circumference}
-    stroke-dashoffset={offset}
-  />
+	<circle
+		class="progress-ring-circle"
+		cx="50"
+		cy="50"
+		r={radius}
+		fill="transparent"
+		stroke="var(--primary)"
+		stroke-width="5"
+		stroke-linecap="round"
+		stroke-dasharray={circumference}
+		stroke-dashoffset={offset}></circle>
 </svg>
 
 <style>
-  .progress-ring-circle {
-    transition: stroke-dashoffset 0.1s linear;
-  }
+	.progress-ring-circle {
+		transition: stroke-dashoffset 0.1s linear;
+	}
 </style>

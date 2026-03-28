@@ -85,8 +85,9 @@ export const en: Translation = {
 
 	// Diary Page
 	[Key.diarySubtitle]: "Share life, anytime, anywhere",
-	[Key.diaryCount]: "diary entries",
-	[Key.diaryReply]: "Reply",
+	[Key.diaryNoResults]: "No matching moments",
+	[Key.diaryCount]: "entries",
+
 	[Key.diaryTips]: "Only show the latest 30 diary entries",
 	[Key.diaryMinutesAgo]: "minutes ago",
 	[Key.diaryHoursAgo]: "hours ago",
@@ -137,6 +138,8 @@ export const en: Translation = {
 	[Key.devicesViewDetails]: "View Details",
 	[Key.albumsPhotoCount]: "photo",
 	[Key.albumsPhotosCount]: "photos",
+	[Key.albumsFilterAll]: "All",
+	[Key.albumsNoResults]: "No matching albums",
 
 	// Projects Page
 	[Key.projects]: "Projects",
@@ -284,6 +287,7 @@ export const en: Translation = {
 	[Key.syntaxHighlightFailed]: "Syntax highlighting failed:",
 	[Key.autoSyntaxHighlightFailed]: "Automatic syntax highlighting also failed:",
 	[Key.decryptionError]: "An error occurred during decryption:",
+	[Key.passwordHint]: "Hint",
 
 	// Last Modified Time Card
 	[Key.lastModifiedPrefix]: "Time since last edit: ",

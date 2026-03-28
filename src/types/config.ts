@@ -73,6 +73,9 @@ export interface SiteConfig {
 	postListLayout: {
 		defaultMode: "list" | "grid"; // 默认布局模式：list=列表模式，grid=网格模式
 		allowSwitch: boolean; // 是否允许用户切换布局
+		categoryBar?: {
+			enable: boolean; // 是否在文章列表页显示分类导航条
+		};
 	};
 
 	// 顶栏标题配置
@@ -178,8 +181,10 @@ export interface SiteConfig {
 		};
 	};
 	toc: {
-		enable: boolean;
-		mode: "float" | "sidebar"; // 目录显示模式："float" 悬浮按钮模式，"sidebar" 侧边栏模式
+		enable: boolean; // 总开关，false 时所有 TOC 都不显示
+		mobileTop: boolean; // 手机端顶部 TOC 按钮
+		desktopSidebar: boolean; // 电脑端右侧边栏 TOC
+		floating: boolean; // 悬浮 TOC 按钮
 		depth: 1 | 2 | 3;
 		useJapaneseBadge?: boolean; // 使用日语假名标记（あいうえお...）代替数字
 	};
@@ -188,6 +193,7 @@ export interface SiteConfig {
 	favicon: Favicon[];
 	showLastModified: boolean; // 控制"上次编辑"卡片显示的开关
 	pageProgressBar?: PageProgressBarConfig; // 页面顶部进度条配置
+	thirdPartyAnalytics?: ThirdPartyAnalyticsConfig; // 第三方统计配置
 }
 
 export interface Favicon {
@@ -272,7 +278,24 @@ export interface PermalinkConfig {
 
 export interface CommentConfig {
 	enable: boolean; // 是否启用评论功能
+	system?: "twikoo" | "giscus"; // 评论系统选择
 	twikoo?: TwikooConfig;
+	giscus?: GiscusConfig;
+}
+
+export interface GiscusConfig {
+	repo: string;
+	repoId: string;
+	category: string;
+	categoryId: string;
+	mapping: string;
+	strict: string;
+	reactionsEnabled: string;
+	emitMetadata: string;
+	inputPosition: string;
+	theme: string;
+	lang: string;
+	loading: string;
 }
 
 interface TwikooConfig {
@@ -327,6 +350,7 @@ export interface AnnouncementConfig {
 export interface MusicPlayerConfig {
 	enable: boolean; // 是否启用音乐播放器功能
 	showFloatingPlayer: boolean; // 是否显示悬浮播放器 UI
+	floatingEntryMode?: "default" | "fab"; // 悬浮入口模式：默认独立播放器或集成到 FAB 组
 	mode: "meting" | "local"; // 音乐播放器模式
 	meting_api: string; // Meting API 地址
 	id: string; // 歌单ID
@@ -489,4 +513,12 @@ export interface PageProgressBarConfig {
 	enable: boolean; // 是否启用页面顶部进度条
 	height?: number; // 进度条高度，默认 3px
 	duration?: number; // 动画时长，默认 8000ms
+}
+
+/**
+ * 第三方统计配置（可能影响 Lighthouse 评分）
+ */
+export interface ThirdPartyAnalyticsConfig {
+	enable: boolean; // 是否启用第三方统计（Microsoft Clarity），默认关闭
+	clarityId?: string; // Clarity 项目 ID
 }

@@ -47,24 +47,159 @@ const updateActiveHeading = () => {
 	const scrollTop = window.scrollY;
 	const offset = 100;
 
-	let currentActiveId = "";
-	headings.forEach((heading) => {
-		if (heading.id) {
-			const elementTop = (heading as HTMLElement).offsetTop - offset;
-			if (scrollTop >= elementTop) {
-				currentActiveId = heading.id;
+		let currentActiveId = "";
+		headings.forEach((heading) => {
+			if (heading.id) {
+				const elementTop = (heading as HTMLElement).offsetTop - offset;
+				if (scrollTop >= elementTop) {
+					currentActiveId = heading.id;
+				}
+			}
+		});
+
+		activeId = currentActiveId;
+	};
+
+	const setupIntersectionObserver = () => {
+		const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+		if (observer) {
+			observer.disconnect();
+		}
+
+		observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						activeId = entry.target.id;
+					}
+				});
+			},
+			{
+				rootMargin: "-80px 0px -80% 0px",
+				threshold: 0,
+			},
+		);
+
+		headings.forEach((heading) => {
+			if (heading.id) {
+				observer?.observe(heading);
+			}
+		});
+	};
+
+	const setupSwupListeners = () => {
+		if (
+			typeof window !== "undefined" &&
+			(
+				window as unknown as {
+					swup?: {
+						hooks: {
+							on: (event: string, cb: () => void) => void;
+							off: (event: string) => void;
+						};
+					};
+				}
+			).swup &&
+			!swupListenersRegistered
+		) {
+			const swup = (
+				window as unknown as {
+					swup: {
+						hooks: { on: (event: string, cb: () => void) => void };
+					};
+				}
+			).swup;
+
+			swup.hooks.on("page:view", () => {
+				setTimeout(() => init(), 200);
+			});
+
+			swupListenersRegistered = true;
+		} else if (!swupListenersRegistered) {
+			window.addEventListener("popstate", () => {
+				setTimeout(init, 200);
+			});
+			swupListenersRegistered = true;
+		}
+	};
+
+	const checkSwupAvailability = () => {
+		if (typeof window !== "undefined") {
+			const w = window as unknown as {
+				swup?: {
+					hooks: {
+						on: (event: string, cb: () => void) => void;
+						off: (event: string) => void;
+					};
+				};
+			};
+			if (w.swup) {
+				setupSwupListeners();
+			} else {
+				const checkSwup = () => {
+					if (w.swup) {
+						setupSwupListeners();
+						document.removeEventListener("swup:enable", checkSwup);
+					}
+				};
+
+				document.addEventListener("swup:enable", checkSwup);
+				setTimeout(() => {
+					if (w.swup) {
+						setupSwupListeners();
+						document.removeEventListener("swup:enable", checkSwup);
+					}
+				}, 1000);
 			}
 		}
+	};
+
+	const init = () => {
+		isHomePage = checkIsHomePage();
+		checkSwupAvailability();
+
+		if (isHomePage) {
+			tocItems = [];
+			postItems = generatePostItems();
+		} else {
+			const config = getTOCConfig();
+			tocItems = generateTOCItems(config);
+			postItems = [];
+			setupIntersectionObserver();
+			updateActiveHeading();
+		}
+	};
+
+	onMount(() => {
+		setTimeout(init, 100);
+		window.addEventListener("scroll", updateActiveHeading, {
+			passive: true,
+		});
+
+		return () => {
+			observer?.disconnect();
+			window.removeEventListener("scroll", updateActiveHeading);
+
+			const w = window as unknown as {
+				swup?: {
+					hooks: {
+						on: (event: string, cb: () => void) => void;
+						off: (event: string) => void;
+					};
+				};
+			};
+			if (w.swup) {
+				w.swup.hooks.off("page:view");
+			}
+
+			swupListenersRegistered = false;
+		};
 	});
 
-	activeId = currentActiveId;
-};
-
-const setupIntersectionObserver = () => {
-	const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
-
-	if (observer) {
-		observer.disconnect();
+	if (typeof window !== "undefined") {
+		(window as unknown as { mobileTOCInit?: () => void }).mobileTOCInit =
+			init;
 	}
 
 	observer = new IntersectionObserver(
@@ -238,7 +373,9 @@ const getActivePadding = (level: number): string => {
 >
 	<div class="flex items-center justify-between mb-4">
 		<h3 class="text-lg font-bold text-[var(--primary)]">
-			{isHomePage ? i18n(I18nKey.postList) : i18n(I18nKey.tableOfContents)}
+			{isHomePage
+				? i18n(I18nKey.postList)
+				: i18n(I18nKey.tableOfContents)}
 		</h3>
 		<button
 			on:click={togglePanel}
@@ -252,13 +389,19 @@ const getActivePadding = (level: number): string => {
 	{#if isHomePage}
 		{#if postItems.length === 0}
 			<div class="text-center py-8 text-black/50 dark:text-white/50">
-				<Icon icon="material-symbols:article-outline" class="text-2xl mb-2" />
+				<Icon
+					icon="material-symbols:article-outline"
+					class="text-2xl mb-2"
+				/>
 				<p>暂无文章</p>
 			</div>
 		{:else}
 			<div class="post-content">
 				{#each postItems as post}
-					<button on:click={() => navigateToPost(post.url)} class="post-item">
+					<button
+						on:click={() => navigateToPost(post.url)}
+						class="post-item"
+					>
 						<div class="post-title">
 							{#if post.pinned}
 								<Icon icon="mdi:pin" class="pinned-icon" />
@@ -272,32 +415,32 @@ const getActivePadding = (level: number): string => {
 				{/each}
 			</div>
 		{/if}
+	{:else if tocItems.length === 0}
+		<div class="text-center py-8 text-black/50 dark:text-white/50">
+			<p>{i18n(I18nKey.tocEmpty)}</p>
+		</div>
 	{:else}
-		{#if tocItems.length === 0}
-			<div class="text-center py-8 text-black/50 dark:text-white/50">
-				<p>{i18n(I18nKey.tocEmpty)}</p>
-			</div>
-		{:else}
-			<div class="toc-content">
-				{#each tocItems as item}
-					<button
-						on:click={() => scrollToHeading(item.id)}
-						class="toc-item level-{item.level}"
-						class:active={activeId === item.id}
-						style="padding-left: {activeId === item.id ? getActivePadding(item.level) : getLevelPadding(item.level)}"
-					>
-						{#if item.level === 1}
-							<span class="badge">{item.badge}</span>
-						{:else if item.level === 2}
-							<span class="dot-square"></span>
-						{:else}
-							<span class="dot-small"></span>
-						{/if}
-						<span class="toc-text">{item.text}</span>
-					</button>
-				{/each}
-			</div>
-		{/if}
+		<div class="toc-content">
+			{#each tocItems as item}
+				<button
+					on:click={() => scrollToHeading(item.id)}
+					class="toc-item level-{item.level}"
+					class:active={activeId === item.id}
+					style="padding-left: {activeId === item.id
+						? getActivePadding(item.level)
+						: getLevelPadding(item.level)}"
+				>
+					{#if item.level === 1}
+						<span class="badge">{item.badge}</span>
+					{:else if item.level === 2}
+						<span class="dot-square"></span>
+					{:else}
+						<span class="dot-small"></span>
+					{/if}
+					<span class="toc-text">{item.text}</span>
+				</button>
+			{/each}
+		</div>
 	{/if}
 </div>
 
@@ -311,7 +454,9 @@ const getActivePadding = (level: number): string => {
 	}
 
 	:global(.theme-switch-btn)::before {
-		transition: transform 75ms ease-out, background-color 0ms !important;
+		transition:
+			transform 75ms ease-out,
+			background-color 0ms !important;
 	}
 
 	.toc-content,

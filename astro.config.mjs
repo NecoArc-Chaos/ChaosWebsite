@@ -17,6 +17,7 @@ import rehypeSlug from "rehype-slug";
 import remarkDirective from "remark-directive";
 import remarkMath from "remark-math";
 import remarkSectionize from "remark-sectionize";
+
 import { siteConfig } from "./src/config.ts";
 import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-copy-button.js";
 import { pluginLanguageBadge } from "./src/plugins/expressive-code/language-badge.ts";
@@ -48,8 +49,8 @@ export default defineConfig({
 			animationClass: "transition-swup-",
 			containers: ["main"],
 			smoothScrolling: false, // 禁用平滑滚动以提升性能，避免与锚点导航冲突
-			cache: process.env.NODE_ENV === "production",
-			preload: true, // swup 默认鼠标悬停预加载
+			cache: true,
+			preload: false, // 禁用预加载以提升性能
 			accessibility: true,
 			updateHead: process.env.NODE_ENV === "production",
 			updateBodyClass: false,
@@ -179,6 +180,8 @@ export default defineConfig({
 			// CSS 代码分割
 			cssCodeSplit: true,
 			cssMinify: "esbuild",
+			// 内联小型 CSS 文件以减少网络请求
+			inlineStylesheets: "auto",
 			// 生产环境移除 console 和 debugger
 			minify: "esbuild",
 			rollupOptions: {

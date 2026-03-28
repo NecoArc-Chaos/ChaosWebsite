@@ -1,4 +1,4 @@
-import type {
+﻿import type {
 	AnnouncementConfig,
 	CommentConfig,
 	ExpressiveCodeConfig,
@@ -59,7 +59,7 @@ export const siteConfig: SiteConfig = {
 		// 顶栏标题图标路径，默认使用 public/assets/home/home.png
 		icon: "assets/home/home.jpg",
 		// 网站Logo图片路径
-		logo: "assets/home/default-logo.png",
+		logo: "assets/home/default-logo.webp",
 	},
 
 	// 页面自动缩放配置
@@ -97,6 +97,10 @@ export const siteConfig: SiteConfig = {
 		defaultMode: "list",
 		// 是否允许用户切换布局
 		allowSwitch: true,
+		// 文章列表页分类导航条配置
+		categoryBar: {
+			enable: true, // 是否在文章列表页显示分类导航条
+		},
 	},
 
 	// 标签样式配置
@@ -128,7 +132,7 @@ export const siteConfig: SiteConfig = {
 
 		carousel: {
 			enable: true, // 为 true 时：为多张图片启用轮播。为 false 时：从数组中随机显示一张图片
-			interval: 1.5, // 轮播间隔时间（秒）
+			interval: 3, // 轮播间隔时间（秒）
 		},
 
 		waves: {
@@ -178,8 +182,10 @@ export const siteConfig: SiteConfig = {
 		},
 	},
 	toc: {
-		enable: true, // 启用目录功能
-		mode: "sidebar", // 目录显示模式："float" 悬浮按钮模式，"sidebar" 侧边栏模式
+		enable: true, // 总开关，启用目录功能
+		mobileTop: true, // 手机端顶部 TOC 按钮
+		desktopSidebar: true, // 电脑端右侧边栏 TOC
+		floating: true, // 悬浮 TOC 按钮
 		depth: 2, // 目录深度，1-6，1 表示只显示 h1 标题，2 表示显示 h1 和 h2 标题，依此类推
 		useJapaneseBadge: false, // 使用日语假名标记（あいうえお...）代替数字，开启后会将 1、2、3... 改为 あ、い、う...
 	},
@@ -219,6 +225,11 @@ export const siteConfig: SiteConfig = {
 		enable: true, // 启用页面顶部进度条
 		height: 3, // 进度条高度 3px
 		duration: 6000, // 动画时长 6s
+	},
+
+	thirdPartyAnalytics: {
+		enable: false, // 是否启用第三方统计（Microsoft Clarity），默认关闭，启用可能影响 Lighthouse 评分
+		clarityId: "", // Clarity 项目 ID
 	},
 };
 export const fullscreenWallpaperConfig: FullscreenWallpaperConfig = {
@@ -381,15 +392,17 @@ export const permalinkConfig: PermalinkConfig = {
 	 * - %minute% : 2位分钟 (00-59)
 	 * - %second% : 2位秒数 (00-59)
 	 * - %post_id% : 文章序号（按发布时间升序排列，最早的文章为1）
-	 * - %postname% : 文章文件名（slug）
+	 * - %postname% : 文章文件名（slug，通常为全小写）
+	 * - %raw_postname% : 文章原始文件名（保留大小写）
 	 * - %category% : 分类名（无分类时为 "uncategorized"）
 	 *
 	 * 示例：
 	 * - "%year%-%monthnum%-%postname%" => "/2024-12-my-post/"
 	 * - "%post_id%-%postname%" => "/42-my-post/"
 	 * - "%category%-%postname%" => "/tech-my-post/"
+	 * - "%year%/%monthnum%/%day%/%postname%" => "/2024/12/01/my-post/"
 	 *
-	 * 注意：不支持斜杠 "/"，所有生成的链接都在根目录下
+	 * 注意：支持使用斜杠 "/" 构建嵌套路径。
 	 */
 	format: "%postname%", // 默认使用文件名
 };
@@ -404,9 +417,24 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 
 export const commentConfig: CommentConfig = {
 	enable: true, // 启用评论功能。当设置为 false 时，评论组件将不会显示在文章区域。
+	system: "twikoo", // 评论系统选择: "twikoo" | "giscus"
 	twikoo: {
 		envId: "https://twikoo-mocha-ten.vercel.app/",
 		lang: SITE_LANG,
+	},
+	giscus: {
+		repo: "your-github-username/your-repo-name",
+		repoId: "your-repo-id",
+		category: "Announcements",
+		categoryId: "your-category-id",
+		mapping: "pathname",
+		strict: "0",
+		reactionsEnabled: "1",
+		emitMetadata: "0",
+		inputPosition: "top",
+		theme: "preferred_color_scheme",
+		lang: SITE_LANG,
+		loading: "lazy",
 	},
 };
 
@@ -433,6 +461,7 @@ export const announcementConfig: AnnouncementConfig = {
 export const musicPlayerConfig: MusicPlayerConfig = {
 	enable: true, // 启用音乐播放器功能
 	showFloatingPlayer: true, // 显示悬浮播放器 UI
+	floatingEntryMode: "fab", // 悬浮入口模式："default" 为独立悬浮播放器，"fab" 为集成到通用 FAB 组
 	mode: "local", // 音乐播放器模式，可选 "local" 或 "meting"
 	meting_api:
 		"https://meting.mysqil.com/api?server=:server&type=:type&id=:id&auth=:auth&r=:r", // Meting API 地址
@@ -549,9 +578,15 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 
 	// 侧栏组件布局配置
 	components: {
-		left: ["profile", "announcement", "categories", "tags"],
-		right: ["site-stats", "calendar", "music-sidebar", "card-toc"],
-		drawer: ["profile", "announcement", "music-sidebar", "categories", "tags"],
+		left: ["profile", "announcement", "tags", "card-toc"],
+		right: ["site-stats", "calendar", "categories", "music-sidebar"],
+		drawer: [
+			"profile",
+			"announcement",
+			"music-sidebar",
+			"categories",
+			"tags",
+		],
 	},
 
 	// 默认动画配置
@@ -607,7 +642,7 @@ export const sakuraConfig: SakuraConfig = {
 
 // Pio 看板娘配置
 export const pioConfig: import("./types/config").PioConfig = {
-	enable: false, // 启用看板娘
+	enable: false, // 禁用看板娘以提升性能
 	models: ["/pio/models/pio/model.json"], // 默认模型路径
 	position: "left", // 模型位置
 	width: 280, // 默认宽度

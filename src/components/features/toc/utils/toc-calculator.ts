@@ -54,7 +54,12 @@ export function generateTOCItems(
 		.filter((h) => h.level < minLevel + depth)
 		.map((h) => {
 			const itemDepth = h.level - minLevel;
-			const badge = getBadgeText(h1Count, h.level, minLevel, useJapaneseBadge);
+			const badge = getBadgeText(
+				h1Count,
+				h.level,
+				minLevel,
+				useJapaneseBadge,
+			);
 
 			if (h.level === minLevel) {
 				h1Count++;
