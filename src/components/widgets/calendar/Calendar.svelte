@@ -1,6 +1,6 @@
 <script lang="ts">
-import Icon from "@iconify/svelte";
-import { onMount } from "svelte";
+	import Icon from "@iconify/svelte";
+	import { onMount } from "svelte";
 
 	import CalendarGrid from "./components/CalendarGrid.svelte";
 	import MonthPicker from "./components/MonthPicker.svelte";
@@ -19,35 +19,36 @@ import { onMount } from "svelte";
 		CalendarStats,
 	} from "./types/calendar";
 
-interface Props {
-	monthNames: string[];
-	weekDays: string[];
-	yearSuffix: string;
-}
+	interface Props {
+		monthNames: string[];
+		weekDays: string[];
+		yearSuffix: string;
+	}
 
-const { monthNames, weekDays, yearSuffix }: Props = $props();
+	const { monthNames, weekDays, yearSuffix }: Props = $props();
 
-// State
-let allPostsData: CalendarPost[] = $state([]);
-let postDateMap: Record<string, CalendarPost[]> = $state({});
-let postsByMonth: Record<string, CalendarPost[]> = $state({});
-let stats: CalendarStats = $state({
-	hasPostInYear: {},
-	hasPostInMonth: {},
-	minYear: new Date().getFullYear(),
-	maxYear: new Date().getFullYear() + 5,
-});
+	// State
+	let allPostsData: CalendarPost[] = $state([]);
+	let postDateMap: Record<string, CalendarPost[]> = $state({});
+	let postsByMonth: Record<string, CalendarPost[]> = $state({});
+	let stats: CalendarStats = $state({
+		hasPostInYear: {},
+		hasPostInMonth: {},
+		minYear: new Date().getFullYear(),
+		maxYear: new Date().getFullYear() + 5,
+	});
 
-let currentYear = $state(new Date().getFullYear());
-let currentMonth = $state(new Date().getMonth());
-let selectedDateKey: string | null = $state(null);
-let currentView: "day" | "month" | "year" = $state("day");
+	let currentYear = $state(new Date().getFullYear());
+	let currentMonth = $state(new Date().getMonth());
+	let selectedDateKey: string | null = $state(null);
+	let currentView: "day" | "month" | "year" = $state("day");
+	let currentPathname = $state(""); // 用于安全存储路径
 
-// Computed
-const today = new Date();
-const todayYear = today.getFullYear();
-const todayMonth = today.getMonth();
-const todayDate = today.getDate();
+	// Computed
+	const today = new Date();
+	const todayYear = today.getFullYear();
+	const todayMonth = today.getMonth();
+	const todayDate = today.getDate();
 
 	const isBackToTodayVisible = $derived(
 		currentYear !== todayYear ||
@@ -84,13 +85,13 @@ const todayDate = today.getDate();
 					isEmpty: false,
 				});
 			}
-
 			return result;
 		})(),
 	);
 
+	// SSR 安全：不再直接引用 window.location
 	const currentPostId = $derived(
-		getCurrentPostId(window.location.pathname, allPostsData),
+		getCurrentPostId(currentPathname, allPostsData),
 	);
 
 	const displayedPosts = $derived(
@@ -103,22 +104,24 @@ const todayDate = today.getDate();
 		})(),
 	);
 
-// Functions
-async function fetchCalendarData() {
-	try {
-		const res = await fetch("/api/calendar-data.json");
-		const data = await res.json();
-		if (Array.isArray(data)) {
-			allPostsData = data;
-			const processed = processPostsData(allPostsData);
-			postDateMap = processed.postDateMap;
-			postsByMonth = processed.postsByMonth;
-			stats = processed.stats;
+	// Functions
+	async function fetchCalendarData() {
+		try {
+			const res = await fetch("/api/calendar-data.json");
+			const data = await res.json();
+			if (Array.isArray(data)) {
+				allPostsData = data;
+				const processed = processPostsData(allPostsData);
+				postDateMap = processed.postDateMap;
+				postsByMonth = processed.postsByMonth;
+				stats = processed.stats;
 
+				// 修复了这里的多余大括号
 				const currentPostIdValue = getCurrentPostId(
-					window.location.pathname,
+					currentPathname,
 					allPostsData,
 				);
+
 				if (currentPostIdValue) {
 					const matchedPost = allPostsData.find(
 						(p) => p.id === currentPostIdValue,
@@ -130,80 +133,75 @@ async function fetchCalendarData() {
 					}
 				}
 			}
+		} catch (error) {
+			console.error("Failed to fetch calendar data:", error);
 		}
-	} catch (error) {
-		console.error("Failed to fetch calendar data:", error);
 	}
-}
 
-function handlePrevMonth() {
-	currentMonth--;
-	if (currentMonth < 0) {
-		currentMonth = 11;
-		currentYear--;
+	function handlePrevMonth() {
+		currentMonth--;
+		if (currentMonth < 0) {
+			currentMonth = 11;
+			currentYear--;
+		}
 	}
-}
 
-function handleNextMonth() {
-	currentMonth++;
-	if (currentMonth > 11) {
-		currentMonth = 0;
-		currentYear++;
+	function handleNextMonth() {
+		currentMonth++;
+		if (currentMonth > 11) {
+			currentMonth = 0;
+			currentYear++;
+		}
 	}
-}
 
-function handleBackToToday() {
-	currentYear = todayYear;
-	currentMonth = todayMonth;
-	selectedDateKey = null;
-	if (currentView !== "day") {
-		closeSelectionPanel();
-	}
-}
-
-function handleTitleClick() {
-	if (currentView === "day") {
-		showMonthPicker();
-	} else if (currentView === "month") {
-		showYearPicker();
-	} else {
-		closeSelectionPanel();
-	}
-}
-
-function handleCellClick(dateKey: string) {
-	if (selectedDateKey === dateKey) {
+	function handleBackToToday() {
+		currentYear = todayYear;
+		currentMonth = todayMonth;
 		selectedDateKey = null;
-	} else {
-		selectedDateKey = dateKey;
+		if (currentView !== "day") {
+			closeSelectionPanel();
+		}
 	}
-}
 
-function handleMonthSelect(month: number) {
-	currentMonth = month;
-	closeSelectionPanel();
-}
+	function handleTitleClick() {
+		if (currentView === "day") {
+			showMonthPicker();
+		} else if (currentView === "month") {
+			showYearPicker();
+		} else {
+			closeSelectionPanel();
+		}
+	}
 
-function handleYearSelect(year: number) {
-	currentYear = year;
-	showMonthPicker();
-}
+	function handleCellClick(dateKey: string) {
+		selectedDateKey = selectedDateKey === dateKey ? null : dateKey;
+	}
 
-function showMonthPicker() {
-	currentView = "month";
-}
+	function handleMonthSelect(month: number) {
+		currentMonth = month;
+		closeSelectionPanel();
+	}
 
-function showYearPicker() {
-	currentView = "year";
-}
+	function handleYearSelect(year: number) {
+		currentYear = year;
+		showMonthPicker();
+	}
 
-function closeSelectionPanel() {
-	currentView = "day";
-}
+	function showMonthPicker() {
+		currentView = "month";
+	}
+	function showYearPicker() {
+		currentView = "year";
+	}
+	function closeSelectionPanel() {
+		currentView = "day";
+	}
 
-onMount(() => {
-	fetchCalendarData();
-});
+	onMount(() => {
+		// 在客户端获取当前路径
+		currentPathname = window.location.pathname;
+		fetchCalendarData();
+	});
 </script>
 
 <div class="flex justify-between items-center mb-2 mt-2">

@@ -1,85 +1,47 @@
 <script lang="ts">
-import { onDestroy, onMount } from "svelte";
+	import { onDestroy, onMount } from "svelte";
+	import { pioConfig } from "@/config";
+	import type { PioProps } from "./types";
 
-import { pioConfig } from "@/config";
+	export let config: Partial<PioProps["config"]> = {};
 
-import type { PioProps } from "./types";
-
-export let config: Partial<PioProps["config"]> = {};
-
-const pioOptions = {
-	mode: config?.mode ?? pioConfig.mode,
-	hidden: config?.hiddenOnMobile ?? pioConfig.hiddenOnMobile,
-	content: config?.dialog ?? pioConfig.dialog ?? {},
-	model: config?.models ?? pioConfig.models ?? ["/pio/models/pio/model.json"],
-};
-
-let pioInstance: any = null;
-let pioInitialized = false;
-let pioContainer: HTMLDivElement | null = null;
-let pioCanvas: HTMLCanvasElement | null = null;
-
-function initPio() {
-	if (
-		typeof window !== "undefined" &&
-		typeof (window as any).Paul_Pio !== "undefined"
-	) {
-		try {
-			if (pioContainer && pioCanvas && !pioInitialized) {
-				pioInstance = new (window as any).Paul_Pio(pioOptions);
-				pioInitialized = true;
-				console.log("Pio initialized successfully (Svelte)");
-			} else if (!pioContainer || !pioCanvas) {
-				console.warn("Pio DOM elements not found, retrying...");
-				setTimeout(initPio, 100);
-			}
-		} catch (e) {
-			console.error("Pio initialization error:", e);
-		}
-	} else {
-		setTimeout(initPio, 100);
-	}
-}
-
-function loadPioAssets() {
-	if (typeof window === "undefined") {
-		return;
-	}
-
-	const loadScript = (src: string, id: string): Promise<void> => {
-		return new Promise((resolve, reject) => {
-			if (document.querySelector(`#${id}`)) {
-				resolve();
-				return;
-			}
-			const script = document.createElement("script");
-			script.id = id;
-			script.src = src;
-			script.onload = () => resolve();
-			script.onerror = reject;
-			document.head.appendChild(script);
-		});
+	const pioOptions = {
+		mode: config?.mode ?? pioConfig.mode,
+		hidden: config?.hiddenOnMobile ?? pioConfig.hiddenOnMobile,
+		content: config?.dialog ?? pioConfig.dialog ?? {},
+		model: config?.models ??
+			pioConfig.models ?? ["/pio/models/pio/model.json"],
 	};
 
-	loadScript("/pio/static/l2d.js", "pio-l2d-script")
-		.then(() => loadScript("/pio/static/pio.js", "pio-main-script"))
-		.then(() => {
-			setTimeout(initPio, 100);
-		})
-		.catch((error) => {
-			console.error("Failed to load Pio scripts:", error);
-		});
-}
+	let pioInstance: any = null;
+	let pioInitialized = false;
+	let pioContainer: HTMLDivElement | null = null;
+	let pioCanvas: HTMLCanvasElement | null = null;
 
-onMount(() => {
-	if (!pioConfig.enable) {
-		return;
+	function initPio() {
+		if (
+			typeof window !== "undefined" &&
+			typeof (window as any).Paul_Pio !== "undefined"
+		) {
+			try {
+				if (pioContainer && pioCanvas && !pioInitialized) {
+					pioInstance = new (window as any).Paul_Pio(pioOptions);
+					pioInitialized = true;
+					console.log("Pio initialized successfully (Svelte)");
+				} else if (!pioContainer || !pioCanvas) {
+					console.warn("Pio DOM elements not found, retrying...");
+					setTimeout(initPio, 100);
+				}
+			} catch (e) {
+				console.error("Pio initialization error:", e);
+			}
+		} else if (typeof window !== "undefined") {
+			setTimeout(initPio, 100);
+		}
 	}
 
 	function loadPioAssets() {
-		if (typeof window === "undefined") {
-			return;
-		}
+		if (typeof window === "undefined") return;
 
 		const loadScript = (src: string, id: string): Promise<void> => {
 			return new Promise((resolve, reject) => {
@@ -118,13 +80,13 @@ onMount(() => {
 	}
 
 	onMount(() => {
-		if (!pioConfig.enable) {
-			return;
-		}
+		if (!pioConfig.enable) return;
+		loadPioAssets();
+	});
 
-onDestroy(() => {
-	console.log("Pio Svelte component destroyed (keeping instance alive)");
-});
+	onDestroy(() => {
+		console.log("Pio Svelte component destroyed");
+	});
 </script>
 
 {#if pioConfig.enable}
