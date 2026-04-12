@@ -1,185 +1,185 @@
 <script lang="ts">
-	import Icon from "@iconify/svelte";
-	import { onMount } from "svelte";
-	import I18nKey from "../../../i18n/i18nKey";
-	import { i18n } from "../../../i18n/translation";
-	import { navigateToPage } from "../../../utils/navigation-utils";
-	import { panelManager } from "../../../utils/panel-manager.js";
-	import {
-		checkIsHomePage,
-		generatePostItems,
-		generateTOCItems,
-		getTOCConfig,
-		type PostItem,
-		scrollToHeading as scrollToHeadingUtil,
-		type TOCItem,
-	} from "./hooks/useMobileTOC";
+import Icon from "@iconify/svelte";
+import { onMount } from "svelte";
+import I18nKey from "../../../i18n/i18nKey";
+import { i18n } from "../../../i18n/translation";
+import { navigateToPage } from "../../../utils/navigation-utils";
+import { panelManager } from "../../../utils/panel-manager.js";
+import {
+	checkIsHomePage,
+	generatePostItems,
+	generateTOCItems,
+	getTOCConfig,
+	type PostItem,
+	scrollToHeading as scrollToHeadingUtil,
+	type TOCItem,
+} from "./hooks/useMobileTOC";
 
-	// --- 状态 ---
-	let tocItems: TOCItem[] = $state([]);
-	let postItems: PostItem[] = $state([]);
-	let activeId = $state("");
-	let isHomePage = $state(false);
+// --- 状态 ---
+let tocItems: TOCItem[] = $state([]);
+let postItems: PostItem[] = $state([]);
+let activeId = $state("");
+let isHomePage = $state(false);
 
-	let observer: IntersectionObserver | undefined;
-	let swupListenersRegistered = $state(false);
+let observer: IntersectionObserver | undefined;
+let swupListenersRegistered = $state(false);
 
-	// --- 核心逻辑 ---
-	const setPanelVisibility = async (show: boolean): Promise<void> => {
-		await panelManager.togglePanel("mobile-toc-panel", show);
-	};
+// --- 核心逻辑 ---
+const setPanelVisibility = async (show: boolean): Promise<void> => {
+	await panelManager.togglePanel("mobile-toc-panel", show);
+};
 
-	const scrollToHeading = (id: string) => {
-		setPanelVisibility(false);
-		scrollToHeadingUtil(id);
-	};
+const scrollToHeading = (id: string) => {
+	setPanelVisibility(false);
+	scrollToHeadingUtil(id);
+};
 
-	const navigateToPost = (url: string) => {
-		setPanelVisibility(false);
-		navigateToPage(url);
-	};
+const navigateToPost = (url: string) => {
+	setPanelVisibility(false);
+	navigateToPage(url);
+};
 
-	const updateActiveHeading = () => {
-		if (typeof window === "undefined") return;
-		const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
-		const scrollTop = window.scrollY;
-		const offset = 100;
+const updateActiveHeading = () => {
+	if (typeof window === "undefined") return;
+	const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+	const scrollTop = window.scrollY;
+	const offset = 100;
 
-		let currentActiveId = "";
-		headings.forEach((heading) => {
-			if (heading.id) {
-				const elementTop = (heading as HTMLElement).offsetTop - offset;
-				if (scrollTop >= elementTop) {
-					currentActiveId = heading.id;
-				}
+	let currentActiveId = "";
+	headings.forEach((heading) => {
+		if (heading.id) {
+			const elementTop = (heading as HTMLElement).offsetTop - offset;
+			if (scrollTop >= elementTop) {
+				currentActiveId = heading.id;
 			}
-		});
-		activeId = currentActiveId;
-	};
-
-	const setupIntersectionObserver = () => {
-		if (typeof window === "undefined") return;
-		const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
-
-		if (observer) observer.disconnect();
-
-		observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						activeId = entry.target.id;
-					}
-				});
-			},
-			{ rootMargin: "-80px 0px -80% 0px", threshold: 0 },
-		);
-
-		headings.forEach((heading) => {
-			if (heading.id) observer?.observe(heading);
-		});
-	};
-
-	const setupSwupListeners = () => {
-		if (typeof window === "undefined") return;
-		const w = window as any;
-
-		if (w.swup && !swupListenersRegistered) {
-			w.swup.hooks.on("page:view", () => {
-				setTimeout(() => init(), 200);
-			});
-			swupListenersRegistered = true;
-		} else if (!swupListenersRegistered) {
-			window.addEventListener("popstate", () => {
-				setTimeout(init, 200);
-			});
-			swupListenersRegistered = true;
 		}
-	};
+	});
+	activeId = currentActiveId;
+};
 
-	const checkSwupAvailability = () => {
-		if (typeof window === "undefined") return;
-		const w = window as any;
-		if (w.swup) {
-			setupSwupListeners();
-		} else {
-			const checkSwup = () => {
-				if (w.swup) {
-					setupSwupListeners();
-					document.removeEventListener("swup:enable", checkSwup);
+const setupIntersectionObserver = () => {
+	if (typeof window === "undefined") return;
+	const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+	if (observer) observer.disconnect();
+
+	observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					activeId = entry.target.id;
 				}
-			};
-			document.addEventListener("swup:enable", checkSwup);
-			setTimeout(() => {
-				if (w.swup) {
-					setupSwupListeners();
-					document.removeEventListener("swup:enable", checkSwup);
-				}
-			}, 1000);
-		}
-	};
+			});
+		},
+		{ rootMargin: "-80px 0px -80% 0px", threshold: 0 },
+	);
 
-	const init = () => {
-		if (typeof window === "undefined") return;
-		isHomePage = checkIsHomePage();
-		checkSwupAvailability();
+	headings.forEach((heading) => {
+		if (heading.id) observer?.observe(heading);
+	});
+};
 
-		if (isHomePage) {
-			tocItems = [];
-			postItems = generatePostItems();
-		} else {
-			const config = getTOCConfig();
-			tocItems = generateTOCItems(config);
-			postItems = [];
-			setupIntersectionObserver();
-			updateActiveHeading();
-		}
-	};
+const setupSwupListeners = () => {
+	if (typeof window === "undefined") return;
+	const w = window as any;
 
-	// --- 生命周期 ---
-	onMount(() => {
-		setTimeout(init, 100);
-		window.addEventListener("scroll", updateActiveHeading, {
-			passive: true,
+	if (w.swup && !swupListenersRegistered) {
+		w.swup.hooks.on("page:view", () => {
+			setTimeout(() => init(), 200);
 		});
+		swupListenersRegistered = true;
+	} else if (!swupListenersRegistered) {
+		window.addEventListener("popstate", () => {
+			setTimeout(init, 200);
+		});
+		swupListenersRegistered = true;
+	}
+};
 
-		// 暴露全局初始化方法（如果有需要）
-		(window as any).mobileTOCInit = init;
-
-		return () => {
-			observer?.disconnect();
-			window.removeEventListener("scroll", updateActiveHeading);
-			const w = window as any;
+const checkSwupAvailability = () => {
+	if (typeof window === "undefined") return;
+	const w = window as any;
+	if (w.swup) {
+		setupSwupListeners();
+	} else {
+		const checkSwup = () => {
 			if (w.swup) {
-				w.swup.hooks.off("page:view");
+				setupSwupListeners();
+				document.removeEventListener("swup:enable", checkSwup);
 			}
-			swupListenersRegistered = false;
 		};
+		document.addEventListener("swup:enable", checkSwup);
+		setTimeout(() => {
+			if (w.swup) {
+				setupSwupListeners();
+				document.removeEventListener("swup:enable", checkSwup);
+			}
+		}, 1000);
+	}
+};
+
+const init = () => {
+	if (typeof window === "undefined") return;
+	isHomePage = checkIsHomePage();
+	checkSwupAvailability();
+
+	if (isHomePage) {
+		tocItems = [];
+		postItems = generatePostItems();
+	} else {
+		const config = getTOCConfig();
+		tocItems = generateTOCItems(config);
+		postItems = [];
+		setupIntersectionObserver();
+		updateActiveHeading();
+	}
+};
+
+// --- 生命周期 ---
+onMount(() => {
+	setTimeout(init, 100);
+	window.addEventListener("scroll", updateActiveHeading, {
+		passive: true,
 	});
 
-	// --- 工具方法 ---
-	const getLevelPadding = (level: number): string => {
-		const levelPadding: Record<number, string> = {
-			1: "12px",
-			2: "28px",
-			3: "36px",
-			4: "44px",
-			5: "52px",
-			6: "52px",
-		};
-		return levelPadding[level] || "12px";
-	};
+	// 暴露全局初始化方法（如果有需要）
+	(window as any).mobileTOCInit = init;
 
-	const getActivePadding = (level: number): string => {
-		const activePadding: Record<number, string> = {
-			1: "9px",
-			2: "25px",
-			3: "33px",
-			4: "41px",
-			5: "49px",
-			6: "49px",
-		};
-		return activePadding[level] || "9px";
+	return () => {
+		observer?.disconnect();
+		window.removeEventListener("scroll", updateActiveHeading);
+		const w = window as any;
+		if (w.swup) {
+			w.swup.hooks.off("page:view");
+		}
+		swupListenersRegistered = false;
 	};
+});
+
+// --- 工具方法 ---
+const getLevelPadding = (level: number): string => {
+	const levelPadding: Record<number, string> = {
+		1: "12px",
+		2: "28px",
+		3: "36px",
+		4: "44px",
+		5: "52px",
+		6: "52px",
+	};
+	return levelPadding[level] || "12px";
+};
+
+const getActivePadding = (level: number): string => {
+	const activePadding: Record<number, string> = {
+		1: "9px",
+		2: "25px",
+		3: "33px",
+		4: "41px",
+		5: "49px",
+		6: "49px",
+	};
+	return activePadding[level] || "9px";
+};
 </script>
 
 <button

@@ -3,11 +3,11 @@
 // FilterTabs renders data-filter-attr and data-filter-value on each button
 // Cards/entries should have a matching data attribute (e.g. data-category, data-type)
 
-(function () {
+(() => {
 	function initFilterTabs() {
 		var containers = document.querySelectorAll(".filter-tabs");
 
-		containers.forEach(function (container) {
+		containers.forEach((container) => {
 			if (container.dataset.initialized) return;
 			container.dataset.initialized = "true";
 
@@ -22,9 +22,9 @@
 
 			if (items.length === 0) return;
 
-			tabs.forEach(function (tab) {
-				tab.addEventListener("click", function () {
-					tabs.forEach(function (t) {
+			tabs.forEach((tab) => {
+				tab.addEventListener("click", () => {
+					tabs.forEach((t) => {
 						t.classList.remove("active");
 					});
 					tab.classList.add("active");
@@ -32,10 +32,11 @@
 					var activeValue = tab.dataset.filterValue || "all";
 					var visibleCount = 0;
 
-					items.forEach(function (item) {
+					items.forEach((item) => {
 						var itemValue = item.dataset[filterAttr];
 						var match =
-							activeValue === "all" || (itemValue && itemValue.split(",").indexOf(activeValue) !== -1);
+							activeValue === "all" ||
+							(itemValue && itemValue.split(",").indexOf(activeValue) !== -1);
 
 						if (match) {
 							item.classList.remove("filtered-out");

@@ -90,9 +90,7 @@ CONTENT_DIR=./content
 		});
 		console.log("内容同步成功");
 	} catch (error) {
-		console.error(
-			"内容同步失败。请手动执行：pnpm run sync-content",
-		);
+		console.error("内容同步失败。请手动执行：pnpm run sync-content");
 	}
 
 	// 提示后续步骤

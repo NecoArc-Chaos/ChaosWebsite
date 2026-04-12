@@ -1,5 +1,5 @@
-import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
 import svelte, { vitePreprocess } from "@astrojs/svelte";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
@@ -61,11 +61,7 @@ export default defineConfig({
 			animateHistoryBrowsing: false,
 			skipPopStateHandling: (event) => {
 				// 跳过锚点链接的处理，让浏览器原生处理
-				return (
-					event.state &&
-					event.state.url &&
-					event.state.url.includes("#")
-				);
+				return event.state && event.state.url && event.state.url.includes("#");
 			},
 		}),
 		icon(),
@@ -151,8 +147,7 @@ export default defineConfig({
 						github: GithubCardComponent,
 						note: (x, y) => AdmonitionComponent(x, y, "note"),
 						tip: (x, y) => AdmonitionComponent(x, y, "tip"),
-						important: (x, y) =>
-							AdmonitionComponent(x, y, "important"),
+						important: (x, y) => AdmonitionComponent(x, y, "important"),
 						caution: (x, y) => AdmonitionComponent(x, y, "caution"),
 						warning: (x, y) => AdmonitionComponent(x, y, "warning"),
 					},
@@ -222,12 +217,8 @@ export default defineConfig({
 			rollupOptions: {
 				onwarn(warning, warn) {
 					if (
-						warning.message.includes(
-							"is dynamically imported by",
-						) &&
-						warning.message.includes(
-							"but also statically imported by",
-						)
+						warning.message.includes("is dynamically imported by") &&
+						warning.message.includes("but also statically imported by")
 					) {
 						return;
 					}
@@ -238,9 +229,7 @@ export default defineConfig({
 		// 生产环境移除 console.log 和 debugger
 		esbuildOptions: {
 			drop:
-				process.env.NODE_ENV === "production"
-					? ["console", "debugger"]
-					: [],
+				process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
 		},
 	},
 });

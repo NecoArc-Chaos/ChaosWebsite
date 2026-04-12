@@ -26,8 +26,7 @@ export function remarkFixGithubAdmonitions() {
 				return;
 			}
 
-			const possibleTypeDeclaration =
-				firstParagraphChild.value.split("\n")[0];
+			const possibleTypeDeclaration = firstParagraphChild.value.split("\n")[0];
 			if (!possibleTypeDeclaration) {
 				return;
 			}
@@ -76,10 +75,7 @@ export function remarkFixGithubAdmonitions() {
 			const directive = {
 				type: "containerDirective",
 				name: directiveName,
-				children: [
-					...alertParagraphChildren,
-					...node.children.slice(1),
-				],
+				children: [...alertParagraphChildren, ...node.children.slice(1)],
 			};
 
 			parent.children[index] = directive;

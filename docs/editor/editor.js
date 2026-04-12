@@ -1,7 +1,5 @@
 /* ========== Mizuki Editor - JavaScript ========== */
-(function () {
-	"use strict";
-
+(() => {
 	// ========== i18n System ==========
 	const I18N = {
 		"zh-CN": {
@@ -495,9 +493,7 @@
 
 	function t(key) {
 		return (
-			(I18N[currentLang] && I18N[currentLang][key]) ||
-			I18N["zh-CN"][key] ||
-			key
+			(I18N[currentLang] && I18N[currentLang][key]) || I18N["zh-CN"][key] || key
 		);
 	}
 
@@ -1249,10 +1245,7 @@
 		) {
 			$("#themePickerPanel").classList.add("hidden");
 		}
-		if (
-			!e.target.closest("#btnLang") &&
-			!e.target.closest(".lang-dropdown")
-		) {
+		if (!e.target.closest("#btnLang") && !e.target.closest(".lang-dropdown")) {
 			$("#langDropdown").classList.add("hidden");
 		}
 	});
@@ -1347,10 +1340,7 @@
 				el.onclick = () => insertAtCursor(localizeCode(item.code));
 				el.draggable = true;
 				el.ondragstart = (e) =>
-					e.dataTransfer.setData(
-						"text/plain",
-						localizeCode(item.code),
-					);
+					e.dataTransfer.setData("text/plain", localizeCode(item.code));
 				itemsEl.appendChild(el);
 			});
 			catEl.querySelector(".module-cat-header").onclick = function () {
@@ -1365,8 +1355,7 @@
 	renderModules();
 
 	// Toggle panel
-	$("#toggleModules").onclick = () =>
-		modulePanel.classList.toggle("collapsed");
+	$("#toggleModules").onclick = () => modulePanel.classList.toggle("collapsed");
 
 	// ========== Editor Core ==========
 	function insertAtCursor(text) {
@@ -1535,7 +1524,7 @@
 				}
 			}
 			if (key === "tags") {
-				$("#fm-tags").value = v.replace(/[\[\]]/g, "");
+				$("#fm-tags").value = v.replace(/[[\]]/g, "");
 			}
 		});
 		if ($("#fm-encrypted").checked) {
@@ -1646,10 +1635,7 @@
 		}
 	});
 	$("#dropOverlay").addEventListener("dragleave", (e) => {
-		if (
-			e.target === $("#dropOverlay") ||
-			e.target.closest(".drop-message")
-		) {
+		if (e.target === $("#dropOverlay") || e.target.closest(".drop-message")) {
 			$("#dropOverlay").classList.add("hidden");
 		}
 	});
@@ -1697,7 +1683,7 @@
 					}
 				}
 				content = txt
-					.replace(/[#*`~>[\]()_|\\-]/g, "")
+					.replace(/[#*`~>[\]()_|-]/g, "")
 					.replace(/\n{3,}/g, "\n\n");
 				filename = "article.txt";
 				mime = "text/plain";

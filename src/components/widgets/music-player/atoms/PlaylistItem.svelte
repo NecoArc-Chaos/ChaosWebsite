@@ -1,37 +1,37 @@
 <script lang="ts">
-	import Icon from "@iconify/svelte";
-	import type { Song } from "../types";
+import Icon from "@iconify/svelte";
+import type { Song } from "../types";
 
-	interface Props {
-		song: Song;
-		index: number;
-		isCurrent: boolean;
-		isPlaying: boolean;
-		onclick: () => void;
-		lazy?: boolean;
+interface Props {
+	song: Song;
+	index: number;
+	isCurrent: boolean;
+	isPlaying: boolean;
+	onclick: () => void;
+	lazy?: boolean;
+}
+
+// Svelte 5 使用 $props() 接收参数
+const {
+	song,
+	index,
+	isCurrent,
+	isPlaying,
+	onclick,
+	lazy = true,
+}: Props = $props();
+
+// 修复后的路径处理函数
+function getAssetPath(path: string): string {
+	if (!path) return "";
+	if (path.startsWith("http://") || path.startsWith("https://")) {
+		return path;
 	}
-
-	// Svelte 5 使用 $props() 接收参数
-	const {
-		song,
-		index,
-		isCurrent,
-		isPlaying,
-		onclick,
-		lazy = true,
-	}: Props = $props();
-
-	// 修复后的路径处理函数
-	function getAssetPath(path: string): string {
-		if (!path) return "";
-		if (path.startsWith("http://") || path.startsWith("https://")) {
-			return path;
-		}
-		if (path.startsWith("/")) {
-			return path;
-		}
-		return `/${path}`;
+	if (path.startsWith("/")) {
+		return path;
 	}
+	return `/${path}`;
+}
 </script>
 
 <div
