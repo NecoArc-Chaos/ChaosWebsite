@@ -29,7 +29,14 @@ function handleBackdropClick(e: MouseEvent) {
 	if (e.target === e.currentTarget) {
 		onClose();
 	}
-}
+
+	function handleBackdropKeydown(e: KeyboardEvent) {
+		if (e.key === "Enter" || e.key === " ") {
+			if (e.target === e.currentTarget) {
+				onClose();
+			}
+		}
+	}
 </script>
 
 <div
@@ -38,7 +45,9 @@ function handleBackdropClick(e: MouseEvent) {
 	class:opacity-100={currentView !== "day"}
 	class:hidden={currentView === "day"}
 	onclick={handleBackdropClick}
+	onkeydown={handleBackdropKeydown}
 	role="dialog"
+	tabindex="0"
 	aria-label="Date selection panel"
 >
 	{#if currentView === "month"}
