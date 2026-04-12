@@ -1,5 +1,4 @@
 import mdx from "@astrojs/mdx";
-import umami from "@pjatoci/astro-umami";
 import sitemap from "@astrojs/sitemap";
 import svelte, { vitePreprocess } from "@astrojs/svelte";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
