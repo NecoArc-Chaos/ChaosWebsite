@@ -34,7 +34,7 @@ pinned: true
   - [第六步](#第六步)
     - [常见问题Q\&A](#常见问题qa)
     - [手动构建](#手动构建)
- 
+
 ### 第零步 下载所需材料
 
 **→ [123盘资源链接](https://www.123912.com/s/FgBPjv-qgz7H) ←**  
@@ -45,11 +45,10 @@ pinned: true
 >网络问题可以尝试把下载链接复制到下面的网站加速下载  
 ><https://github.akams.cn/>
 
-**游戏本体文件与汉化包** 
+**游戏本体文件与汉化包**  
   **有度盘会员**：[月R汉化发布页](https://tsukihimecn.github.io/cn/Download/) (速度最快最稳，但要会员否则限速)  
   **无度盘会员**：[Touchgal 资源盘](https://pan.touchgal.net/s/DprwSx) (最高可达 30~50MB/s，但不稳定)  
   本体文件要**全部**下载，一共20个G  
-
 
 ### 第一步 解压下载好的游戏本体  
 >
