@@ -1,4 +1,4 @@
-﻿import type {
+import type {
 	AnnouncementConfig,
 	CommentConfig,
 	ExpressiveCodeConfig,
@@ -344,7 +344,7 @@ export const navBarConfig: NavBarConfig = {
 export const profileConfig: ProfileConfig = {
 	avatar: "assets/images/Chaoss.jpg", // 相对于 /src 目录。如果以 '/' 开头，则相对于 /public 目录
 	name: "NecoArc-Chaos",
-	bio: "Ecc3:8",
+	bio: "Ecc3:7",
 	typewriter: {
 		enable: true, // 启用个人简介打字机效果
 		speed: 80, // 打字速度（毫秒）
