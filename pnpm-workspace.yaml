@@ -1,3 +1,8 @@
+allowBuilds:
+  core-js: false
+  esbuild: false
+  sharp: false
+  ttf2woff2: false
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild
