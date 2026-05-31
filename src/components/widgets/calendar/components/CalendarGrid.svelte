@@ -8,16 +8,15 @@ interface Props {
 	onCellClick: (dateKey: string) => void;
 }
 
-// 正确：$props 仅在顶层调用一次
 const { weekDays, emptyCellsCount, cells, onCellClick }: Props = $props();
 
 function getCellClass(cell: CalendarGridCell): string {
+	let bgClass =
+		"hover:bg-[var(--btn-plain-bg-hover)] text-neutral-700 dark:text-neutral-300 border border-transparent";
+
 	if (cell.isEmpty) {
 		return "aspect-square";
 	}
-
-	let bgClass =
-		"hover:bg-[var(--btn-plain-bg-hover)] text-neutral-700 dark:text-neutral-300 border border-transparent";
 
 	if (cell.isSelected) {
 		bgClass =

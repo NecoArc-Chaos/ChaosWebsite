@@ -79,9 +79,9 @@ export const en: Translation = {
 	[Key.animeEmptyLocal]:
 		"Please add anime information in src/data/anime.ts file",
 	[Key.animeConfigBilibili]:
-		"Please set your Bilibili vmid in the src/config.ts file",
+		"Please set your Bilibili vmid in the src/config/siteConfig.ts file",
 	[Key.animeConfigBangumi]:
-		"Please set your Bangumi userId in the src/config.ts file",
+		"Please set your Bangumi userId in the src/config/siteConfig.ts file",
 
 	// Diary Page
 	[Key.diarySubtitle]: "Share life, anytime, anywhere",
@@ -215,7 +215,33 @@ export const en: Translation = {
 	// Wallpaper mode
 	[Key.wallpaperBanner]: "Banner Mode",
 	[Key.wallpaperFullscreen]: "Fullscreen Mode",
+	[Key.wallpaperOverlay]: "Overlay Mode",
 	[Key.wallpaperNone]: "Hide Wallpaper",
+
+	// Settings panel
+	[Key.settingsPanel]: "Settings",
+	[Key.wallpaperSettings]: "Wallpaper",
+	[Key.overlaySettings]: "Wallpaper Effects",
+	[Key.overlayOpacity]: "Wallpaper Opacity",
+	[Key.overlayBlur]: "Background Blur",
+	[Key.overlayCardOpacity]: "Card Opacity",
+	[Key.fullscreenOpacity]: "Wallpaper Opacity",
+	[Key.fullscreenBlur]: "Background Blur",
+	[Key.wavesAnimation]: "Waves Animation",
+	[Key.bannerTitle]: "Banner Title",
+	[Key.bannerCarousel]: "Banner Carousel",
+	[Key.sakuraEffect]: "Sakura Effect",
+	[Key.effectsSettings]: "Effects",
+	[Key.postListLayout]: "Post Layout",
+	[Key.postListLayoutList]: "List",
+	[Key.postListLayoutGrid]: "Grid",
+	[Key.resetAll]: "Reset All",
+	[Key.settingsThemeColor]: "Theme Color",
+	[Key.settingsWallpaper]: "Wallpaper",
+	[Key.settingsWallpaperEffects]: "Wallpaper Effects",
+	[Key.settingsBanner]: "Banner Options",
+	[Key.settingsEffects]: "Effects",
+	[Key.settingsLayout]: "Layout",
 
 	// Skills Page
 	[Key.skills]: "Skills",
@@ -272,6 +298,7 @@ export const en: Translation = {
 	[Key.passwordProtectedDescription]:
 		"Please enter the password to view the protected content",
 	[Key.postEncrypted]: "Encrypted",
+	[Key.postEncryptedMessage]: "This post is encrypted",
 	[Key.passwordPlaceholder]: "Enter password",
 	[Key.passwordUnlock]: "Unlock",
 	[Key.passwordUnlocking]: "Unlocking...",
@@ -337,7 +364,7 @@ export const en: Translation = {
 	[Key.copied]: "Copied",
 	[Key.copyLink]: "Copy Link",
 	[Key.savePoster]: "Save Poster",
-	[Key.scanToRead]: "Scan to Read",
+	[Key.scanToRead]: "Source",
 	[Key.shareOnSocial]: "Share",
 	[Key.shareOnSocialDescription]:
 		"If this article helped you, please share it with others!",

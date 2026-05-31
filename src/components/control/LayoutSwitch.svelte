@@ -70,7 +70,8 @@ function handleMediaQueryChange(e: MediaQueryListEvent | MediaQueryList) {
 onMount(() => {
 	mounted = true;
 
-	const sessionLayout = getSavedSessionLayout();
+	const layoutEnabled = siteConfig.postListLayout?.enable ?? true;
+	const sessionLayout = layoutEnabled ? getSavedSessionLayout() : null;
 	const defaultLayout = siteConfig.postListLayout.defaultMode as LayoutMode;
 
 	if (sessionLayout === "list" || sessionLayout === "grid") {
@@ -113,7 +114,7 @@ onMount(() => {
 	window.addEventListener("layoutChange", handleCustomEvent as EventListener);
 
 	const setupSwup = () => {
-		const swup = (window as any).swup;
+		const swup = window.swup;
 		if (swup?.hooks) {
 			swup.hooks.on("content:replace", handleSwupEvent);
 			swup.hooks.on("page:view", handleSwupEvent);
@@ -122,7 +123,7 @@ onMount(() => {
 		}
 	};
 
-	if ((window as any).swup) {
+	if (window.swup) {
 		setupSwup();
 	} else {
 		setTimeout(setupSwup, 200);
@@ -142,7 +143,7 @@ onMount(() => {
 		);
 		window.removeEventListener("popstate", handleSwupEvent);
 
-		const swup = (window as any).swup;
+		const swup = window.swup;
 		if (swup?.hooks) {
 			swup.hooks.off("content:replace", handleSwupEvent);
 			swup.hooks.off("page:view", handleSwupEvent);
@@ -161,7 +162,7 @@ s{#if mounted && siteConfig.postListLayout.allowSwitch && !isSmallScreen}
 		class="btn-plain scale-animation rounded-lg h-11 w-11 active:scale-90 flex items-center justify-center theme-switch-btn {isSwitching
 			? 'switching'
 			: ''}"
-		on:click={switchLayout}
+		onclick={switchLayout}
 		disabled={isSwitching}
 		title={userPreference === "list"
 			? i18n(I18nKey.switchToGridMode)
@@ -169,7 +170,7 @@ s{#if mounted && siteConfig.postListLayout.allowSwitch && !isSmallScreen}
 	>
 		<div
 			class="icon-container w-5 h-5 flex items-center justify-center relative"
-			on:animationend={onAnimationEnd}
+			onanimationend={onAnimationEnd}
 		>
 			{#if userPreference === "list"}
 				<svg

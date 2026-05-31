@@ -1,18 +1,19 @@
 # 🌸 Mizuki
+
 <img align='right' src='logo.png' width='200px' alt="Mizuki logo">
 
 一个现代化、功能丰富的静态博客模板，基于 [Astro](https://astro.build) 构建，具有先进的功能和精美的设计。
 
 [![Node.js >= 22](https://img.shields.io/badge/node.js-%3E%3D22-brightgreen)](https://nodejs.org/)
 [![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue)](https://pnpm.io/)
-[![Astro](https://img.shields.io/badge/Astro-6.1.2-orange)](https://astro.build/)
+[![Astro](https://img.shields.io/badge/Astro-6.3.8-orange)](https://astro.build/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue)](https://www.typescriptlang.org/)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?logo=apache)](https://opensource.org/licenses/Apache-2.0)
 
 [**🖥️ 在线演示**](https://mizuki.mysqil.com/) | [**📝 用户文档**](https://docs.mizuki.mysqil.com/)
 
-🌏 **README 语言:**
-[**English**](./README.md) / [**中文**](./README.zh.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
+🌏 **README Languages:**
+[**English**](./README.md) / [**中文**](./README.zh.md) / [**日本語**](./README.ja.md) / [**繁體中文**](./README.tw.md) /
 
 通过我们的综合文档快速开始。无论是自定义主题、配置功能，还是部署到生产环境，文档涵盖了您成功启动博客所需的所有内容。
 
@@ -41,85 +42,91 @@
 [**English**](./README.md) /
 [**中文**](./README.zh.md) /
 [**日本語**](./README.ja.md) /
-[**中文繁体**](./README.tw.md) /
+[**繁體中文**](./README.tw.md) /
 
+### 🔧 Component Configuration System Restructuring
 
+- **Unified Configuration Architecture:** Brand new modular component configuration system, supporting dynamic component management and order configuration
+- **Configuration-Driven Component Loading:** Restructured SideBar component, implementing fully configuration-based component loading mechanism
+- **Unified Control Switches:** Removed independent enable switches for music player and announcement components, unified control through sidebarLayoutConfig
+- **Responsive Layout Adaptation:** Components support responsive layouts, automatically adjusting display based on device type
 
-### 🔧 组件配置系统重构
-- **统一配置架构：** 全新的模块化组件配置体系，支持动态组件管理和顺序配置
-- **配置驱动的组件加载：** 重构 SideBar 组件，实现完全基于配置的组件加载机制
-- **统一控制开关：** 移除音乐播放器和公告组件的独立 enable 开关，统一由 sidebarLayoutConfig 控制
-- **响应式布局适配：** 组件支持响应式布局，可根据设备类型自动调整显示
+### 📐 Layout System Optimization
 
-### 📐 布局系统优化
-- **侧边栏位置动态调整：** 支持左右侧边栏切换，布局自动适配
-- **文章目录智能定位：** 当侧边栏在右侧时，文章导航自动移至左侧，提供更好的阅读体验
-- **网格布局改进：** 优化 CSS Grid 布局，解决容器宽度异常问题
+- **Dynamic Sidebar Position Adjustment:** Support for left/right sidebar switching, with automatic layout adaptation
+- **Intelligent Article Directory Positioning:** When sidebar is on the right, article navigation automatically moves to the left, providing a better reading experience
+- **Grid Layout Improvements:** Optimized CSS Grid layout, resolving container width anomaly issues
 
-### 🎛️ 配置文件格式标准化
-- **标准化配置格式：** 创建统一的组件配置文件格式规范
-- **类型安全：** 完善的 TypeScript 类型定义，确保配置的类型安全
-- **可扩展性：** 支持自定义组件类型和配置选项
+### 🎛️ Configuration File Format Standardization
 
-### 🧹 代码优化
-- **测试文件清理：** 移除未使用的测试配置和依赖，减少项目体积
-- **代码结构优化：** 改进组件架构，提升代码可维护性
-- **性能提升：** 优化组件加载逻辑，提升页面渲染性能
+- **Standardized Configuration Format:** Created unified component configuration file format specifications
+- **Type Safety:** Comprehensive TypeScript type definitions ensuring configuration type safety
+- **Extensibility:** Support for custom component types and configuration options
+
+### 🧹 Code Optimization
+
+- **Test File Cleanup:** Removed unused test configurations and dependencies, reducing project size
+- **Code Structure Optimization:** Improved component architecture, enhancing code maintainability
+- **Performance Improvement:** Optimized component loading logic, improving page rendering performance
 
 ---
 
 ## ✨ 功能特性
 
-### 🎨 设计与界面
-- [x] 基于 [Astro](https://astro.build) 和 [Tailwind CSS](https://tailwindcss.com) 构建
-- [x] 使用 [Swup](https://swup.js.org/) 实现流畅的动画和页面过渡
-- [x] 明暗主题切换，支持系统偏好检测
-- [x] 可自定义主题色彩和动态横幅轮播
-- [x] 全屏背景图片，支持轮播、透明度和模糊效果
-- [x] 全设备响应式设计
-- [x] 使用 JetBrains Mono 字体的优美排版
+### 🎨 Design & Interface
 
-### 🔍 内容与搜索
-- [x] 基于 [Pagefind](https://pagefind.app/) 的高级搜索功能
-- [x] [增强的 Markdown 功能](#-markdown-扩展语法)，支持语法高亮
-- [x] 交互式目录，支持自动滚动
-- [x] RSS 订阅生成
-- [x] 阅读时间估算
-- [x] 文章分类和标签系统
+- [x] Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com)
+- [x] Smooth animations and page transitions using [Swup](https://swup.js.org/)
+- [x] Light/dark theme switching with system preference detection
+- [x] Customizable theme colors and dynamic banner carousel
+- [x] Fullscreen background images with carousel, opacity, and blur effects
+- [x] Fully responsive design for all devices
+- [x] Beautiful typography with JetBrains Mono font
 
+### 🔍 Content & Search
 
+- [x] Advanced search functionality based on [Pagefind](https://pagefind.app/)
+- [x] [Enhanced Markdown features](#-markdown-extensions) with syntax highlighting
+- [x] Interactive table of contents with auto-scrolling
+- [x] RSS feed generation
+- [x] Reading time estimation
+- [x] Article categorization and tagging system
 
-### 📱 特色页面
-- [x] **追番页面** - 追踪动画观看进度和评分
-- [x] **友链页面** - 精美卡片展示朋友网站
-- [x] **日记页面** - 分享生活瞬间，类似社交媒体
-- [x] **归档页面** - 有序的文章时间线视图
-- [x] **关于页面** - 可自定义的个人介绍
+### 📱 Special Pages
 
-### 🛠 技术特性
-- [x] **增强代码块**，基于 [Expressive Code](https://expressive-code.com/)
-- [x] **数学公式支持**，KaTeX 渲染
-- [x] **图片优化**，PhotoSwipe 画廊集成
-- [x] **SEO 优化**，包含站点地图和元标签
-- [x] **性能优化**，懒加载和缓存机制
-- [x] **评论系统**，支持 Twikoo 集成
+- [x] **Anime Tracking Page** - Track anime watching progress and ratings
+- [x] **Friends Page** - Beautiful cards showcasing friend websites
+- [x] **Diary Page** - Share life moments, similar to social media
+- [x] **Archive Page** - Organized timeline view of articles
+- [x] **About Page** - Customizable personal introduction
+
+### 🛠 Technical Features
+
+- [x] **Enhanced code blocks** based on [Expressive Code](https://expressive-code.com/)
+- [x] **Math formula support** with KaTeX rendering
+- [x] **Image optimization** with PhotoSwipe gallery integration
+- [x] **SEO optimization** including sitemaps and meta tags
+- [x] **Performance optimization** with lazy loading and caching
+- [x] **Comment system** with Twikoo integration
 
 ## 🚀 快速开始
 
 ### 📦 安装
 
-1. **克隆仓库：**
+1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/LyraVoid/Mizuki.git
    cd Mizuki
    ```
 
-2. **安装依赖：**
+2. **Install dependencies:**
+
    ```bash
    # 如果没有安装 pnpm，先安装
    npm install -g pnpm
-   
-   # 安装项目依赖
+
+   # Install project dependencies
    pnpm install
    ```
 
@@ -169,7 +176,7 @@ category: 前端
 draft: false
 pinned: false
 comment: true
-lang: zh-CN      # 仅当文章语言与 config.ts 中的站点语言不同时设置
+lang: en # Only set when article language differs from site language in config.ts
 ---
 ```
 
@@ -190,21 +197,24 @@ lang: zh-CN      # 仅当文章语言与 config.ts 中的站点语言不同时�
 
 `pinned` 字段允许您将重要文章置顶到博客列表的顶部。置顶文章将始终显示在普通文章之前，无论其发布日期如何。
 
-**使用方法：**
+**Usage:**
+
 ```yaml
 pinned: true  # 将此文章置顶
 pinned: false # 普通文章（默认）
 ```
 
-**排序规则：**
-1. 置顶文章优先显示，按发布日期排序（最新在前）
-2. 普通文章随后显示，按发布日期排序（最新在前）
+**Sorting Rules:**
+
+1. Pinned articles appear first, sorted by publication date (newest first)
+2. Regular articles follow, sorted by publication date (newest first)
 
 ### 文章级评论控制
 
 `comment` 字段允许您单独控制每篇文章评论区的开启与关闭。
 
-**使用方法：**
+**Usage:**
+
 ```yaml
 comment: true  # 启用评论（默认）
 comment: false # 禁用评论
@@ -217,37 +227,40 @@ comment: false # 禁用评论
 
 Mizuki 支持超越标准 GitHub Flavored Markdown 的增强功能：
 
-### 📝 增强写作
-- **提示框：** 使用 `> [!NOTE]`、`> [!TIP]`、`> [!WARNING]` 等创建精美的标注框
-- **数学公式：** 使用 `$行内$` 和 `$$块级$$` 语法编写 LaTeX 数学公式
-- **代码高亮：** 高级语法高亮，支持行号和复制按钮
-- **GitHub 卡片：** 使用 `::github{repo="用户/仓库"}` 嵌入仓库卡片
+### 📝 Enhanced Writing
 
-### 🎨 视觉元素
-- **图片画廊：** 自动 PhotoSwipe 集成，支持图片查看
-- **可折叠部分：** 创建可展开的内容块
-- **自定义组件：** 使用特殊指令增强内容
+- **Callouts:** Create beautiful annotation boxes using `> [!NOTE]`, `> [!TIP]`, `> [!WARNING]`, etc.
+- **Math Formulas:** Write LaTeX math formulas using `$inline$` and `$$block$$` syntax
+- **Code Highlighting:** Advanced syntax highlighting with line numbers and copy buttons
+- **GitHub Cards:** Embed repository cards using `::github{repo="user/repo"}`
 
-### 📊 内容组织
-- **目录：** 从标题自动生成，支持平滑滚动
-- **阅读时间：** 自动计算和显示
-- **文章元数据：** 丰富的前言支持，包含分类和标签
+### 🎨 Visual Elements
+
+- **Image Gallery:** Automatic PhotoSwipe integration for image viewing
+- **Collapsible Sections:** Create expandable content blocks
+- **Custom Components:** Enhance content with special directives
+
+### 📊 Content Organization
+
+- **Table of Contents:** Automatically generated from headings with smooth scrolling
+- **Reading Time:** Automatically calculated and displayed
+- **Article Metadata:** Rich frontmatter support with categories and tags
 
 ## ⚡ 命令
 
 所有命令都在项目根目录运行：
 
-| 命令                       | 操作                                    |
-|:---------------------------|:---------------------------------------|
-| `pnpm install`             | 安装依赖                               |
-| `pnpm dev`                 | 在 `localhost:4321` 启动本地开发服务器 |
-| `pnpm build`               | 构建生产站点到 `./dist/`               |
-| `pnpm preview`             | 在部署前本地预览构建                   |
-| `pnpm check`               | 运行 Astro 错误检查                    |
-| `pnpm format`              | 使用 Prettier 格式化代码                  |
-| `pnpm lint`                | 检查并修复代码问题                     |
-| `pnpm new-post <文件名>`   | 创建新博客文章                         |
-| `pnpm astro ...`           | 运行 Astro CLI 命令                    |
+| Command                    | Action                                     |
+| :------------------------- | :----------------------------------------- |
+| `pnpm install`             | Install dependencies                       |
+| `pnpm dev`                 | Start local dev server at `localhost:4321` |
+| `pnpm build`               | Build production site to `./dist/`         |
+| `pnpm preview`             | Preview build locally before deployment    |
+| `pnpm check`               | Run Astro error checking                   |
+| `pnpm format`              | Format code with Prettier                  |
+| `pnpm lint`                | Check and fix code issues                  |
+| `pnpm new-post <filename>` | Create a new blog post                     |
+| `pnpm astro ...`           | Run Astro CLI commands                     |
 
 ## 🎯 配置指南
 
@@ -288,10 +301,10 @@ Mizuki 支持将代码和内容分成两个独立的仓库管理,适合团队协
 
 **快速选择**:
 
-| 使用场景 | 配置方式 | 适合人群 |
-|---------|---------|---------|
-| 🆕 **本地模式** (默认) | 不配置,直接使用 | 新手、个人博客 |
-| 🔧 **分离模式** | 设置 `ENABLE_CONTENT_SYNC=true` | 团队协作、私有内容 |
+| Use Case                    | Configuration                  | For Whom                            |
+| --------------------------- | ------------------------------ | ----------------------------------- |
+| 🆕 **Local Mode** (default) | No configuration, use directly | Beginners, personal blogs           |
+| 🔧 **Separation Mode**      | Set `ENABLE_CONTENT_SYNC=true` | Team collaboration, private content |
 
 **一键启用/禁用**:
 
@@ -312,10 +325,11 @@ CONTENT_REPO_URL=https://github.com/your-username/Mizuki-Content.git
 pnpm run sync-content
 ```
 
-**功能特性**:
-- ✅ 支持公开和私有仓库 🔐
-- ✅ 一键启用/禁用,无需修改代码
-- ✅ 自动同步,开发前自动拉取最新内容
+**Features**:
+
+- ✅ Supports public and private repositories 🔐
+- ✅ One-click enable/disable without code modification
+- ✅ Auto-sync, pulls latest content automatically before development
 
 📖 **详细配置**: [内容分离完整指南](docs/CONTENT_SEPARATION.md)  
 🔄 **迁移教程**: [从单仓库迁移到分离模式](docs/MIGRATION_GUIDE.md)  
@@ -349,6 +363,7 @@ pnpm run sync-content
 - 图标来自 [Iconify](https://iconify.design/)
 
 ### 🌸 特别感谢
+
 - **[Fuwari](https://github.com/saicaca/fuwari)** by saicaca - 本项目所基于的原始模板。感谢您创建了如此漂亮且功能强大的模板。
 - **[Yukina](https://github.com/WhitePaper233/yukina)** - 感谢提供设计灵感和创意，帮助塑造了这个项目。Yukina 是一个优雅的博客模板，展现了出色的设计原则和用户体验。
 - **[Firefly](https://github.com/CuteLeaf/Firefly)** - 感谢提供优秀的布局设计思路，双侧边栏布局、文章双列网格等布局，及部分小组件的设计与实现，让 Mizuki 的界面更加丰富。
@@ -366,7 +381,6 @@ Thanks to all contributors for their contributions to this project. If you have 
 
 ## ⭐ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=LyraVoid/Mizuki&type=Date)](https://star-history.com/#LyraVoid/Mizuki&Date)
----
+## [![Star History Chart](https://api.star-history.com/svg?repos=LyraVoid/Mizuki&type=Date)](https://star-history.com/#LyraVoid/Mizuki&Date)
 
 ⭐ 如果您觉得这个项目有帮助，请考虑给它一个星标!

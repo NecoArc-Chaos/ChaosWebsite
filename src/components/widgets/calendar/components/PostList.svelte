@@ -7,12 +7,11 @@ interface Props {
 	isEmpty: boolean;
 }
 
-// Svelte 5: $props 只能在顶层调用一次
 const { posts, currentPostId, isEmpty }: Props = $props();
 
 function formatDate(dateStr: string): string {
 	const [, m, d] = dateStr.split("-");
-	return `${parseInt(m)}-${parseInt(d)}`;
+	return `${Number.parseInt(m, 10)}-${Number.parseInt(d, 10)}`;
 }
 
 function getContainerClass(isCurrentPost: boolean): string {
@@ -26,7 +25,9 @@ function getContainerClass(isCurrentPost: boolean): string {
 }
 
 function getTitleClass(isCurrentPost: boolean): string {
-	// 这里虽然目前逻辑一致，但保留结构方便你后续给当前文章添加特殊样式
+	if (isCurrentPost) {
+		return "truncate flex-1 font-bold transition-colors";
+	}
 	return "truncate flex-1 font-bold transition-colors";
 }
 

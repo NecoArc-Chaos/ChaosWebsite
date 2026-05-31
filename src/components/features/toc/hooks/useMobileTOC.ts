@@ -58,7 +58,7 @@ export function generateTOCItems(config: TOCConfig): TOCItem[] {
 			return;
 		}
 
-		const level = parseInt(heading.tagName.charAt(1), 10);
+		const level = Number.parseInt(heading.tagName.charAt(1), 10);
 
 		// 根据 depth 配置过滤标题
 		if (level > config.depth) {

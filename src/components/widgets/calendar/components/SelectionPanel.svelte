@@ -4,39 +4,39 @@ import MonthPicker from "./MonthPicker.svelte";
 import YearPicker from "./YearPicker.svelte";
 
 interface Props {
-    monthNames: string[];
-    currentYear: number;
-    currentMonth: number;
-    currentView: "day" | "month" | "year";
-    stats: CalendarStats;
-    onMonthSelect: (month: number) => void;
-    onYearSelect: (year: number) => void;
-    onClose: () => void;
+	monthNames: string[];
+	currentYear: number;
+	currentMonth: number;
+	currentView: "day" | "month" | "year";
+	stats: CalendarStats;
+	onMonthSelect: (month: number) => void;
+	onYearSelect: (year: number) => void;
+	onClose: () => void;
 }
 
 const {
-    monthNames,
-    currentYear,
-    currentMonth,
-    currentView,
-    stats,
-    onMonthSelect,
-    onYearSelect,
-    onClose,
+	monthNames,
+	currentYear,
+	currentMonth,
+	currentView,
+	stats,
+	onMonthSelect,
+	onYearSelect,
+	onClose,
 }: Props = $props();
 
 function handleBackdropClick(e: MouseEvent) {
-    if (e.target === e.currentTarget) {
-        onClose();
-    }
-} // <--- 补上这个闭合括号
+	if (e.target === e.currentTarget) {
+		onClose();
+	}
+}
 
 function handleBackdropKeydown(e: KeyboardEvent) {
-    if (e.key === "Enter" || e.key === " ") {
-        if (e.target === e.currentTarget) {
-            onClose();
-        }
-    }
+	if (e.key === "Enter" || e.key === " ") {
+		if (e.target === e.currentTarget) {
+			onClose();
+		}
+	}
 }
 </script>
 

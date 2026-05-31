@@ -88,7 +88,10 @@ export async function generatePosterImage(
 	if (coverImg) {
 		const imgRatio = coverImg.width / coverImg.height;
 		const targetRatio = width / coverHeight;
-		let sx: number, sy: number, sWidth: number, sHeight: number;
+		let sx: number;
+		let sy: number;
+		let sWidth: number;
+		let sHeight: number;
 
 		if (imgRatio > targetRatio) {
 			sHeight = coverImg.height;

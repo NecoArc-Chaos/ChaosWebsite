@@ -7,8 +7,7 @@ type PanelId =
 	| "mobile-toc-panel"
 	| "display-setting"
 	| "nav-menu-panel"
-	| "search-panel"
-	| "wallpaper-mode-panel";
+	| "search-panel";
 
 class PanelManager {
 	private activePanels = new Set<PanelId>();
@@ -150,7 +149,7 @@ export const panelManager = new PanelManager();
 
 // 将浮窗管理器暴露到全局，方便在其他地方使用
 if (typeof window !== "undefined") {
-	(window as any).panelManager = panelManager;
+	(window as { panelManager: unknown }).panelManager = panelManager;
 }
 
 export default panelManager;

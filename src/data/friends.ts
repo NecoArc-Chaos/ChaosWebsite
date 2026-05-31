@@ -2,33 +2,33 @@
 // 用于管理友情链接页面的数据
 
 export interface FriendItem {
-	id: number;
-	title: string;
-	imgurl: string;
-	desc: string;
-	siteurl: string;
-	tags: string[];
+  id: number;
+  title: string;
+  imgurl: string;
+  desc: string;
+  siteurl: string;
+  tags: string[];
 }
 
 // 友情链接数据
 export const friendsData: FriendItem[] = [
-	{
-		id: 1,
-		title: "Chaos的小站",
-		imgurl: "https://www.necoarcchaos.xyz/_astro/Chaoss.DFvC6oND_oNina.webp",
-		desc: "调制饮料，改变人生。正在尝试写点有用的",
-		siteurl: "https://www.necoarcchaos.xyz/",
-		tags: ["Friend"],
-	},
-	{
-		id: 2,
-		title: "Nanci的个人主页",
-		imgurl: "https://nanci.solian.page/avatar.png",
-		desc: "遥看月色亦无痕，夜雨落花沾凡尘",
-		siteurl: "https://blog.thsl.dpdns.org/",
-		tags: ["Friend"],
-	},
-	/*{
+  {
+    id: 1,
+    title: "Chaos的小站",
+    imgurl: "https://www.necoarcchaos.xyz/_astro/Chaoss.DFvC6oND_oNina.webp",
+    desc: "调制饮料，改变人生。正在尝试写点有用的",
+    siteurl: "https://www.necoarcchaos.xyz/",
+    tags: ["Friend"],
+  },
+  {
+    id: 2,
+    title: "Nanci的个人主页",
+    imgurl: "https://nanci.solian.page/avatar.png",
+    desc: "遥看月色亦无痕，夜雨落花沾凡尘",
+    siteurl: "https://blog.thsl.dpdns.org/",
+    tags: ["Friend"],
+  },
+  /*{
 		id: 4,
 		title: "Tailwind CSS",
 		imgurl: "https://avatars.githubusercontent.com/u/67109815?v=4&s=640",
@@ -72,15 +72,15 @@ export const friendsData: FriendItem[] = [
 
 // 获取所有友情链接数据
 export function getFriendsList(): FriendItem[] {
-	return friendsData;
+  return friendsData;
 }
 
 // 获取随机排序的友情链接数据
 export function getShuffledFriendsList(): FriendItem[] {
-	const shuffled = [...friendsData];
-	for (let i = shuffled.length - 1; i > 0; i--) {
-		const j = Math.floor(Math.random() * (i + 1));
-		[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-	}
-	return shuffled;
+  const shuffled = [...friendsData];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
 }

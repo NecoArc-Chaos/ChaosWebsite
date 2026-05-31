@@ -1,6 +1,7 @@
 <script lang="ts">
 import Icon from "@iconify/svelte";
 import { onMount } from "svelte";
+
 import I18nKey from "../../../i18n/i18nKey";
 import { i18n } from "../../../i18n/translation";
 import { navigateToPage } from "../../../utils/navigation-utils";
@@ -15,7 +16,6 @@ import {
 	type TOCItem,
 } from "./hooks/useMobileTOC";
 
-// --- 状态 ---
 let tocItems: TOCItem[] = $state([]);
 let postItems: PostItem[] = $state([]);
 let activeId = $state("");
@@ -24,7 +24,10 @@ let isHomePage = $state(false);
 let observer: IntersectionObserver | undefined;
 let swupListenersRegistered = $state(false);
 
-// --- 核心逻辑 ---
+const togglePanel = async () => {
+	await panelManager.togglePanel("mobile-toc-panel");
+};
+
 const setPanelVisibility = async (show: boolean): Promise<void> => {
 	await panelManager.togglePanel("mobile-toc-panel", show);
 };
@@ -40,7 +43,6 @@ const navigateToPost = (url: string) => {
 };
 
 const updateActiveHeading = () => {
-	if (typeof window === "undefined") return;
 	const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
 	const scrollTop = window.scrollY;
 	const offset = 100;
@@ -54,14 +56,16 @@ const updateActiveHeading = () => {
 			}
 		}
 	});
+
 	activeId = currentActiveId;
 };
 
 const setupIntersectionObserver = () => {
-	if (typeof window === "undefined") return;
 	const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
 
-	if (observer) observer.disconnect();
+	if (observer) {
+		observer.disconnect();
+	}
 
 	observer = new IntersectionObserver(
 		(entries) => {
@@ -71,22 +75,46 @@ const setupIntersectionObserver = () => {
 				}
 			});
 		},
-		{ rootMargin: "-80px 0px -80% 0px", threshold: 0 },
+		{
+			rootMargin: "-80px 0px -80% 0px",
+			threshold: 0,
+		},
 	);
 
 	headings.forEach((heading) => {
-		if (heading.id) observer?.observe(heading);
+		if (heading.id) {
+			observer?.observe(heading);
+		}
 	});
 };
 
 const setupSwupListeners = () => {
-	if (typeof window === "undefined") return;
-	const w = window as any;
+	if (
+		typeof window !== "undefined" &&
+		(
+			window as unknown as {
+				swup?: {
+					hooks: {
+						on: (event: string, cb: () => void) => void;
+						off: (event: string) => void;
+					};
+				};
+			}
+		).swup &&
+		!swupListenersRegistered
+	) {
+		const swup = (
+			window as unknown as {
+				swup: {
+					hooks: { on: (event: string, cb: () => void) => void };
+				};
+			}
+		).swup;
 
-	if (w.swup && !swupListenersRegistered) {
-		w.swup.hooks.on("page:view", () => {
+		swup.hooks.on("page:view", () => {
 			setTimeout(() => init(), 200);
 		});
+
 		swupListenersRegistered = true;
 	} else if (!swupListenersRegistered) {
 		window.addEventListener("popstate", () => {
@@ -97,29 +125,37 @@ const setupSwupListeners = () => {
 };
 
 const checkSwupAvailability = () => {
-	if (typeof window === "undefined") return;
-	const w = window as any;
-	if (w.swup) {
-		setupSwupListeners();
-	} else {
-		const checkSwup = () => {
-			if (w.swup) {
-				setupSwupListeners();
-				document.removeEventListener("swup:enable", checkSwup);
-			}
+	if (typeof window !== "undefined") {
+		const w = window as unknown as {
+			swup?: {
+				hooks: {
+					on: (event: string, cb: () => void) => void;
+					off: (event: string) => void;
+				};
+			};
 		};
-		document.addEventListener("swup:enable", checkSwup);
-		setTimeout(() => {
-			if (w.swup) {
-				setupSwupListeners();
-				document.removeEventListener("swup:enable", checkSwup);
-			}
-		}, 1000);
+		if (w.swup) {
+			setupSwupListeners();
+		} else {
+			const checkSwup = () => {
+				if (w.swup) {
+					setupSwupListeners();
+					document.removeEventListener("swup:enable", checkSwup);
+				}
+			};
+
+			document.addEventListener("swup:enable", checkSwup);
+			setTimeout(() => {
+				if (w.swup) {
+					setupSwupListeners();
+					document.removeEventListener("swup:enable", checkSwup);
+				}
+			}, 1000);
+		}
 	}
 };
 
 const init = () => {
-	if (typeof window === "undefined") return;
 	isHomePage = checkIsHomePage();
 	checkSwupAvailability();
 
@@ -135,29 +171,38 @@ const init = () => {
 	}
 };
 
-// --- 生命周期 ---
 onMount(() => {
 	setTimeout(init, 100);
 	window.addEventListener("scroll", updateActiveHeading, {
 		passive: true,
 	});
 
-	// 暴露全局初始化方法（如果有需要）
-	(window as any).mobileTOCInit = init;
-
 	return () => {
 		observer?.disconnect();
 		window.removeEventListener("scroll", updateActiveHeading);
-		const w = window as any;
+
+		const w = window as unknown as {
+			swup?: {
+				hooks: {
+					on: (event: string, cb: () => void) => void;
+					off: (event: string) => void;
+				};
+			};
+		};
 		if (w.swup) {
 			w.swup.hooks.off("page:view");
 		}
+
 		swupListenersRegistered = false;
 	};
 });
 
-// --- 工具方法 ---
+if (typeof window !== "undefined") {
+	(window as unknown as { mobileTOCInit?: () => void }).mobileTOCInit = init;
+}
+
 const getLevelPadding = (level: number): string => {
+	const base = "12px";
 	const levelPadding: Record<number, string> = {
 		1: "12px",
 		2: "28px",
@@ -166,7 +211,7 @@ const getLevelPadding = (level: number): string => {
 		5: "52px",
 		6: "52px",
 	};
-	return levelPadding[level] || "12px";
+	return levelPadding[level] || base;
 };
 
 const getActivePadding = (level: number): string => {

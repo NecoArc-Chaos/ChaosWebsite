@@ -11,7 +11,6 @@ interface Props {
 	size?: "mini" | "expanded";
 }
 
-// Svelte 5: $props 只能在顶层调用一次
 const {
 	song,
 	currentTime,
@@ -30,7 +29,6 @@ function formatTime(seconds: number): string {
 }
 
 function getAssetPath(path: string): string {
-	if (!path) return "";
 	if (path.startsWith("http://") || path.startsWith("https://")) {
 		return path;
 	}

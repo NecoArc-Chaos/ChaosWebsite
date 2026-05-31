@@ -1,5 +1,6 @@
 <script lang="ts">
 import { onMount } from "svelte";
+
 import type { CalendarStats } from "../types/calendar";
 
 interface Props {
@@ -10,10 +11,9 @@ interface Props {
 
 const { currentYear, stats, onYearSelect }: Props = $props();
 
-let containerEl: HTMLDivElement | undefined = $state();
+let containerEl: HTMLDivElement;
 
-// 修复：Svelte 5 正确的 $derived 语法（移除匿名函数包裹）
-const years = $derived.by(() => {
+const years = $derived(() => {
 	const result: number[] = [];
 	for (let y = stats.minYear; y <= stats.maxYear; y++) {
 		result.push(y);
@@ -37,7 +37,6 @@ function getYearClass(year: number): string {
 }
 
 function scrollToCurrentYear() {
-	if (typeof window === "undefined") return; // SSR 安全检查
 	setTimeout(() => {
 		const el = containerEl?.querySelector(`[data-year="${currentYear}"]`);
 		if (el) {

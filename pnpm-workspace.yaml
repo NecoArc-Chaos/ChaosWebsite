@@ -1,11 +1,7 @@
 allowBuilds:
-  core-js: false
-  esbuild: false
-  sharp: false
-  ttf2woff2: false
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - esbuild
-  - sharp
-  - swup
-  - ttf2woff2
+  esbuild: true
+  sharp: true
+  ttf2woff2: true
+minimumReleaseAgeExclude:
+  - "@astrojs/*"
+  - astro

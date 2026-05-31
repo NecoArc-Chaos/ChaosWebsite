@@ -179,7 +179,7 @@ function hideError() {
 	musicPlayerStore.hideError();
 }
 
-function volumeBarRef(node: HTMLElement) {}
+function volumeBarRef(_node: HTMLElement) {}
 
 function canSkip(): boolean {
 	return musicPlayerStore.canSkip();
@@ -200,7 +200,7 @@ onDestroy(() => {
 });
 </script>
 
-<svelte:window on:keydown={handleVolumeKeyDown} />
+<svelte:window onkeydown={handleVolumeKeyDown} />
 
 {#if shouldRenderFloatingUi}
 	{#if state.showError}

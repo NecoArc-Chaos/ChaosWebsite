@@ -76,11 +76,11 @@ export function generateTOCItems(
 export function getBadgeClass(level: number, minLevel: number): string {
 	if (level === minLevel) {
 		return "bg-[var(--toc-badge-bg)] text-[var(--btn-content)]";
-	} else if (level === minLevel + 1) {
-		return "w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]";
-	} else {
-		return "w-1.5 h-1.5 rounded-sm bg-black/5 dark:bg-white/10";
 	}
+	if (level === minLevel + 1) {
+		return "w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]";
+	}
+	return "w-1.5 h-1.5 rounded-sm bg-black/5 dark:bg-white/10";
 }
 
 /**

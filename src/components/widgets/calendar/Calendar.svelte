@@ -51,7 +51,6 @@ let currentYear = $state(new Date().getFullYear());
 let currentMonth = $state(new Date().getMonth());
 let selectedDateKey: string | null = $state(null);
 let currentView: "day" | "month" | "year" = $state("day");
-let currentPathname = $state(""); // 用于安全存储路径
 
 // Today's date (reactive, updates at midnight)
 let todayYear = $state(new Date().getFullYear());
@@ -91,12 +90,14 @@ const cells = $derived(
 				isEmpty: false,
 			});
 		}
+
 		return result;
 	})(),
 );
 
-// SSR 安全：不再直接引用 window.location
-const currentPostId = $derived(getCurrentPostId(currentPathname, allPostsData));
+const currentPostId = $derived(
+	getCurrentPostId(window.location.pathname, allPostsData),
+);
 
 const displayedPosts = $derived(
 	(() => {
@@ -120,20 +121,18 @@ async function fetchCalendarData() {
 			postsByMonth = processed.postsByMonth;
 			stats = processed.stats;
 
-			// 修复了这里的多余大括号
 			const currentPostIdValue = getCurrentPostId(
-				currentPathname,
+				window.location.pathname,
 				allPostsData,
 			);
-
 			if (currentPostIdValue) {
 				const matchedPost = allPostsData.find(
 					(p) => p.id === currentPostIdValue,
 				);
 				if (matchedPost) {
 					const [y, m] = matchedPost.date.split("-");
-					currentYear = parseInt(y);
-					currentMonth = parseInt(m) - 1;
+					currentYear = Number.parseInt(y, 10);
+					currentMonth = Number.parseInt(m, 10) - 1;
 				}
 			}
 		}
@@ -178,7 +177,11 @@ function handleTitleClick() {
 }
 
 function handleCellClick(dateKey: string) {
-	selectedDateKey = selectedDateKey === dateKey ? null : dateKey;
+	if (selectedDateKey === dateKey) {
+		selectedDateKey = null;
+	} else {
+		selectedDateKey = dateKey;
+	}
 }
 
 function handleMonthSelect(month: number) {
@@ -194,16 +197,16 @@ function handleYearSelect(year: number) {
 function showMonthPicker() {
 	currentView = "month";
 }
+
 function showYearPicker() {
 	currentView = "year";
 }
+
 function closeSelectionPanel() {
 	currentView = "day";
 }
 
 onMount(() => {
-	// 在客户端获取当前路径
-	currentPathname = window.location.pathname;
 	fetchCalendarData();
 
 	// Check for date change every minute

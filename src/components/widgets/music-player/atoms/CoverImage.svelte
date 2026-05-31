@@ -1,5 +1,6 @@
 <script lang="ts">
 import Icon from "@iconify/svelte";
+
 import Key from "../../../../i18n/i18nKey";
 import { i18n } from "../../../../i18n/translation";
 
@@ -12,7 +13,6 @@ interface Props {
 	interactive?: boolean;
 }
 
-// 正确：$props 仅在顶层声明一次
 const {
 	cover,
 	isPlaying,
@@ -23,7 +23,6 @@ const {
 }: Props = $props();
 
 function getAssetPath(path: string): string {
-	if (!path) return "";
 	if (path.startsWith("http://") || path.startsWith("https://")) {
 		return path;
 	}
@@ -37,7 +36,6 @@ const containerClasses = {
 	mini: "cover-container relative w-12 h-12 rounded-full overflow-hidden",
 	expanded:
 		"cover-container relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0",
-	orb: "cover-container relative w-20 h-20 rounded-full overflow-hidden", // 补全了 Props 中定义的 orb 尺寸
 };
 </script>
 
