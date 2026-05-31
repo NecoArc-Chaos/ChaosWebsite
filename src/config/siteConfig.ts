@@ -209,13 +209,13 @@ export const siteConfig: SiteConfig = {
   },
 
   thirdPartyAnalytics: {
-    enable: false, // 是否启用第三方统计（Microsoft Clarity），默认关闭，启用可能影响 Lighthouse 评分
-    clarityId: "", // Clarity 项目 ID
+    enable: true, // 是否启用第三方统计（Microsoft Clarity），默认关闭，启用可能影响 Lighthouse 评分
+    clarityId: "wosx8j1k99", // Clarity 项目 ID
   },
   // 卡片样式配置
   card: {
     border: true, // 开启卡片边框和微阴影，让卡片更有立体感
-    followTheme: false, // 卡片背景跟随主题色相
+    followTheme: true, // 卡片背景跟随主题色相
   },
   // 图片优化配置
   imageOptimization: {
