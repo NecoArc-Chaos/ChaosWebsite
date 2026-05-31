@@ -1,15 +1,15 @@
 使用了基于 Astro 的Mizuki模板  
-::github{repo="matsuzaka-yuki/Mizuki"}  
+::github{repo="LyraVoid/Mizuki"}
 
 我是Neco-ArcChaos，头像出自  
-https://youtu.be/KyDEEblGBkM?si=0spEuVHCggdF_3N4  
+https://youtu.be/KyDEEblGBkM?si=0spEuVHCggdF_3N4
 
-（因为这个视频的BGM还去玩了Oneshot）  
+（因为这个视频的BGM还去玩了Oneshot）
 
 如你所见，我是一名成分复杂的人  
 以后会写一篇关于我踏足过的领域的文章  
 希望你能喜欢我的网站！  
-有问题意见欢迎联系我~  
+有问题意见欢迎联系我~
 
 一点冷知识：  
 网站的制作部署仅一部安卓手机使用以下软件完成  
