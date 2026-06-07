@@ -69,7 +69,7 @@ export const siteConfig: SiteConfig = {
   },
 
   // 日记页面 Memos API 地址，留空则使用静态数据
-  diaryApiUrl: "memos_pat_tPTnYXqsVj6b85JOI7ZbjZ41Nw93Ne1k",
+  diaryApiUrl: "https://memos.necoarcchaos.xyz:45678/api/v1",
 
   // 文章列表布局配置
   postListLayout: {
