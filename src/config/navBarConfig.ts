@@ -44,6 +44,11 @@ export const navBarConfig: NavBarConfig = {
           icon: "material-symbols:movie",
         },
         {
+          name: "Diary",
+          url: "/diary/",
+          icon: "material-symbols:book",
+        }, // 已成功加回日记页面
+        {
           name: "Gallery",
           url: "/albums/",
           icon: "material-symbols:photo-library",
