@@ -242,6 +242,25 @@ function loadButtonScript() {
 
 loadButtonScript();
 
+function patchExternalLinks() {
+    document.querySelectorAll('#navbar a, #nav-menu-panel a').forEach(a => {
+        const href = a.getAttribute('href');
+        // 如果链接是以 http 或 https 开头的绝对外链
+        if (href && (href.startsWith('http://') || href.startsWith('https://'))) {
+            a.setAttribute('data-no-swup', ''); // 告诉 Swup 别碰它
+            a.setAttribute('target', '_blank');  // 让它在新标签页打开（体验更好）
+            a.setAttribute('rel', 'noopener noreferrer'); // 安全补丁
+        }
+    });
+}
+
+// 初始化执行一次
+patchExternalLinks();
+// 如果你开启了 Swup 的页面切换，切换后需要重新绑定
+document.addEventListener('swup:contentReplaced', patchExternalLinks);
+// 有些版本的 swup 叫这个事件
+document.addEventListener('swup:pageView', patchExternalLinks);
+
 // 为semifull模式添加滚动检测逻辑
 function initSemifullScrollDetection() {
     const navbar = document.getElementById('navbar');
