@@ -45,9 +45,9 @@ export const navBarConfig: NavBarConfig = {
         },
         {
           name: "Diary",
-          url: "/diary/",
+          url: "https://memos2.necoarcchaos.xyz/",
           icon: "material-symbols:book",
-        }, // 已成功加回日记页面
+        }, 
         {
           name: "Gallery",
           url: "/albums/",
