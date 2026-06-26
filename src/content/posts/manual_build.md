@@ -1,7 +1,7 @@
 ---
 title: 关于月姬R乱码修复
 published: 2026-03-01
-tags: [月姬R, 教程, NS模拟器, 手动构建]
+tags: [月姬R, 教程, NS模拟器, 技术]
 category: 教程
 draft: false
 ---
