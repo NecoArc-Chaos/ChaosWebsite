@@ -11,6 +11,9 @@ https://youtu.be/KyDEEblGBkM?si=0spEuVHCggdF_3N4
 希望你能喜欢我的网站！  
 有问题意见欢迎联系我~
 
+日记树屋入口  
+memos.nachaos.xyz
+
 一点冷知识：  
 网站的制作部署仅一部安卓手机使用以下软件完成  
 Termux----使用Git  

@@ -5,21 +5,21 @@ export const STORAGE_KEY_VOLUME = "music-player-volume";
 export const DEFAULT_VOLUME = 0.7;
 
 export const LOCAL_PLAYLIST: Song[] = [
-	{
+    {
 		id: 1,
-		title: "welcome to valhalla",
-		artist: "Garoad",
-		cover: "assets/music/cover/welcome to valhalla.jpg",
-		url: "assets/music/url/welcome to valhalla.mp3",
-		duration: 188,
-	},
-	{
-		id: 2,
 		title: "Safe Haven",
 		artist: "Garoad",
 		cover: "assets/music/cover/Safe Haven.jpg",
 		url: "assets/music/url/Safe Haven.mp3",
 		duration: 159,
+	},
+	{
+		id: 2,
+		title: "welcome to valhalla",
+		artist: "Garoad",
+		cover: "assets/music/cover/welcome to valhalla.jpg",
+		url: "assets/music/url/welcome to valhalla.mp3",
+		duration: 188,
 	},
 	{
 		id: 3,

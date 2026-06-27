@@ -6,7 +6,7 @@ const SITE_LANG = "zh_CN"; //
 export const siteConfig: SiteConfig = {
   title: "Neco-ArcChaos",
   subtitle: "Chaos的小站",
-  siteURL: "https://www.necoarcchaos.xyz/", // 请替换为你的站点URL，以斜杠结尾
+  siteURL: "https://www.nachaos.xyz/", // 请替换为你的站点URL，以斜杠结尾
   siteStartDate: "2025-12-07", // 站点开始运行日期，用于站点统计组件计算运行天数
 
   lang: SITE_LANG,
@@ -69,7 +69,7 @@ export const siteConfig: SiteConfig = {
   },
 
   // 日记页面 Memos API 地址，留空则使用静态数据
-  diaryApiUrl: "https://memos.necoarcchaos.xyz:45678/api/v1",
+  diaryApiUrl: "https://memos.nachaos.xyz/api/v1",
 
   // 文章列表布局配置
   postListLayout: {
