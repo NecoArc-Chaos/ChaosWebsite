@@ -162,16 +162,17 @@ class MusicPlayerStore {
     });
   }
 
-  private handleAudioEnded(): void {
-    if (this.state.isRepeating === 1) {
-      if (this.audio) {
-        this.audio.currentTime = 0;
-        this.audio.play().catch(() => {});
-      }
-    } else {
-      this.next(true);
-    }
-  }
+	private handleAudioEnded(): void {
+		if (this.state.isRepeating === 1) {
+			if (this.audio) {
+				this.audio.currentTime = 0;
+				this.audio.play().catch(() => {});
+			}
+			this.broadcastState();
+		} else {
+			this.next(true);
+		}
+	}
 
   private handleAudioError(): void {
     this.state.isLoading = false;
@@ -346,28 +347,28 @@ class MusicPlayerStore {
     }
   }
 
-  private loadSong(song: Song, autoPlay = true): void {
-    if (!song) {
-      return;
-    }
-    if (song.url !== this.state.currentSong.url) {
-      this.state.currentSong = { ...song };
-      if (song.url) {
-        this.state.isLoading = true;
-      } else {
-        this.state.isLoading = false;
-      }
-    }
-    this.state.willAutoPlay = autoPlay;
-    if (this.audio) {
-      if (this.audio.src && song.url) {
-        this.audio.src = "";
-      }
-      this.audio.src = getAssetPath(song.url);
-      this.audio.load();
-    }
-    this.broadcastState();
-  }
+	private loadSong(song: Song, autoPlay = true): void {
+		if (!song || !song.url) {
+			return;
+		}
+		if (song.url !== this.state.currentSong.url) {
+			this.state.currentSong = { ...song };
+			if (song.url) {
+				this.state.isLoading = true;
+			} else {
+				this.state.isLoading = false;
+			}
+		}
+		this.state.willAutoPlay = autoPlay;
+		if (this.audio) {
+			if (this.audio.src && song.url) {
+				this.audio.src = "";
+			}
+			this.audio.src = getAssetPath(song.url);
+			this.audio.load();
+		}
+		this.broadcastState();
+	}
 
   private showError(message: string): void {
     this.state.errorMessage = message;
@@ -402,12 +403,12 @@ class MusicPlayerStore {
     this.audio.play().catch(() => {});
   }
 
-  pause(): void {
-    if (!this.audio) {
-      return;
-    }
-    this.audio.pause();
-  }
+		pause(): void {
+		if (!this.audio || !this.state.currentSong.url) {
+			return;
+		}
+		this.audio.pause();
+	}
 
   next(autoPlay = true): void {
     if (this.state.playlist.length <= 1) {
@@ -453,16 +454,16 @@ class MusicPlayerStore {
     this.loadSong(this.state.playlist[index], true);
   }
 
-  seek(time: number): void {
-    if (!this.audio) {
-      return;
-    }
-    if (time >= 0 && time <= this.state.duration) {
-      this.audio.currentTime = time;
-      this.state.currentTime = time;
-      this.broadcastState();
-    }
-  }
+	seek(time: number): void {
+		if (!this.audio || !this.state.currentSong.url) {
+			return;
+		}
+		if (time >= 0 && time <= this.state.duration) {
+			this.audio.currentTime = time;
+			this.state.currentTime = time;
+			this.broadcastState();
+		}
+	}
 
   setVolume(volume: number): void {
     const clampedVolume = Math.max(0, Math.min(1, volume));
@@ -546,15 +547,15 @@ class MusicPlayerStore {
     return this.state.playlist.length > 1;
   }
 
-  setProgress(percent: number): void {
-    if (!this.audio) {
-      return;
-    }
-    const newTime = percent * this.state.duration;
-    this.audio.currentTime = newTime;
-    this.state.currentTime = newTime;
-    this.broadcastState();
-  }
+	setProgress(percent: number): void {
+		if (!this.audio || !this.state.currentSong.url) {
+			return;
+		}
+		const newTime = percent * this.state.duration;
+		this.audio.currentTime = newTime;
+		this.state.currentTime = newTime;
+		this.broadcastState();
+	}
 
   private broadcastState(): void {
     const snapshot = this.createSnapshot();

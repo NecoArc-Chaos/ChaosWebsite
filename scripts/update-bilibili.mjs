@@ -144,39 +144,36 @@ async function getData(
     );
   }
 
-  return (response?.data?.data?.list || []).map((bangumi) => {
-    // 处理封面图
-    let cover = bangumi?.cover || "";
-    if (cover) {
-      try {
-        // 确保使用 https
-        if (cover.startsWith("http://")) {
-          cover = cover.replace("http://", "https://");
-        }
-        // 如果需要使用镜像源
-        if (coverMirror) {
-          cover = `${coverMirror}${cover}`;
-        }
-        // 如果需要WebP格式
-        if (useWebp && !cover.includes("@")) {
-          try {
-            const urlObj = new URL(cover);
-            // 如果路径中还没有尺寸参数，添加WebP优化参数
-            if (!urlObj.pathname.includes("@")) {
-              urlObj.pathname += "@220w_280h.webp";
-              cover = urlObj.toString();
-              if (coverMirror) {
-                cover = `${coverMirror}${cover}`;
-              }
-            }
-          } catch {
-            // URL解析失败，使用原始封面
-          }
-        }
-      } catch {
-        // URL处理失败，使用原始封面
-      }
-    }
+	return (response?.data?.data?.list || []).map((bangumi) => {
+		// 处理封面图
+		let cover = bangumi?.cover || "";
+		if (cover) {
+			try {
+				// 确保使用 https
+				if (cover.startsWith("http://")) {
+					cover = cover.replace("http://", "https://");
+				}
+				// 如果需要WebP格式
+				if (useWebp && !cover.includes("@")) {
+					try {
+						const urlObj = new URL(cover);
+						// 如果路径中还没有尺寸参数，添加WebP优化参数
+						if (!urlObj.pathname.includes("@")) {
+							urlObj.pathname += "@220w_280h.webp";
+							cover = urlObj.toString();
+						}
+					} catch {
+						// URL解析失败，使用原始封面
+					}
+				}
+				// 如果需要使用镜像源
+				if (coverMirror) {
+					cover = `${coverMirror}${cover}`;
+				}
+			} catch {
+				// URL处理失败，使用原始封面
+			}
+		}
 
     // 处理观看进度
     let progress = 0;
