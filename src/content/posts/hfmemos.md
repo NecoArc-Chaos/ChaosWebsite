@@ -59,7 +59,8 @@ export default {
 
 ```
 ### 第三步：绑定自定义二级域名
- 1. **清理冲突记录**：前往 Cloudflare 的 **DNS 记录** 页面，**删除** 之前手动为该二级域名（如 memos.yourdomain.com）添加的任何 CNAME 或 A 记录。
+ 1. **清理冲突记录**：前往 Cloudflare 的 **DNS 记录** 页面，**删除** 之前手动为该二级域名（如 memos.yourdomain.com）添加的任何 CNAME 或 A 记录  
+ （如果没有忽略就行）
  2. **绑定自定义域名**：返回刚才建好的 Worker 页面，进入 **设置 (Settings)** -> **域名和路由 (Domains & Routes)** -> 点击 **添加自定义域名**。
  3. **完成解析**：输入你的二级域名并保存。Cloudflare 会自动接管该域名的 DNS 解析并签发 SSL 证书。
  

@@ -6,7 +6,7 @@ export const commentConfig: CommentConfig = {
   enable: true, // 已开启评论功能
   system: "twikoo", // 评论系统选择: "twikoo" | "giscus"
   twikoo: {
-    envId: "https://twikoo.necoarcchaos.xyz/", // 已恢复你专属的 Twikoo 地址
+    envId: "https://twikoo.nachaos.xyz/", // 你专属的 Twikoo 地址
     lang: SITE_LANG,
   },
   giscus: {
