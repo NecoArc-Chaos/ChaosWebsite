@@ -45,7 +45,7 @@ export const navBarConfig: NavBarConfig = {
         },
         {
           name: "Diary",
-          url: "https://memos2.necoarcchaos.xyz/",
+          url: "/diary/",
           icon: "material-symbols:book",
         }, 
         {
