@@ -104,6 +104,8 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 				}
 
 				<div id="diary-list" class="space-y-4" data-memos-api={diaryApiUrl || ""} data-minutes-ago={minutesAgo} data-hours-ago={hoursAgo} data-days-ago={daysAgo} data-seconds-ago={secondsAgo}>
+					{/* 隐藏的 fancybox 锚点，确保 Fancybox 在日记页面也能初始化 */}
+					<a href="javascript:void(0)" data-src="" data-fancybox="diary-init" class="hidden" aria-hidden="true"></a>
 					{
 						moments.map((moment, index) => (
 							<MomentCard
@@ -112,7 +114,7 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 								minutesAgo={minutesAgo}
 								hoursAgo={hoursAgo}
 								daysAgo={daysAgo}
-									secondsAgo={secondsAgo}
+								secondsAgo={secondsAgo}
 							/>
 						))
 					}
@@ -403,7 +405,7 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 						let filterContainer = document.querySelector(".filter-tabs");
 						if (!filterContainer) {
 							// No filter tabs in static render — need to create the container
-							const contentArea = document.querySelector(".card-base .px-6.sm\\\\:px-9.pt-2.pb-6");
+							const contentArea = document.querySelector(".card-base .px-6.sm\:px-9.pt-2.pb-6");
 							if (!contentArea) {return;}
 							filterContainer = document.createElement("div");
 							filterContainer.className = "filter-tabs mb-8";
@@ -501,8 +503,13 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 								container.innerHTML = renderMomentCards(moments);
 								updateCountDisplay(moments.length);
 								rebuildFilterTabs(moments);
-							})
-							.catch(function () {
+
+								// 重新绑定 Fancybox（动态插入的图片需要重新绑定）
+								if (typeof window !== "undefined" && typeof window.Fancybox !== "undefined") {
+									window.Fancybox.bind("[data-fancybox]");
+								}
+						})
+						.catch(function () {
 								// Silent fallback — static data already rendered
 							});
 					}

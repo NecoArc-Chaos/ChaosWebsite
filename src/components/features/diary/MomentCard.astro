@@ -205,6 +205,18 @@ const relativeTime = formatRelativeTime(
 		max-width: 600px;
 	}
 
+	/* 日记内容中的超链接高亮 */
+	.moment-card a {
+		color: var(--primary);
+		text-decoration: underline;
+		text-underline-offset: 2px;
+		text-decoration-thickness: 1px;
+	}
+	.moment-card a:hover {
+		color: var(--primary-dark, var(--primary));
+		text-decoration-thickness: 2px;
+	}
+
 	@media (width >= 768px) {
 		.diary-images-single {
 			max-width: 500px;
