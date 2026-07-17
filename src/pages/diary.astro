@@ -405,7 +405,7 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 						let filterContainer = document.querySelector(".filter-tabs");
 						if (!filterContainer) {
 							// No filter tabs in static render — need to create the container
-							const contentArea = document.querySelector(".card-base .px-6.sm\:px-9.pt-2.pb-6");
+							const contentArea = document.querySelector(".card-base .px-6.sm\\:px-9.pt-2.pb-6");
 							if (!contentArea) {return;}
 							filterContainer = document.createElement("div");
 							filterContainer.className = "filter-tabs mb-8";
