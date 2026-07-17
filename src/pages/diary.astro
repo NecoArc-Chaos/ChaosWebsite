@@ -241,6 +241,7 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 					}
 
 					function escapeHtml(text) {
+						if (typeof text !== "string") return "";
 						const map = {
 							"&": "&amp;",
 							"<": "&lt;",
@@ -500,11 +501,6 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 								container.innerHTML = renderMomentCards(moments);
 								updateCountDisplay(moments.length);
 								rebuildFilterTabs(moments);
-
-								// 初始化 fancybox
-								if (typeof Fancybox !== "undefined") {
-									Fancybox.bind("[data-fancybox]");
-								}
 							})
 							.catch(function () {
 								// Silent fallback — static data already rendered
