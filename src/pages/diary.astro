@@ -130,7 +130,7 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 
 				{
 					moments.length === 0 && (
-						<div class="text-center py-16">
+						<div id="empty-state" class="text-center py-16">
 							<Icon
 								name="material-symbols:edit-note"
 								class="text-6xl text-black/15 dark:text-white/15 mb-4"
@@ -258,8 +258,9 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 					function renderSimpleHtml(html) {
 						if (!html) return "";
 						let text = escapeHtml(html);
+						// 恢复 <a href="...">...</a>
 						text = text.replace(
-							/&lt;a\s+href=&quot;(.*?)&quot;(?:\s+target=&quot;_blank&quot;)?(?:\s+rel=&quot;(.*?)&quot;)?&gt;(.*?)&lt;\/a&gt;/gi,
+							/&lt;a\s+hress=&quot;(.*?)&quot;(?:\s+target=&quot;_blank&quot;)?(?:\s+rel=&quot;(.*?)&quot;)?&gt;(.*?)&lt;\/a&gt;/gi,
 							function (match, href, rel, content) {
 								let attrs = 'href="' + href + '"';
 								if (match.includes('target="_blank"')) attrs += ' target="_blank"';
@@ -268,20 +269,33 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 								return '<a ' + attrs + '>' + content + '</a>';
 							}
 						);
+						// 恢复 memos wiki 链接格式 <https://...>
+						text = text.replace(/&lt;(https?:\/\/[^&]+)&gt;/gi, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+						// 恢复 <br>
 						text = text.replace(/&lt;br\s*\/?&gt;/gi, '<br>');
+						// 恢复 <p>
 						text = text.replace(/&lt;p&gt;(.*?)&lt;\/p&gt;/gi, '<p>$1</p>');
+						// 恢复 <strong>
 						text = text.replace(/&lt;strong&gt;(.*?)&lt;\/strong&gt;/gi, '<strong>$1</strong>');
+						// 恢复 <em>
 						text = text.replace(/&lt;em&gt;(.*?)&lt;\/em&gt;/gi, '<em>$1</em>');
+						// 恢复 <code>
 						text = text.replace(/&lt;code&gt;(.*?)&lt;\/code&gt;/gi, '<code>$1</code>');
+						// 恢复 <pre>
 						text = text.replace(/&lt;pre&gt;(.*?)&lt;\/pre&gt;/gi, '<pre>$1</pre>');
+						// 恢复列表
 						text = text.replace(/&lt;li&gt;(.*?)&lt;\/li&gt;/gi, '<li>$1</li>');
 						text = text.replace(/&lt;ul&gt;(.*?)&lt;\/ul&gt;/gi, '<ul>$1</ul>');
 						text = text.replace(/&lt;ol&gt;(.*?)&lt;\/ol&gt;/gi, '<ol>$1</ol>');
+						// 恢复 <blockquote>
 						text = text.replace(/&lt;blockquote&gt;(.*?)&lt;\/blockquote&gt;/gi, '<blockquote>$1</blockquote>');
+						// 恢复标题
 						for (let i = 1; i <= 6; i++) {
 							text = text.replace(new RegExp('&lt;h' + i + '&gt;(.*?)&lt;/h' + i + '&gt;', 'gi'), '<h' + i + '>$1</h' + i + '>');
 						}
+						// 恢复图片
 						text = text.replace(/&lt;img\s+src=&quot;(.*?)&quot;\s*alt=&quot;(.*?)&quot;\s*\/?&gt;/gi, '<img src="$1" alt="$2" />');
+						// 恢复 <div> 和 <span>
 						text = text.replace(/&lt;div&gt;(.*?)&lt;\/div&gt;/gi, '<div>$1</div>');
 						text = text.replace(/&lt;span&gt;(.*?)&lt;\/span&gt;/gi, '<span>$1</span>');
 						return text;
@@ -456,8 +470,8 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 
 					function updateCountDisplay(count) {
 						const countEl = document.querySelector(
-			".card-base .shrink-0 .text-2xl",
-		);
+	".card-base .shrink-0 .text-2xl",
+);
 						if (countEl) {
 							countEl.textContent = String(count);
 						}
@@ -473,15 +487,24 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 							})
 							.then(function (data) {
 								const memos = data.memos || [];
-								if (memos.length === 0) {return;}
-
 								const moments = transformMemosToDiary(memos);
 								const container = document.getElementById("diary-list");
 								if (!container) {return;}
 
+								// 隐藏静态空状态
+								const emptyState = document.getElementById("empty-state");
+								if (emptyState) {
+									emptyState.style.display = "none";
+								}
+
 								container.innerHTML = renderMomentCards(moments);
 								updateCountDisplay(moments.length);
 								rebuildFilterTabs(moments);
+
+								// 初始化 fancybox
+								if (typeof Fancybox !== "undefined") {
+									Fancybox.bind("[data-fancybox]");
+								}
 							})
 							.catch(function () {
 								// Silent fallback — static data already rendered
