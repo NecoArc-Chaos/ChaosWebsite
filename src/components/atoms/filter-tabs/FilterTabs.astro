@@ -45,13 +45,14 @@ const {
 </div>
 
 <style>
-	.filter-tabs {
+	/* 使用 :global() 确保 JS 动态重建的标签也能匹配样式 */
+	:global(.filter-tabs) {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem;
 	}
 
-	.filter-tabs-item {
+	:global(.filter-tabs-item) {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.375rem;
@@ -67,47 +68,47 @@ const {
 		white-space: nowrap;
 	}
 
-	.filter-tabs-item iconify-icon {
+	:global(.filter-tabs-item) iconify-icon {
 		flex-shrink: 0;
 		opacity: 0.8;
 		transition: opacity 0.2s ease;
 	}
 
-	.filter-tabs-item:hover:not(.active) {
+	:global(.filter-tabs-item):hover:not(.active) {
 		background: var(--primary)/20;
 		border-color: var(--primary)/40;
 	}
 
-	.filter-tabs-item:hover:not(.active) iconify-icon {
+	:global(.filter-tabs-item):hover:not(.active) iconify-icon {
 		opacity: 1;
 	}
 
-	.filter-tabs-item.active {
+	:global(.filter-tabs-item).active {
 		background: var(--primary);
 		color: white;
 		border-color: var(--primary);
 	}
 
-	.filter-tabs-item.active iconify-icon {
+	:global(.filter-tabs-item).active iconify-icon {
 		opacity: 1;
 	}
 
-	.filter-tabs-count {
+	:global(.filter-tabs-count) {
 		opacity: 0.6;
 		font-size: 0.8rem;
 	}
 
 	@media (width < 768px) {
-		.filter-tabs {
+		:global(.filter-tabs) {
 			gap: 0.375rem;
 		}
 
-		.filter-tabs-item {
+		:global(.filter-tabs-item) {
 			padding: 0.4rem 0.8rem;
 			font-size: 0.8rem;
 		}
 
-		.filter-tabs-count {
+		:global(.filter-tabs-count) {
 			display: none;
 		}
 	}
