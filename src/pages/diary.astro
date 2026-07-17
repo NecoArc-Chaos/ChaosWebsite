@@ -254,43 +254,37 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 					}
 
 					// 安全渲染 memos 中的简单 HTML，支持链接和基本格式
+					// 安全渲染 memos 中的简单 HTML，支持链接和基本格式
 					function renderSimpleHtml(html) {
 						if (!html) return "";
-						// 创建临时 DOM 解析 HTML
-						const doc = new DOMParser().parseFromString(html, "text/html");
-						const allowedTags = ["A", "BR", "P", "STRONG", "EM", "CODE", "PRE", "UL", "OL", "LI", "BLOCKQUOTE", "H1", "H2", "H3", "H4", "H5", "H6", "IMG", "DIV", "SPAN"];
-						const allowedAttrs = {
-							"A": ["href", "title", "target"],
-							"IMG": ["src", "alt", "title"],
-							"DIV": ["class"],
-							"SPAN": ["class"],
-						};
-						function clean(node) {
-							if (node.nodeType === Node.TEXT_NODE) return node.cloneNode(true);
-							if (node.nodeType !== Node.ELEMENT_NODE) return document.createTextNode("");
-							const tag = node.tagName;
-							if (!allowedTags.includes(tag)) {
-								// 递归清理子节点
-								const frag = document.createDocumentFragment();
-								node.childNodes.forEach((child) => frag.appendChild(clean(child)));
-								return frag;
+						let text = escapeHtml(html);
+						text = text.replace(
+							/&lt;a\s+href=&quot;(.*?)&quot;(?:\s+target=&quot;_blank&quot;)?(?:\s+rel=&quot;(.*?)&quot;)?&gt;(.*?)&lt;\/a&gt;/gi,
+							function (match, href, rel, content) {
+								let attrs = 'href="' + href + '"';
+								if (match.includes('target="_blank"')) attrs += ' target="_blank"';
+								if (rel) attrs += ' rel="' + rel + '"';
+								else attrs += ' rel="noopener noreferrer"';
+								return '<a ' + attrs + '>' + content + '</a>';
 							}
-							const clone = document.createElement(tag);
-							const attrs = allowedAttrs[tag] || [];
-							attrs.forEach((attr) => {
-								if (node.hasAttribute(attr)) {
-									clone.setAttribute(attr, node.getAttribute(attr));
-								}
-							});
-							// 递归清理子节点
-							node.childNodes.forEach((child) => clone.appendChild(clean(child)));
-							return clone;
+						);
+						text = text.replace(/&lt;br\s*\/?&gt;/gi, '<br>');
+						text = text.replace(/&lt;p&gt;(.*?)&lt;\/p&gt;/gi, '<p>$1</p>');
+						text = text.replace(/&lt;strong&gt;(.*?)&lt;\/strong&gt;/gi, '<strong>$1</strong>');
+						text = text.replace(/&lt;em&gt;(.*?)&lt;\/em&gt;/gi, '<em>$1</em>');
+						text = text.replace(/&lt;code&gt;(.*?)&lt;\/code&gt;/gi, '<code>$1</code>');
+						text = text.replace(/&lt;pre&gt;(.*?)&lt;\/pre&gt;/gi, '<pre>$1</pre>');
+						text = text.replace(/&lt;li&gt;(.*?)&lt;\/li&gt;/gi, '<li>$1</li>');
+						text = text.replace(/&lt;ul&gt;(.*?)&lt;\/ul&gt;/gi, '<ul>$1</ul>');
+						text = text.replace(/&lt;ol&gt;(.*?)&lt;\/ol&gt;/gi, '<ol>$1</ol>');
+						text = text.replace(/&lt;blockquote&gt;(.*?)&lt;\/blockquote&gt;/gi, '<blockquote>$1</blockquote>');
+						for (let i = 1; i <= 6; i++) {
+							text = text.replace(new RegExp('&lt;h' + i + '&gt;(.*?)&lt;/h' + i + '&gt;', 'gi'), '<h' + i + '>$1</h' + i + '>');
 						}
-						const frag = document.createDocumentFragment();
-						doc.body.childNodes.forEach((child) => frag.appendChild(clean(child)));
-						const tmp = document.createElement("div");
-						tmp.appendChild(frag);
-						return tmp.innerHTML;
+						text = text.replace(/&lt;img\s+src=&quot;(.*?)&quot;\s*alt=&quot;(.*?)&quot;\s*\/?&gt;/gi, '<img src="$1" alt="$2" />');
+						text = text.replace(/&lt;div&gt;(.*?)&lt;\/div&gt;/gi, '<div>$1</div>');
+						text = text.replace(/&lt;span&gt;(.*?)&lt;\/span&gt;/gi, '<span>$1</span>');
+						return text;
 					}
 
 					function getImageLayoutClass(count) {
