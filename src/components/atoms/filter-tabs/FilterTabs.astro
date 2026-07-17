@@ -56,10 +56,10 @@ const {
 		align-items: center;
 		gap: 0.375rem;
 		padding: 0.5rem 1rem;
-		border: 1px solid var(--line-divider);
+		border: 1px solid var(--primary)/20;
 		border-radius: var(--radius-large);
-		background: var(--btn-regular-bg);
-		color: var(--btn-content);
+		background: var(--primary)/10;
+		color: var(--primary);
 		font-size: 0.875rem;
 		font-weight: 500;
 		cursor: pointer;
@@ -69,13 +69,13 @@ const {
 
 	.filter-tabs-item iconify-icon {
 		flex-shrink: 0;
-		opacity: 0.7;
+		opacity: 0.8;
 		transition: opacity 0.2s ease;
 	}
 
 	.filter-tabs-item:hover:not(.active) {
-		background: var(--btn-regular-bg-hover);
-		border-color: var(--primary);
+		background: var(--primary)/20;
+		border-color: var(--primary)/40;
 	}
 
 	.filter-tabs-item:hover:not(.active) iconify-icon {
