@@ -11,16 +11,8 @@ export interface DiaryItem {
 	tags?: string[];
 }
 
-// 示例日记数据
-const diaryData: DiaryItem[] = [
-	{
-		id: 1,
-		content:
-			"memos日记入口：<https://memos.necoarcchaos.xyz:45678/> 或者 <183.66.27.19:25678>",
-		date: "2025-01-15T10:30:00Z",
-		images: ["/images/diary/1.webp"],
-	},
-];
+// 本地静态日记数据已清空，日记内容完全从 Memos API 动态加载
+const diaryData: DiaryItem[] = [];
 
 // 获取日记列表（按时间倒序）
 export const getDiaryList = (limit?: number) => {
