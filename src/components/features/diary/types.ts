@@ -6,4 +6,5 @@ export interface MomentCardProps {
 	minutesAgo: string;
 	hoursAgo: string;
 	daysAgo: string;
+	secondsAgo: string;
 }

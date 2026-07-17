@@ -35,6 +35,7 @@ const filterTabs = [
 const minutesAgo = i18n(I18nKey.diaryMinutesAgo);
 const hoursAgo = i18n(I18nKey.diaryHoursAgo);
 const daysAgo = i18n(I18nKey.diaryDaysAgo);
+const secondsAgo = i18n(I18nKey.diarySecondsAgo);
 
 const diaryApiUrl = siteConfig.diaryApiUrl || "";
 
@@ -102,7 +103,7 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 					)
 				}
 
-				<div id="diary-list" class="space-y-4" data-memos-api={diaryApiUrl || ""} data-minutes-ago={minutesAgo} data-hours-ago={hoursAgo} data-days-ago={daysAgo}>
+				<div id="diary-list" class="space-y-4" data-memos-api={diaryApiUrl || ""} data-minutes-ago={minutesAgo} data-hours-ago={hoursAgo} data-days-ago={daysAgo} data-seconds-ago={secondsAgo}>
 					{
 						moments.map((moment, index) => (
 							<MomentCard
@@ -111,6 +112,7 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 								minutesAgo={minutesAgo}
 								hoursAgo={hoursAgo}
 								daysAgo={daysAgo}
+									secondsAgo={secondsAgo}
 							/>
 						))
 					}
@@ -160,6 +162,7 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 					const minutesAgo = container.dataset.minutesAgo || "minutes ago";
 					const hoursAgo = container.dataset.hoursAgo || "hours ago";
 					const daysAgo = container.dataset.daysAgo || "days ago";
+					const secondsAgo = container.dataset.secondsAgo || "秒前";
 
 					// Derive base URL for file attachments (strip /api/...)
 					const baseUrl = apiUrl.replace(/\/api\/.*$/, "");
@@ -203,14 +206,38 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 
 					function formatRelativeTime(dateString) {
 						const date = new Date(dateString);
-						const diffInMinutes = Math.floor(
-			(Date.now() - date.getTime()) / (1000 * 60),
-		);
-						if (diffInMinutes < 60)
-							{return diffInMinutes + minutesAgo;}
-						if (diffInMinutes < 1440)
-							{return Math.floor(diffInMinutes / 60) + hoursAgo;}
-						return Math.floor(diffInMinutes / 1440) + daysAgo;
+						const diffInMs = Date.now() - date.getTime();
+						const diffInSeconds = Math.floor(diffInMs / 1000);
+						const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
+						const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
+						const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
+						let relative = "";
+						if (diffInDays > 0) {
+							relative = diffInDays + daysAgo;
+						} else if (diffInHours > 0) {
+							relative = diffInHours + hoursAgo;
+						} else if (diffInMinutes > 0) {
+							relative = diffInMinutes + minutesAgo;
+						} else {
+							relative = diffInSeconds + secondsAgo;
+						}
+
+						const pad = (n) => (n < 10 ? "0" + n : n);
+						const exact =
+							date.getFullYear() +
+							"-" +
+							pad(date.getMonth() + 1) +
+							"-" +
+							pad(date.getDate()) +
+							" " +
+							pad(date.getHours()) +
+							":" +
+							pad(date.getMinutes()) +
+							":" +
+							pad(date.getSeconds());
+
+						return relative + " · " + exact;
 					}
 
 					function escapeHtml(text) {

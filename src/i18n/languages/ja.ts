@@ -92,6 +92,7 @@ export const ja: Translation = {
 	[Key.diaryMinutesAgo]: "分前",
 	[Key.diaryHoursAgo]: "時間前",
 	[Key.diaryDaysAgo]: "日前",
+	[Key.diarySecondsAgo]: "秒前",
 
 	// 404ページ
 	[Key.notFound]: "404",
