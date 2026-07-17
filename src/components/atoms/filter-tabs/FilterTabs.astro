@@ -57,9 +57,9 @@ const {
 		align-items: center;
 		gap: 0.375rem;
 		padding: 0.5rem 1rem;
-		border: 1px solid var(--primary)/20;
+		border: 1px solid color-mix(in oklch, var(--primary) 25%, transparent);
 		border-radius: var(--radius-large);
-		background: var(--primary)/10;
+		background: color-mix(in oklch, var(--primary) 10%, transparent);
 		color: var(--primary);
 		font-size: 0.875rem;
 		font-weight: 500;
@@ -75,8 +75,8 @@ const {
 	}
 
 	:global(.filter-tabs-item):hover:not(.active) {
-		background: var(--primary)/20;
-		border-color: var(--primary)/40;
+		background: color-mix(in oklch, var(--primary) 18%, transparent);
+		border-color: color-mix(in oklch, var(--primary) 45%, transparent);
 	}
 
 	:global(.filter-tabs-item):hover:not(.active) iconify-icon {
