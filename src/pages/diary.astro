@@ -215,15 +215,55 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 
 					function escapeHtml(text) {
 						const map = {
-			"&": "&amp;",
-			"<": "&lt;",
-			">": "&gt;",
-			'"': "&quot;",
-			"'": "&#039;",
-		};
-						return text.replace(/[&<>"']/g, function (c) {
+	\"&\": \"&amp;\",
+	\"<\": \"&lt;\",
+	\">\": \"&gt;\",
+	'\"': \"&quot;\",
+	\"'\": \"&#039;\",
+};
+						return text.replace(/[&<>\"']/g, function (c) {
 							return map[c];
 						});
+					}
+
+					// 安全渲染 memos 中的简单 HTML，支持链接和基本格式
+					function renderSimpleHtml(html) {
+						if (!html) return "";
+						// 创建临时 DOM 解析 HTML
+						const doc = new DOMParser().parseFromString(html, "text/html");
+						const allowedTags = ["A", "BR", "P", "STRONG", "EM", "CODE", "PRE", "UL", "OL", "LI", "BLOCKQUOTE", "H1", "H2", "H3", "H4", "H5", "H6", "IMG", "DIV", "SPAN"];
+						const allowedAttrs = {
+							"A": ["href", "title", "target"],
+							"IMG": ["src", "alt", "title"],
+							"DIV": ["class"],
+							"SPAN": ["class"],
+						};
+						function clean(node) {
+							if (node.nodeType === Node.TEXT_NODE) return node.cloneNode(true);
+							if (node.nodeType !== Node.ELEMENT_NODE) return document.createTextNode("");
+							const tag = node.tagName;
+							if (!allowedTags.includes(tag)) {
+								// 递归清理子节点
+								const frag = document.createDocumentFragment();
+								node.childNodes.forEach((child) => frag.appendChild(clean(child)));
+								return frag;
+							}
+							const clone = document.createElement(tag);
+							const attrs = allowedAttrs[tag] || [];
+							attrs.forEach((attr) => {
+								if (node.hasAttribute(attr)) {
+									clone.setAttribute(attr, node.getAttribute(attr));
+								}
+							});
+							// 递归清理子节点
+							node.childNodes.forEach((child) => clone.appendChild(clean(child)));
+							return clone;
+						}
+						const frag = document.createDocumentFragment();
+						doc.body.childNodes.forEach((child) => frag.appendChild(clean(child)));
+						const tmp = document.createElement("div");
+						tmp.appendChild(frag);
+						return tmp.innerHTML;
 					}
 
 					function getImageLayoutClass(count) {
@@ -245,17 +285,17 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 									const imgs = moment.images
 						.map(function (img, i) {
 							return (
-								'<div class="relative rounded-lg overflow-hidden aspect-square cursor-pointer">' +
+								'<div class="relative rounded-lg overflow-hidden cursor-pointer bg-black/5 dark:bg-white/5">' +
 								'<a href="javascript:void(0)" data-src="' +
 								escapeHtml(img) +
 								'" data-fancybox="diary-' +
 								index +
 								"-" +
 								i +
-								'" class="block w-full h-full">' +
+								'" class="block">' +
 								'<img src="' +
 								escapeHtml(img) +
-								'" alt="diary moment image" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" loading="lazy" decoding="async" />' +
+								'" alt="diary moment image" class="w-full h-auto object-contain transition-transform duration-300 hover:scale-105" loading="lazy" decoding="async" />' +
 								"</a></div>"
 							);
 						})
@@ -296,9 +336,9 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 									tagsAttr +
 									'">' +
 									'<div class="p-5">' +
-									'<p class="text-sm md:text-base text-black/90 dark:text-white/90 leading-relaxed mb-3">' +
-									escapeHtml(moment.content) +
-									"</p>" +
+									'<div class="text-sm md:text-base text-black/90 dark:text-white/90 leading-relaxed mb-3">' +
+										renderSimpleHtml(moment.content) +
+										"</div>" +
 									imagesHtml +
 									tagsHtml +
 									'<hr class="border-t border-black/5 dark:border-white/5 my-3" />' +
