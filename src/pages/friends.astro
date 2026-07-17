@@ -100,6 +100,59 @@ const allTags = Array.from(new Set(friendsList.flatMap((item) => item.tags)));
 				class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-6"
 			>
 				{friendsList.map((item) => <FriendCard friend={item} />)}
+
+				<!-- 友链申请引导卡片 -->
+				<div
+					class="friend-card group relative rounded-xl border-2 border-dashed border-black/20 dark:border-white/20 overflow-hidden transition-all duration-300 hover:border-(--primary)/50 hover:shadow-lg flex flex-col items-center justify-center p-8 text-center min-h-[280px]"
+				>
+					<div class="mb-4">
+						<svg
+							class="w-12 h-12 text-black/30 dark:text-white/30 mx-auto"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="1.5"
+								d="M12 4v16m8-8H4"
+							></path>
+						</svg>
+					</div>
+					<h3 class="text-xl font-bold text-black/80 dark:text-white/80 mb-2">
+						申请友链
+					</h3>
+					<p class="text-sm text-black/50 dark:text-white/50 mb-4">
+						欢迎交换友链！请按照以下格式发送信息到我的邮箱：
+					</p>
+					<div class="w-full max-w-xs mb-4 p-4 rounded-lg bg-black/5 dark:bg-white/5 text-left">
+						<pre class="text-xs text-black/70 dark:text-white/70 whitespace-pre-wrap font-mono leading-relaxed">title: "你的站点名称"
+imgurl: "https://example.com/avatar.png"
+desc: "站点描述"
+siteurl: "https://example.com/"
+tags: ["Friend"]</pre>
+					</div>
+					<a
+						href="mailto:acceleratoor0123@gmail.com?subject=友链申请&body=title: %22你的站点名称%22%0Aimgurl: %22https://example.com/avatar.png%22%0Adesc: %22站点描述%22%0Asiteurl: %22https://example.com/%22%0Atags: [%22Friend%22]"
+						class="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-(--primary) text-white hover:bg-(--primary)/90 active:scale-95 transition-all duration-200 font-medium text-sm"
+					>
+						<svg
+							class="w-4 h-4"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+							></path>
+						</svg>
+					发送邮件申请
+					</a>
+				</div>
 			</div>
 
 			<!-- 无结果提示 -->
