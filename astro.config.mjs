@@ -21,16 +21,19 @@ import remarkDirective from "remark-directive";
 import remarkMath from "remark-math";
 import remarkSectionize from "remark-sectionize";
 
+import { buildIconInclude } from "./src/plugins/astro-icon-include.mjs";
 import { siteConfig } from "./src/config/index.ts";
 import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-copy-button.js";
 import { pluginLanguageBadge } from "./src/plugins/expressive-code/language-badge.ts";
 import { AdmonitionComponent } from "./src/plugins/rehype-component-admonition.mjs";
 import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.mjs";
+import { ImageGridComponent } from "./src/plugins/rehype-component-image-grid.mjs";
 import { rehypeImageWidth } from "./src/plugins/rehype-image-width.mjs";
 import { rehypeMermaid } from "./src/plugins/rehype-mermaid.mjs";
 import { rehypeWrapTable } from "./src/plugins/rehype-wrap-table.mjs";
 import { remarkContent } from "./src/plugins/remark-content.mjs";
 import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
+import { remarkEscapeNumericColons } from "./src/plugins/remark-escape-numeric-colons.mjs";
 import { remarkFixGithubAdmonitions } from "./src/plugins/remark-fix-github-admonitions.js";
 import { remarkMermaid } from "./src/plugins/remark-mermaid.js";
 
@@ -56,7 +59,11 @@ export default defineConfig({
 					},
 				],
 			},
-			fallbacks: ["sans-serif"],
+			// These variables are composed into --font-sans below. Keep their
+			// fallback lists empty; otherwise a system fallback after this Latin
+			// font prevents the following CJK font from ever being considered.
+			fallbacks: [],
+			optimizedFallbacks: false,
 		},
 		{
 			name: "MarukoGothicCJKsc-Medium",
@@ -71,7 +78,10 @@ export default defineConfig({
 					},
 				],
 			},
-			fallbacks: ["sans-serif"],
+			// The final system fallback belongs to --font-sans, not this partial
+			// CJK font stack.
+			fallbacks: [],
+			optimizedFallbacks: false,
 		},
 	],
 
@@ -118,7 +128,9 @@ export default defineConfig({
 				);
 			},
 		}),
-		icon(),
+		icon({
+			include: buildIconInclude(),
+		}),
 		expressiveCode({
 			themes: ["github-light", "github-dark"],
 			plugins: [
@@ -179,6 +191,7 @@ export default defineConfig({
 				remarkContent,
 				remarkFixGithubAdmonitions,
 				remarkDirective,
+				remarkEscapeNumericColons,
 				remarkSectionize,
 				parseDirectiveNode,
 				remarkMermaid,
@@ -200,6 +213,7 @@ export default defineConfig({
 					{
 						components: {
 							github: GithubCardComponent,
+							grid: ImageGridComponent,
 							note: (x, y) => AdmonitionComponent(x, y, "note"),
 							tip: (x, y) => AdmonitionComponent(x, y, "tip"),
 							important: (x, y) =>
