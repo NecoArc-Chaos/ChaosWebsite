@@ -278,8 +278,12 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 						text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" />');
 						// Markdown: 引用
 						text = text.replace(/^&gt; (.*$)/gim, '<blockquote>$1</blockquote>');
-						// Markdown: 无序列表
-						text = text.replace(/^\- (.*$)/gim, '<li>$1</li>');
+						// Markdown: Checkbox (todo)
+						text = text.replace(/^- \[x\] (.*$)/gim, '<label class="diary-todo-item completed"><input type="checkbox" checked disabled /><span>$1</span></label>');
+						text = text.replace(/^- \[X\] (.*$)/gim, '<label class="diary-todo-item completed"><input type="checkbox" checked disabled /><span>$1</span></label>');
+						text = text.replace(/^- \[ \] (.*$)/gim, '<label class="diary-todo-item"><input type="checkbox" disabled /><span>$1</span></label>');
+						// Markdown: 无序列表（排除 checkbox 行）
+						text = text.replace(/^- (?!\[|\[x\]|\[X\])(.*$)/gim, '<li>$1</li>');
 						// Markdown: 换行
 						text = text.replace(/\n/g, '<br>');
 						return text;
