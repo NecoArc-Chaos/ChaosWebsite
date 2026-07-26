@@ -256,51 +256,32 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 						});
 					}
 
-					// 安全渲染 memos 中的简单 HTML，支持链接和基本格式
-					// 安全渲染 memos 中的简单 HTML，支持链接和基本格式
-					function renderSimpleHtml(html) {
+					// 渲染 memos 内容，支持 markdown 和安全 HTML
+					function renderMemoContent(html) {
 						if (!html) return "";
 						let text = escapeHtml(html);
-						// 恢复 <a href="...">...</a>
-						text = text.replace(
-							/&lt;a\s+hress=&quot;(.*?)&quot;(?:\s+target=&quot;_blank&quot;)?(?:\s+rel=&quot;(.*?)&quot;)?&gt;(.*?)&lt;\/a&gt;/gi,
-							function (match, href, rel, content) {
-								let attrs = 'href="' + href + '"';
-								if (match.includes('target="_blank"')) attrs += ' target="_blank"';
-								if (rel) attrs += ' rel="' + rel + '"';
-								else attrs += ' rel="noopener noreferrer"';
-								return '<a ' + attrs + '>' + content + '</a>';
-							}
-						);
-						// 恢复 memos wiki 链接格式 <https://...>
+						// memos wiki 链接 <https://...>
 						text = text.replace(/&lt;(https?:\/\/[^&]+)&gt;/gi, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
-						// 恢复 <br>
-						text = text.replace(/&lt;br\s*\/?&gt;/gi, '<br>');
-						// 恢复 <p>
-						text = text.replace(/&lt;p&gt;(.*?)&lt;\/p&gt;/gi, '<p>$1</p>');
-						// 恢复 <strong>
-						text = text.replace(/&lt;strong&gt;(.*?)&lt;\/strong&gt;/gi, '<strong>$1</strong>');
-						// 恢复 <em>
-						text = text.replace(/&lt;em&gt;(.*?)&lt;\/em&gt;/gi, '<em>$1</em>');
-						// 恢复 <code>
-						text = text.replace(/&lt;code&gt;(.*?)&lt;\/code&gt;/gi, '<code>$1</code>');
-						// 恢复 <pre>
-						text = text.replace(/&lt;pre&gt;(.*?)&lt;\/pre&gt;/gi, '<pre>$1</pre>');
-						// 恢复列表
-						text = text.replace(/&lt;li&gt;(.*?)&lt;\/li&gt;/gi, '<li>$1</li>');
-						text = text.replace(/&lt;ul&gt;(.*?)&lt;\/ul&gt;/gi, '<ul>$1</ul>');
-						text = text.replace(/&lt;ol&gt;(.*?)&lt;\/ol&gt;/gi, '<ol>$1</ol>');
-						// 恢复 <blockquote>
-						text = text.replace(/&lt;blockquote&gt;(.*?)&lt;\/blockquote&gt;/gi, '<blockquote>$1</blockquote>');
-						// 恢复标题
-						for (let i = 1; i <= 6; i++) {
-							text = text.replace(new RegExp('&lt;h' + i + '&gt;(.*?)&lt;/h' + i + '&gt;', 'gi'), '<h' + i + '>$1</h' + i + '>');
-						}
-						// 恢复图片
-						text = text.replace(/&lt;img\s+src=&quot;(.*?)&quot;\s*alt=&quot;(.*?)&quot;\s*\/?&gt;/gi, '<img src="$1" alt="$2" />');
-						// 恢复 <div> 和 <span>
-						text = text.replace(/&lt;div&gt;(.*?)&lt;\/div&gt;/gi, '<div>$1</div>');
-						text = text.replace(/&lt;span&gt;(.*?)&lt;\/span&gt;/gi, '<span>$1</span>');
+						// Markdown: 标题
+						text = text.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+						text = text.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+						text = text.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+						// Markdown: 粗体
+						text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+						// Markdown: 斜体
+						text = text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+						// Markdown: 行内代码
+						text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+						// Markdown: 链接 [text](url)
+						text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+						// Markdown: 图片
+						text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" />');
+						// Markdown: 引用
+						text = text.replace(/^&gt; (.*$)/gim, '<blockquote>$1</blockquote>');
+						// Markdown: 无序列表
+						text = text.replace(/^\- (.*$)/gim, '<li>$1</li>');
+						// Markdown: 换行
+						text = text.replace(/\n/g, '<br>');
 						return text;
 					}
 
@@ -375,7 +356,7 @@ const subtitle = i18n(I18nKey.diarySubtitle);
 									'">' +
 									'<div class="p-5">' +
 									'<div class="text-sm md:text-base text-black/90 dark:text-white/90 leading-relaxed mb-3">' +
-										renderSimpleHtml(moment.content) +
+										renderMemoContent(moment.content) +
 										"</div>" +
 									imagesHtml +
 									tagsHtml +
