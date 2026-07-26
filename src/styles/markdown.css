@@ -133,8 +133,12 @@
     grid-template-columns: repeat(var(--image-grid-columns), minmax(0, 1fr));
     gap: 0.5rem;
     margin: 1.25rem auto;
-    max-width: 900px;
+    max-width: 800px;
     padding: 0 0.5rem;
+  }
+
+  .image-grid[data-columns="1"] {
+    max-width: 600px;
   }
 
   .image-grid__item {

@@ -40,7 +40,7 @@ pinned: true
 
 - 一些特征：
   1. 表盘 实时显示心率
-:::grid{columns="2" aspect="2/3" fit="cover"}
+:::grid{columns="1" aspect="3/4" fit="contain"}
 ![图1](pic/watch_media_2026-05-30_21_58_48.png)
 
 ![图2](pic/watch_media_2026-03-20_19_51_41.png)
@@ -54,7 +54,7 @@ pinned: true
   6. 跑步会给出很多详细信息（但是我不会看，什么触地时间）
   7. 身体反应：会在检测到你有情绪（无论开心还是伤感）时提示你，然后可以选择记录心情。这个有时候准有时候不准，总之还是很有意思的
 
-:::grid{columns="2" aspect="2/3" fit="cover"}
+:::grid{columns="1" aspect="3/4" fit="contain"}
 ![图1](pic/watch_media_2026-05-30_21_58_54.png)
 
 ![图2](pic/watch_media_2026-05-30_21_58_57.png)
