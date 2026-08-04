@@ -8,10 +8,6 @@ draft: false
 
 # 基于 Hugging Face + Cloudflare Workers 零成本搭建 Memos 备忘录指南
 
-> [!WARNING]
-> **方法已失效，HF现已砍掉space的docker等服务**
->
-
 Memos是一款开源多功能自托管网页备忘录，即写即存，多端访问。
 
   |使用场景| |
