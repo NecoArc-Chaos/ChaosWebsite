@@ -1,8 +1,3 @@
----
----
-
-import SpotifyNowPlaying from "../../components/widgets/spotify/SpotifyNowPlaying.svelte";
-
 使用了基于 Astro 的Mizuki模板  
 ::github{repo="LyraVoid/Mizuki"}
 
@@ -18,7 +13,7 @@ import SpotifyNowPlaying from "../../components/widgets/spotify/SpotifyNowPlayin
 
 正在听  ：
 
-<SpotifyNowPlaying client:load />
+![Spotify w-100%](https://spotify.nachaos.xyz/?theme=dark&spin=true&scan=true&eq_color=rainbow)
 
 日记树屋入口  
 https://memos.nachaos.xyz
