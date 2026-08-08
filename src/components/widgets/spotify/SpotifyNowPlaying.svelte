@@ -14,8 +14,22 @@ type Track = {
 
 let track: Track | null = $state(null);
 let error: string | null = $state(null);
+let theme = $state("dark"); // follows the blog's html.light / html.dark class
 
 const isRecent = $derived(track !== null && !track.is_playing);
+
+// Spotify music code (scannable in the app) — same source as the original widget
+const scanSrc = $derived.by(() => {
+	if (!track?.track_url) return null;
+	const id = track.track_url.split("/").pop();
+	if (!id) return null;
+	const colors = theme === "light" ? "000000/white" : "FFFFFF/black";
+	return `https://scannables.scdn.co/uri/plain/png/${colors}/500/spotify:track:${id}`;
+});
+
+function currentTheme() {
+	return document.documentElement.classList.contains("light") ? "light" : "dark";
+}
 
 async function load() {
 	try {
@@ -31,9 +45,17 @@ async function load() {
 }
 
 onMount(() => {
+	theme = currentTheme();
+	const observer = new MutationObserver(() => {
+		theme = currentTheme();
+	});
+	observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
 	load();
 	const timer = setInterval(load, REFRESH_MS);
-	return () => clearInterval(timer);
+	return () => {
+		clearInterval(timer);
+		observer.disconnect();
+	};
 });
 </script>
 
@@ -80,6 +102,9 @@ onMount(() => {
 				<span class="sp-status-label">{isRecent ? "最近播放" : "正在听"}</span>
 			</div>
 		</section>
+		{#if scanSrc}
+			<img class="sp-scan" src={scanSrc} alt="" loading="lazy" />
+		{/if}
 	</a>
 {:else}
 	<div class="sp-card" aria-busy="true">
@@ -102,10 +127,11 @@ onMount(() => {
 	--sp-muted: #808080;
 	--sp-border: rgb(255 255 255 / 0.08);
 	display: flex;
-	align-items: center;
+	align-items: stretch;
 	gap: 0;
-	width: 100%;
-	max-width: 31rem;
+	width: 495px; /* original widget size */
+	max-width: 100%;
+	min-height: 160px;
 	padding: 20px;
 	border-radius: 5px;
 	background: var(--sp-bg);
@@ -153,7 +179,6 @@ a.sp-card:hover .sp-title {
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	gap: 14px;
 }
 .sp-info {
 	margin-top: 8px;
@@ -237,6 +262,17 @@ a.sp-card:hover .sp-title {
 	margin-left: 4px;
 	align-self: center;
 	white-space: nowrap;
+}
+/* Spotify music code strip — same placement trick as the original widget */
+.sp-scan {
+	flex-shrink: 0;
+	align-self: stretch;
+	width: 120px;
+	height: auto;
+	margin-left: -70px; /* overlap into the section, like the original's aside shift */
+	border-radius: 5px;
+	transform-origin: top right;
+	transform: rotate(270deg) translateY(-120px);
 }
 .sp-error {
 	font-size: 0.95rem;
@@ -322,6 +358,7 @@ a.sp-card:hover .sp-title {
 @media (width < 480px) {
 	.sp-card {
 		padding: 14px;
+		min-height: auto;
 	}
 	.sp-aside {
 		margin-right: 14px;
@@ -342,6 +379,9 @@ a.sp-card:hover .sp-title {
 		width: 14px;
 	}
 	.sp-status-label {
+		display: none;
+	}
+	.sp-scan {
 		display: none;
 	}
 }
