@@ -272,6 +272,37 @@ const bannerOffset =
 
 		<!-- increase the page height during page transition to prevent the scrolling animation from jumping -->
 		<div id="page-height-extend" class="hidden h-[300vh]"></div>
+
+		<!-- Spotify widget theme follower: any <img data-sp-theme data-sp-base="..."> follows the blog's light/dark class.
+		     Runs once on load and stays alive across Swup navigations. -->
+		<script is:inline>
+			(function () {
+				var WIDGET_SELECTOR = "img[data-sp-theme]";
+				function applySpotifyTheme() {
+					var dark = document.documentElement.classList.contains("dark");
+					document.querySelectorAll(WIDGET_SELECTOR).forEach(function (img) {
+						var base = img.getAttribute("data-sp-base");
+						if (!base) return;
+						img.src = base + (dark ? "dark" : "light");
+					});
+				}
+				function bootSpotifyTheme() {
+					applySpotifyTheme();
+					if (window.swup && window.swup.hooks) {
+						window.swup.hooks.on("content:replace", applySpotifyTheme);
+					}
+					new MutationObserver(applySpotifyTheme).observe(
+						document.documentElement,
+						{ attributes: true, attributeFilter: ["class"] }
+					);
+				}
+				if (document.readyState === "loading") {
+					document.addEventListener("DOMContentLoaded", bootSpotifyTheme);
+				} else {
+					bootSpotifyTheme();
+				}
+			})();
+		</script>
 	</body>
 </html>
 
