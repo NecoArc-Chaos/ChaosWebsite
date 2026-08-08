@@ -13,7 +13,7 @@
 
 正在听  ：
 
-![Spotify](https://sp.nachaos.xyz/?theme=dark&spin=true&scan=true&eq_color=rainbow
+![Spotify w-100%](https://spotify.nachaos.xyz/?theme=dark&spin=true&scan=true&eq_color=rainbow)
 
 日记树屋入口  
 https://memos.nachaos.xyz
