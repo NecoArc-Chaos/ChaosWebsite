@@ -78,6 +78,11 @@ onMount(() => {
 		rel="noopener noreferrer"
 		aria-label={`在 Spotify 打开：${track.name} — ${track.artist}`}
 	>
+		{#if scanSrc}
+			<div class="sp-scan-box">
+				<img class="sp-scan" src={scanSrc} alt="" loading="lazy" />
+			</div>
+		{/if}
 		<div class="sp-aside">
 			{#if track.album_image_url}
 				<img class="sp-cover" src={track.album_image_url} alt="" width="120" height="120" loading="lazy" />
@@ -102,9 +107,6 @@ onMount(() => {
 				<span class="sp-status-label">{isRecent ? "最近播放" : "正在听"}</span>
 			</div>
 		</section>
-		{#if scanSrc}
-			<img class="sp-scan" src={scanSrc} alt="" loading="lazy" />
-		{/if}
 	</a>
 {:else}
 	<div class="sp-card" aria-busy="true">
@@ -161,6 +163,7 @@ a.sp-card:hover .sp-title {
 	object-fit: cover;
 	background: var(--sp-border);
 	animation: sp-spin 10s linear infinite;
+	max-width: none !important; /* blog global img rules must not squeeze the cover */
 }
 .sp-cover--placeholder {
 	display: flex;
@@ -263,16 +266,26 @@ a.sp-card:hover .sp-title {
 	align-self: center;
 	white-space: nowrap;
 }
-/* Spotify music code strip — same placement trick as the original widget */
-.sp-scan {
+/* Spotify music code strip — left edge, clean rotation, no distortion */
+.sp-scan-box {
+	position: relative;
 	flex-shrink: 0;
-	align-self: stretch;
-	width: 120px;
-	height: auto;
-	margin-left: -70px; /* overlap into the section, like the original's aside shift */
+	align-self: center;
+	width: 56px;
+	height: 112px;
+	margin-right: 24px;
+	overflow: hidden;
 	border-radius: 5px;
-	transform-origin: top right;
-	transform: rotate(270deg) translateY(-120px);
+}
+.sp-scan {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 112px;
+	height: 56px;
+	object-fit: cover;
+	transform: translate(-50%, -50%) rotate(90deg);
+	max-width: none !important; /* blog global img rules must not squeeze the code */
 }
 .sp-error {
 	font-size: 0.95rem;
@@ -381,7 +394,7 @@ a.sp-card:hover .sp-title {
 	.sp-status-label {
 		display: none;
 	}
-	.sp-scan {
+	.sp-scan-box {
 		display: none;
 	}
 }
