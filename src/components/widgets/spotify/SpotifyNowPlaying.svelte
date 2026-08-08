@@ -1,7 +1,7 @@
 <script lang="ts">
 import { onMount } from "svelte";
 
-const PROXY = "https://sp.nachaos.xyz"; // Solian Spotify proxy (/current, CORS enabled)
+const PROXY = "https://spotify.nachaos.xyz"; // widget worker (/current, CORS enabled)
 const REFRESH_MS = 45_000;
 
 type Track = {
