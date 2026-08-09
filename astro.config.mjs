@@ -81,13 +81,13 @@ export default defineConfig({
 					optimizedFallbacks: false,
 				},
 				{
-					name: "MarukoGothicCJKsc-Medium.ttf",
+					name: "MarukoGothicCJKsc-Medium.woff2",
 					cssVariable: "--font-cjk",
 					provider: fontProviders.local(),
 					options: {
 						variants: [
 							{
-								src: ["./src/assets/fonts/MarukoGothicCJKsc-Medium.ttf"],
+								src: ["./src/assets/fonts/MarukoGothicCJKsc-Medium.woff2"],
 								weight: "400",
 								style: "normal",
 							},
