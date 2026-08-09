@@ -1,8 +1,14 @@
+import clCover from "../../../assets/music/cover/cl.webp?url";
+import dazbeeCover from "../../../assets/music/cover/dazbee.webp?url";
+import hitoriCover from "../../../assets/music/cover/hitori.webp?url";
+import xryxCover from "../../../assets/music/cover/xryx.webp?url";
 import type { Song } from "./types";
 
 export const STORAGE_KEY_VOLUME = "music-player-volume";
 
 export const DEFAULT_VOLUME = 0.7;
+
+export const DEFAULT_COVER_URL = "/favicon/favicon.ico";
 
 export const LOCAL_PLAYLIST: Song[] = [
     {
@@ -42,7 +48,7 @@ export const LOCAL_PLAYLIST: Song[] = [
 export const DEFAULT_SONG: Song = {
 	title: "Sample Song",
 	artist: "Sample Artist",
-	cover: "/favicon/favicon.ico",
+	cover: DEFAULT_COVER_URL,
 	url: "",
 	duration: 0,
 	id: 0,

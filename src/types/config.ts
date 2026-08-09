@@ -13,6 +13,7 @@ export interface SiteConfig {
 	siteURL: string; // 站点URL，以斜杠结尾，例如：https://mizuki.mysqil.com/
 	keywords?: string[]; // 站点关键词，用于生成 <meta name="keywords">
 	siteStartDate?: string; // 站点开始日期，格式：YYYY-MM-DD，用于计算运行天数
+	timeZone: string; // IANA 时区，用于将文章时间转换为站点日历日期
 
 	lang:
 		| "en"
@@ -68,7 +69,9 @@ export interface SiteConfig {
 		targetWidth?: number; // 目标宽度，低于此宽度时开始缩放
 	};
 
-	// 字体现在通过 astro.config.mjs 的 fonts 选项配置（Astro Font API）
+	font?: {
+		mode?: "custom" | "system"; // custom=加载 ZenMaruGothic、Loli 和 JetBrains Mono；system=不请求自定义字体
+	};
 
 	// 添加bangumi配置
 	bangumi?: {
@@ -317,8 +320,29 @@ export interface BlogPostData {
 }
 
 export interface ExpressiveCodeConfig {
-	theme: string;
+	/** @deprecated 使用 darkTheme/lightTheme。 */
+	theme?: string;
+	darkTheme: string;
+	lightTheme: string;
+	defaultWrap: boolean;
 	hideDuringThemeTransition?: boolean; // 是否在主题切换时隐藏代码块
+	languageBadge: {
+		enable: boolean;
+	};
+	languageLogo: {
+		enable: boolean;
+		color?: "mono" | "original" | "theme" | `#${string}`;
+		excludedLangs?: string[];
+	};
+	collapsible: {
+		enable: boolean;
+		lineThreshold: number;
+		previewLines: number;
+		defaultCollapsed: boolean;
+	};
+	codeGroup: {
+		enable: boolean;
+	};
 }
 
 export interface AnnouncementConfig {

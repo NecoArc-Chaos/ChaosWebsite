@@ -8,7 +8,7 @@ export const siteConfig: SiteConfig = {
   subtitle: "Chaos的小站",
   siteURL: "https://www.nachaos.xyz/", // 请替换为你的站点URL，以斜杠结尾
   siteStartDate: "2025-12-07", // 站点开始运行日期，用于站点统计组件计算运行天数
-
+  timeZone: "Asia/Shanghai", // 文章日期使用的 IANA 时区，可改为 Asia/Tokyo、Europe/Berlin 等
   lang: SITE_LANG,
 
   themeColor: {
@@ -47,10 +47,15 @@ export const siteConfig: SiteConfig = {
     targetWidth: 2000, // 目标宽度，低于此宽度时开始缩放
   },
 
-  bangumi: {
-    userId: "1200587", // 已恢复你的 Bangumi 用户 ID
-    fetchOnDev: false, // 是否在开发环境下获取 Bangumi 数据（默认 false），获取前先执行 pnpm build 构建 json 文件
-  },
+	font: {
+		// custom 保持 ZenMaruGothic -> Loli -> 系统字体的显示顺序；system 不加载任何自定义字体
+		mode: "custom",
+	},
+
+	bangumi: {
+		userId: "1200587", // 在此处设置你的Bangumi用户ID，可以设置为 "sai" 测试
+		fetchOnDev: false, // 是否在开发环境下获取 Bangumi 数据（默认 false），获取前先执行 pnpm build 构建 json 文件
+	},
 
   bilibili: {
     vmid: "your-bilibili-vmid", // 在此处设置你的Bilibili用户ID (uid)，例如 "1129280784"
@@ -182,7 +187,6 @@ export const siteConfig: SiteConfig = {
     // 留空以使用默认 favicon
   ],
 
-	// 字体现在通过 astro.config.mjs 的 fonts 选项配置（Astro Font API）
 	showLastModified: true, // 控制"上次编辑"卡片显示的开关
 	pageProgressBar: {
 		enable: true, // 启用页面顶部进度条
