@@ -81,7 +81,7 @@ export default defineConfig({
 					optimizedFallbacks: false,
 				},
 				{
-					name: "MarukoGothicCJKsc-Medium.woff2",
+					name: "MarukoGothicCJKsc-Medium",
 					cssVariable: "--font-cjk",
 					provider: fontProviders.local(),
 					options: {

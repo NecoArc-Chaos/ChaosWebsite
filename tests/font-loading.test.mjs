@@ -29,7 +29,10 @@ const fontCheckSource = await readFile(
 
 describe("Custom font loading boundary", () => {
 	it("ships both local display fonts as complete WOFF2 files", async () => {
-		for (const name of ["ZenMaruGothic-Medium.woff2", "loli.woff2"]) {
+		for (const name of [
+			"ZenMaruGothic-Medium.woff2",
+			"MarukoGothicCJKsc-Medium.woff2",
+		]) {
 			const font = await readFile(
 				new URL(`../src/assets/fonts/${name}`, import.meta.url),
 			);
@@ -41,7 +44,7 @@ describe("Custom font loading boundary", () => {
 		assert.doesNotMatch(astroConfig, /src: \[[^\]]+\.ttf/);
 	});
 
-	it("preserves PR #502's ZenMaru -> Loli fallback contract", () => {
+	it("preserves ZenMaru -> CJK fallback contract", () => {
 		assert.equal((astroConfig.match(/fallbacks: \[\]/g) ?? []).length, 2);
 		assert.equal(
 			(astroConfig.match(/optimizedFallbacks: false/g) ?? []).length,
@@ -51,7 +54,7 @@ describe("Custom font loading boundary", () => {
 			astroConfig,
 			/name: "ZenMaruGothic-Medium"[\s\S]*weight: "500"/,
 		);
-		assert.match(astroConfig, /name: "Loli"[\s\S]*weight: "400"/);
+		assert.match(astroConfig, /name: "MarukoGothicCJKsc-Medium"[\s\S]*weight: "400"/);
 
 		const bodyIndex = mainStyles.indexOf("var(--font-body");
 		const cjkIndex = mainStyles.indexOf("var(--font-cjk");
