@@ -76,14 +76,9 @@ async function submitToIndexNow(urls) {
 				}),
 			});
 
-			if (response.status === 200) {
-				console.log(`✅ Batch ${i + 1} URLs submitted successfully`);
-			} else if (response.status === 202) {
-				console.warn(
-					`⚠ Batch ${i + 1} request accepted but still processing (Status code: ${response.status})`,
-				);
-				console.warn(
-					"This is not a standard success status code, you may need to check API documentation",
+			if (response.status === 200 || response.status === 202) {
+				console.log(
+					`✅ Batch ${i + 1} URLs submitted successfully (Status code: ${response.status})`,
 				);
 			} else {
 				console.error(
@@ -129,7 +124,7 @@ async function submitToIndexNow(urls) {
 
 // 主函数
 async function main() {
-	console.log("🚀 Starting Bing IndexNow URL submission task...\n");
+	console.log("🚀 Starting IndexNow URL submission task...\n");
 
 	// 构建输出目录路径
 	const distDir = path.join(__dirname, "../dist");
@@ -169,7 +164,7 @@ async function main() {
 		// 提交 URL 到 IndexNow
 		await submitToIndexNow(filteredUrls);
 
-		console.log("\n🎉 Bing IndexNow URL submission task completed!");
+		console.log("\n🎉 IndexNow URL submission task completed!");
 	} catch (error) {
 		console.error("❌ Error occurred during execution:", error.message);
 		process.exit(1);
